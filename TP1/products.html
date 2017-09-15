@@ -7,7 +7,7 @@
 <body>
 	<header>
 		<a href="index.html">
-			<img src="assets/img/logo.svg"/>
+			<img src="assets/img/logo.svg" alt="img-logo"/>
 		</a>
 		<nav>
 			<a href="index.html">Accueil</a>
@@ -19,7 +19,7 @@
 
 	<main>
 
-		<section class="side-bar">
+		<aside class="side-bar">
 			<section>
 				<h1>Catégories</h1>
 				<div class="btn-group" id="product-categories">
@@ -27,39 +27,74 @@
 				  <button>Consoles</button>
 				  <button>Ecrans</button>
 				  <button>Ordinateurs</button>
-				  <button active>Tous les produits</button>
+				  <button>Tous les produits</button>
 				</div>
 			</section>
 
 			<section>
 				<h1>Classement</h1>
 				<div class="btn-group" id="product-criteria">
-				  <button active>Prix (bas-haut)</button>
+				  <button>Prix (bas-haut)</button>
 				  <button>Prix (haut-bas)</button>
 				  <button>Nom (A-Z)</button>
 				  <button>Nom (Z-A)</button>
 				</div>
 			</section>
-		</section>
+		</aside>
 
-		<section class="main_panel">			
+		<article class="main_panel" id="products-list">			
 			<h1>Produits</h1>
 			<p>6 produits</p>		
-
-			<section id="products-list">
 				
-					<a href="product.html">
-						<section class="product">
-							<h1>Apple TV</h1>
-							<img src="assets/img/apple-tv.png"/>
-						</section>		
-					</a>
+				<a href="product.html">
+					<section class="product">
+						<h1>Apple TV</h1>
+						<img src="assets/img/apple-tv.png" alt="img-apple-tv"/>
+						<p>249.99</p>
+					</section>		
+				</a>
 
+				<a href="product.html">
+					<section class="product">
+						<h1>Canon EOS 5D Mark II</h1>
+						<img src="assets/img/camera-1.png" alt="img-camera-1"/>
+						<p>2999.99</p>
+					</section>		
+				</a>
 
-			</section>
+				<a href="product.html">
+					<section class="product">
+						<h1>Nikon D7000</h1>
+						<img src="assets/img/camera-2.png" alt="img-camera-2"/>
+						<p>549.99</p>
+					</section>		
+				</a>
 
+				<a href="product.html">
+					<section class="product">
+						<h1>Canon PowerShot SD1300</h1>
+						<img src="assets/img/camera-3.png" alt="img-camera-3"/>
+						<p>299.99</p>
+					</section>		
+				</a>
 
-		</section>	
+				<a href="product.html">
+					<section class="product">
+						<h1>Portable</h1>
+						<img src="assets/img/laptop-1.png" alt="img-laptop-1"/>
+						<p>699.99</p>
+					</section>		
+				</a>
+
+				<a href="product.html">
+					<section class="product">
+						<h1>Portable professionnel</h1>
+						<img src="assets/img/laptop-2.png" alt="img-laptop-2"/>
+						<p>599.99</p>
+					</section>		
+				</a>
+
+		</article>	
 	</main>
 
 
