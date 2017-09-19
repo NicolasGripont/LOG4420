@@ -35,7 +35,8 @@
 				<fieldset>
 					<legend>Paiement</legend>
 					<label for="credit-card">Numéro de carte de crédit</label>
-					<input type="text" required id="credit-card" pattern="^([0-9]{16})$">
+
+					<input type="text" required id="credit-card" pattern="^([0-9]{1,16})$"> <!-- normalement, utiliser : pattern="^([0-9]{16})$" pour obliger à avoir un code à 16 chiffres -->
 					<label for="credit-card-expiry">Date d'expiration de la carte</label>
 					<input type="text" required id="credit-card-expiry" placeholder="mm/aa" pattern="^(0[1-9]|1[012])[- \/.]\d\d$">
 				</fieldset>
