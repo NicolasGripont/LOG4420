@@ -1,0 +1,65 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	color: black;
+	text-align: center;
+}
+
+main {
+	max-width: 1200px;
+	padding-right: 20px;
+	padding-left: 20px;
+}
+
+
+ /** HEADER **/
+
+header {
+	height: 60px;
+	padding-right: 20px;
+	padding-left: 20px;
+	background-color: #14597f;
+}
+
+header div {
+	max-width: 1200px;
+	height: 100%;
+}
+
+header a#logo {
+	display: inline-block;
+	float: left;
+	height: 100%;
+}
+
+header a#logo img {
+	height: 100%;
+	width: 100%;
+}
+
+header nav {
+	display: inline-block;
+	float: right;
+}
+
+header nav a {
+	color: white;
+}
+
+header nav a.active{
+	background-color: #1fb5e9;
+	border-radius: 4px;
+}
+
+
+header i.fa-shopping-cart {
+	color: #14597f;
+}
+
+
+
+
+/** FIN HEADER **/
+
+footer {
+	height: 70px;
+}
