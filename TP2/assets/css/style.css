@@ -39,6 +39,9 @@ header a#logo img {
 header nav {
 	display: inline-block;
 	float: right;
+	height: 100%;
+
+	vertical-align: middle;
 }
 
 header nav a {
