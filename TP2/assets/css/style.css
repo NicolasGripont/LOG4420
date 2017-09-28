@@ -45,33 +45,41 @@ header a#logo img {
 header nav {
 	height: 100%;
 	float: right;
-}
-
-header nav ul li {
-	display: inline;
-	padding: 10px 15px;
+	display: flex;
+	justify-content:center;
+	align-items:center;
 }
 
 header nav a {
+	text-decoration: none;
+	font-size: 18px;
+	padding: 10px;
 	color: white;
-	height: 80%;
+	vertical-align: middle;
 }
 
-header nav a.active{
-	background-color: #1fb5e9;
+header nav a.active {
+	text-decoration: none;
+	padding: 10px;
 	border-radius: 4px;
+	background-color: #1fb5e9;
 }
+
 
 
 header i.fa-shopping-cart {
 	color: #14597f;
 }
 
-header span.count {
-	background-color: #d9534f;
-	margin-right: 0px;
-	margin-bottom: 
+header nav span.count {
+	display: inline-block;
+	text-align: center;
+	background-color:#d9534f;
+	border-radius: 50%;
+	padding-left: 8%;
+	padding-right: 8%;
 }
+
 
 /** FIN HEADER **/
 
