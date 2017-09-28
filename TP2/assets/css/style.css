@@ -5,15 +5,14 @@ body {
 	margin: 0px;
 }
 
-main {
+main {	
 	display: flex;
-  	flex-direction: column;
-	margin: 0px;
+  	flex-direction: column;  
+  	margin: 0 auto;
 	max-width: 1200px;
 	padding-right: 20px;
 	padding-left: 20px;
 }
-
 
  /** HEADER **/
 
@@ -68,9 +67,21 @@ header i.fa-shopping-cart {
 	color: #14597f;
 }
 
+header span.count {
+	background-color: #d9534f;
+	margin-right: 0px;
+	margin-bottom: 
+}
 
 /** FIN HEADER **/
 
 footer {
 	height: 70px;
+	display: flex;
+	justify-content:center;
+	align-items:center;
+	width: 100%;
+	background-color: #eeeeee;
+	border-top: 1px;
+	border-color: #cccccc;
 }
