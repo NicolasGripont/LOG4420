@@ -7,8 +7,8 @@ body {
 
 main {	
 	display: flex;
-  	flex-direction: column;  
-  	margin: 0 auto;
+  flex-direction: column;  
+  margin: 0 auto;
 	max-width: 1200px;
 	padding-right: 20px;
 	padding-left: 20px;
@@ -56,6 +56,7 @@ header nav a {
 	padding: 10px;
 	color: white;
 	vertical-align: middle;
+	margin-left: 5px;
 }
 
 header nav a.active {
@@ -63,23 +64,54 @@ header nav a.active {
 	padding: 10px;
 	border-radius: 4px;
 	background-color: #1fb5e9;
+	margin-left: 5px;
+}
+
+header nav a.panier {
+	height: 100%;
+	display: flex;
+	justify-content:center;
+	align-items:center;
+}
+
+header nav a.panier span.fa-stack {
+	position: absolute;
+  z-index:0;
+  display: block;
 }
 
 
 
-header i.fa-shopping-cart {
+header nav span i.fa-shopping-cart {
 	color: #14597f;
+	vertical-align: middle;
+	text-align:center;
+	margin: 0px;
+	padding: 0px;	
+
+}
+
+header nav span i.fa-shopping-cart.active {
+	color: #1fb5e9;
+	vertical-align: middle;
+	text-align:center;
+	margin: 0px;
+	padding: 0px;	
+
 }
 
 header nav span.count {
-	display: inline-block;
-	text-align: center;
+	position: relative;
+	left: 17px;
+	top: 17px;
+	font-size: 14px;
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 2px;
+	padding-bottom: 2px;
 	background-color:#d9534f;
 	border-radius: 50%;
-	padding-left: 8%;
-	padding-right: 8%;
 }
-
 
 /** FIN HEADER **/
 
