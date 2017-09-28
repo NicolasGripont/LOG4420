@@ -1,10 +1,14 @@
+
 body {
 	font-family: Arial, Helvetica, sans-serif;
 	color: black;
-	text-align: center;
+	margin: 0px;
 }
 
 main {
+	display: flex;
+  	flex-direction: column;
+	margin: 0px;
 	max-width: 1200px;
 	padding-right: 20px;
 	padding-left: 20px;
@@ -18,34 +22,40 @@ header {
 	padding-right: 20px;
 	padding-left: 20px;
 	background-color: #14597f;
+	border-bottom: 1px solid;
+	border-color: #0b2d3d;
 }
 
-header div {
+header > div {
 	max-width: 1200px;
 	height: 100%;
+	margin: 0 auto;
 }
 
 header a#logo {
-	display: inline-block;
+	height: 100%;
+	float: left;
+}
+
+header a#logo img {
 	float: left;
 	height: 100%;
 }
 
-header a#logo img {
-	height: 100%;
-	width: 100%;
-}
 
 header nav {
-	display: inline-block;
-	float: right;
 	height: 100%;
+	float: right;
+}
 
-	vertical-align: middle;
+header nav ul li {
+	display: inline;
+	padding: 10px 15px;
 }
 
 header nav a {
 	color: white;
+	height: 80%;
 }
 
 header nav a.active{
@@ -57,8 +67,6 @@ header nav a.active{
 header i.fa-shopping-cart {
 	color: #14597f;
 }
-
-
 
 
 /** FIN HEADER **/
