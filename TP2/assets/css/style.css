@@ -129,7 +129,7 @@ main {
 	box-sizing:border-box;
 }
 
-main article img {
+#img-home {
 	float:right;
 	height: 40%;
 	width: 40%;
@@ -212,3 +212,47 @@ main article.products-article {
 
 
 /** FIN PRODUITS **/
+
+/** PRODUIT **/
+
+
+main .row {
+	display: grid;
+	grid-template-columns:50% 50%;
+	align-items:center;
+}
+
+main div.col1 {
+	grid-column:1;
+	border-sizing: border-box;
+}
+
+main div.col2 {
+	grid-column:2;
+	border-sizing: border-box;
+}
+
+main img#img-product {
+	width: 100%;
+	height: auto;	
+	justify-self: center;
+  align-self: center;
+}
+
+main article section#desc p {
+	text-align: justify;
+  text-justify: inter-word;
+}
+
+main article section p#price-value {
+	font-weight: bold;
+	margin-left: 2px;
+}
+
+main article section#prix {
+	border-top: 1px dashed black;
+	display: flex;
+	flex-direction: row;
+	padding: 10px;
+	margin-top: 30px;
+}
