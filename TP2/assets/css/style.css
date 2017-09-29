@@ -3,6 +3,7 @@ body {
 	font-family: Arial, Helvetica, sans-serif;
 	color: black;
 	margin: 0px;
+	min-width: 700px;
 }
 
  /** HEADER **/
@@ -157,12 +158,19 @@ main#products-main {
 	flex-direction: row;
 }
 
+main#products-main article.products-article div.products-title {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
 main#products-main article.products-article h1 {
-	float: left;
+	/*float: left;*/
 }
 
 main#products-main article.products-article p#products-number {
-	float: right;
+	/*float: right;*/
 }
 
 
@@ -173,17 +181,20 @@ main#products-main article.products-article {
 
 main#products-main article.products-article div#products-list {
 	width: 100%;
-	display: inline-block;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
 	margin-bottom: 10px;
 }
 
 main#products-main article.products-article div#products-list a {
 	text-decoration: none;
+	width: 30%;
+	color: black;
 }
 
 main#products-main article.products-article div#products-list a section{
-	width: 30%;
-	display: inline-block;
+	width: 100%;
 }
 
 main#products-main .product {
@@ -193,6 +204,7 @@ main#products-main .product {
 	border: 1px solid #999999;
 	border-radius: 4px;
 	transition: background 0.2s ease-out;
+	margin-bottom: 30px;
 }
 
 main#products-main .product:hover {
@@ -202,14 +214,22 @@ main#products-main .product:hover {
 
 main#products-main .product h2 {
 	font-size: 18px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 main#products-main .product p.product-price {
-	float: right;f
+	text-align: right;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 main#products-main article.products-article div#products-list a img{
-	width: 80%;
+	width: 100%;
+	margin: 0 auto;
+	display: block;
 }
 
 
@@ -218,6 +238,12 @@ main#products-main aside {
 	padding-left: 5px;
 	padding-right: 20px;
 	width: 25%;
+}
+
+main#products-main aside h2 {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 main#products-main aside div.btn-group {
