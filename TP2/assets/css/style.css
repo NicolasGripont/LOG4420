@@ -22,22 +22,26 @@ header > div {
 	max-width: 1200px;
 	height: 100%;
 	margin: 0 auto;
+	width: 100%;
+	display: flex;
+	/*flex-wrap: wrap;*/
+	justify-content: space-between;
 }
 
 header a#logo {
 	height: 100%;
-	float: left;
+	/*float: left;*/
 }
 
 header a#logo img {
-	float: left;
+	/*float: left;*/
 	height: 100%;
 }
 
 
 header nav {
 	height: 100%;
-	float: right;
+	/*float: right;*/
 	display: flex;
 	justify-content:center;
 	align-items:center;
@@ -69,8 +73,6 @@ header nav a.panier {
 }
 
 header nav a.panier span.fa-stack {
-	/*position: absolute;*/
-  z-index:0;
   display: block;
 }
 
@@ -163,6 +165,7 @@ main#products-main article.products-article div.products-title {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
+	align-items: baseline;
 }
 
 main#products-main article.products-article h1 {
