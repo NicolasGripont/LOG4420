@@ -125,7 +125,7 @@ main {
   flex-direction: column;  
   margin: 0 auto;
 	max-width: 1200px;
-	min-height: calc(100vh - 70px - 60px);
+	min-height: calc(100vh - 70px);
 	box-sizing:border-box;
 }
 
