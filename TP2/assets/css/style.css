@@ -5,15 +5,6 @@ body {
 	margin: 0px;
 }
 
-main {	
-	display: flex;
-  flex-direction: column;  
-  margin: 0 auto;
-	max-width: 1200px;
-	padding-right: 20px;
-	padding-left: 20px;
-}
-
  /** HEADER **/
 
 header {
@@ -21,8 +12,7 @@ header {
 	padding-right: 20px;
 	padding-left: 20px;
 	background-color: #14597f;
-	border-bottom: 1px solid;
-	border-color: #0b2d3d;
+	border-bottom: 1px solid #0b2d3d;
 }
 
 header > div {
@@ -80,8 +70,6 @@ header nav a.panier span.fa-stack {
   display: block;
 }
 
-
-
 header nav span i.fa-shopping-cart {
 	color: #14597f;
 	vertical-align: middle;
@@ -120,8 +108,39 @@ footer {
 	display: flex;
 	justify-content:center;
 	align-items:center;
-	width: 100%;
+	bottom: 0;
 	background-color: #eeeeee;
-	border-top: 1px;
-	border-color: #cccccc;
+	border-top: 1px solid #cccccc;
+}
+
+main {
+	overflow: auto;	
+	display: flex;
+  flex-direction: column;  
+  margin: 0 auto;
+	max-width: 1200px;
+	padding: 20px;
+	min-height: calc(100vh - 70px - 60px);
+	box-sizing:border-box;
+}
+
+main article img {
+	float:right;
+	height: 40%;
+	width: 40%;
+	margin-top: -80px;
+}
+
+.btn {
+	background-color: #14597f;
+	border: 1px solid #0b2d3d;
+	border-radius: 4px;
+	text-decoration: none;
+	color: white;
+	padding: 10px;
+	transition: background 0.2s ease-out;
+}
+
+.btn:hover {
+	background-color: #1fb5e9;
 }
