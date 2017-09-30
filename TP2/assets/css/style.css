@@ -59,7 +59,7 @@ header nav a.active {
 	margin-left: 5px;
 }
 
-header nav a.panier {
+header nav a.cart {
 	height: 100%;
 	width: auto;
 	display: flex;
@@ -67,7 +67,7 @@ header nav a.panier {
 	align-items:center;
 }
 
-header nav a.panier span.fa-stack {
+header nav a.cart span.fa-stack {
   display: block;
 }
 
@@ -139,12 +139,10 @@ main#index-main {
 	flex-direction: column;  
 }
 
-
 #img-home {
 	float:right;
-	height: 40%;
+	height: auto;
 	width: 40%;
-	margin-top: -80px;
 }
 
 form input.form-control {
