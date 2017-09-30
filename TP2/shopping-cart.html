@@ -1,100 +1,100 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" 
-		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="./assets/css/style.css">
-	<title>OnlineShop - Panier</title>
-</head>
-<body>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" 
+			href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+		<title>OnlineShop - Panier</title>
+	</head>
+	<body>
 		<header>
 			<div>
-				<a href="index.html" id="logo">
+				<a id="logo" href="index.html">
 					<img src="assets/img/logo.svg" alt="img-logo"/>
 				</a>
 				<nav>
-		      <a href="./index.html">Accueil</a>
-		      <a href="./products.html">Produits</a>
-		      <a href="./contact.html">Contact</a>
-				<a href="./shopping-cart.html" class="cart">
-				<span class="fa-stack fa-lg">
-					<i class="fa fa-circle fa-stack-2x fa-inverse"></i>
-					<i class="fa fa-shopping-cart fa-stack-1x active"></i>
-				</span>
-				<span class="count" >3</span>
-				</a>
-		    </nav>
-		  </div>
+					<a href="./index.html">Accueil</a>
+					<a href="./products.html">Produits</a>
+					<a href="./contact.html">Contact</a>
+					<a class="cart" href="./shopping-cart.html">
+						<span class="fa-stack fa-lg">
+							<i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+							<i class="fa fa-shopping-cart fa-stack-1x active"></i>
+						</span>
+						<span class="count w3-badge">3</span>
+					</a>
+				</nav>
+			</div>
 		</header>
 
-	<main id="shopping-cart-main">
-		<article>
-			<h1>Panier</h1>
-			<table>
-			  <thead>
-			  <tr>
-			     <th></th>
-			     <th>Produits</th>
-			     <th>Prix unitaire</th>
-			     <th>Quantité</th>
-			     <th>Prix</th>
-			  </tr>
-			  </thead>
-			  <tbody>
-			  <tr>
-			     <td>
-			     	<button><i class="fa fa-times" aria-hidden="true"></i></button>
-			     </td>
-			     <td><a href="product.html">Apple TV</a></td>
-			     <td>CDN$ 249.99</td>
-			     <td class="quantity">
-			     	<button><i class="fa fa-minus" aria-hidden="true"></i></button>
-			     	<p>3</p>
-			     	<button><i class="fa fa-plus" aria-hidden="true"></i></button>		
-			     </td>
-			     <td>CDN$ 249.99</td>
-			  </tr>
-			  <tr>
-			     <td>
-			     	<button><i class="fa fa-times" aria-hidden="true"></i></button>
-			     </td>
-			     <td><a href="product.html">Portable</a></td>
-			     <td>CDN$ 699.99</td>
-			     <td class="quantity">
-			     	<button><i class="fa fa-minus" aria-hidden="true"></i></button>
-			     	<p>3</p>
-			     	<button><i class="fa fa-plus" aria-hidden="true"></i></button>		
-			     </td>
-			     <td>CDN$ 1399.98</td>
-			  </tr>
-			  <tr>
-			     <td>
-			     	<button><i class="fa fa-times" aria-hidden="true"></i></button>
-			     </td>
-			     <td><a href="product.html">Portable professionnel</a></td>
-			     <td>CDN$ 599.99</td>
-			     <td class="quantity">
-			     	<button><i class="fa fa-minus" aria-hidden="true"></i></button>
-			     	<p>3</p>
-			     	<button><i class="fa fa-plus" aria-hidden="true"></i></button>		
-			     </td>
-			     <td>CDN$ 1799.97</td>
-			  </tr>
-			  </tbody>
-			</table>
-			<p class="price">Total : <strong>CDN$ 3449.94</strong></p>
+		<main id="shopping-cart-main">
+			<article>
+				<h1>Panier</h1>
+				<table>
+					<thead>
+					<tr>
+						 <th></th>
+						 <th>Produits</th>
+						 <th>Prix unitaire</th>
+						 <th>Quantité</th>
+						 <th>Prix</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						 <td>
+						 	<button><i class="fa fa-times" aria-hidden="true"></i></button>
+						 </td>
+						 <td><a href="product.html">Apple TV</a></td>
+						 <td>CDN$ 249.99</td>
+						 <td class="quantity">
+						 	<button><i class="fa fa-minus" aria-hidden="true"></i></button>
+						 	<p>3</p>
+						 	<button><i class="fa fa-plus" aria-hidden="true"></i></button>		
+						 </td>
+						 <td>CDN$ 249.99</td>
+					</tr>
+					<tr>
+						 <td>
+						 	<button><i class="fa fa-times" aria-hidden="true"></i></button>
+						 </td>
+						 <td><a href="product.html">Portable</a></td>
+						 <td>CDN$ 699.99</td>
+						 <td class="quantity">
+						 	<button><i class="fa fa-minus" aria-hidden="true"></i></button>
+						 	<p>3</p>
+						 	<button><i class="fa fa-plus" aria-hidden="true"></i></button>		
+						 </td>
+						 <td>CDN$ 1399.98</td>
+					</tr>
+					<tr>
+						 <td>
+						 	<button><i class="fa fa-times" aria-hidden="true"></i></button>
+						 </td>
+						 <td><a href="product.html">Portable professionnel</a></td>
+						 <td>CDN$ 599.99</td>
+						 <td class="quantity">
+						 	<button><i class="fa fa-minus" aria-hidden="true"></i></button>
+						 	<p>3</p>
+						 	<button><i class="fa fa-plus" aria-hidden="true"></i></button>		
+						 </td>
+						 <td>CDN$ 1799.97</td>
+					</tr>
+					</tbody>
+				</table>
+				<p class="price">Total : <strong>CDN$ 3449.94</strong></p>
 
-			<div class="shopping-cart-action">
-				<button class="btn"> <i class="fa fa-trash-o" aria-hidden="true"></i>Vider le panier</button>
-				<a href="order.html">Commander</a>
-			</div>
-		</article>
-	</main>
+				<div class="shopping-cart-action">
+					<button class="btn"> <i class="fa fa-trash-o" aria-hidden="true"></i>Vider le panier</button>
+					<a href="order.html">Commander</a>
+				</div>
+			</article>
+		</main>
 
-	<footer>
-		© 2017 NiPi, Inc. Pierre Bayle - 1914941 &#38; Nicolas Gripont - 1919665 
-	</footer>
+		<footer>
+			© 2017 NiPi, Inc. Pierre Bayle - 1914941 &#38; Nicolas Gripont - 1919665 
+		</footer>
 
-</body>
+	</body>
 </html>
