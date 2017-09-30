@@ -189,6 +189,7 @@ h1 {
 main#products-main article.products-article div.products-title {
 	width: 100%;
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: baseline;
 }
@@ -201,6 +202,7 @@ main#products-main article.products-article {
 main#products-main article.products-article div#products-list {
 	width: 100%;
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: space-between;
 	margin-bottom: 10px;
 }
