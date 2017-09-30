@@ -189,7 +189,6 @@ h1 {
 main#products-main article.products-article div.products-title {
 	width: 100%;
 	display: flex;
-	flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: baseline;
 }
@@ -202,7 +201,6 @@ main#products-main article.products-article {
 main#products-main article.products-article div#products-list {
 	width: 100%;
 	display: flex;
-	flex-wrap: wrap;
 	justify-content: space-between;
 	margin-bottom: 10px;
 }
@@ -329,18 +327,17 @@ main#product-main .row {
 
 main#product-main div.img-column {
 	grid-column:1;
-	border-sizing: border-box;
+	box-sizing: border-box;
 }
 
 main#product-main div.desc-column {
 	grid-column:2;
-	border-sizing: border-box;
+	box-sizing: border-box;
 }
 
 main#product-main img#img-product {
 	width: 100%;
 	height: auto;	
-	justify-self: center;
   align-self: center;
 }
 
@@ -394,7 +391,6 @@ main#contact-main .row {
 	grid-template-columns:33.33% 33.33% 33.33%;
 	align-items: baseline;
 	justify-content: space-between;
-	justify-self: center;
 	align-self: center;
 	border: 1px solid #999999;
 	border-radius: 4px;
@@ -405,7 +401,7 @@ main#contact-main .row {
 main#contact-main section {
 	display: flex;
 	flex-direction: column;
-	border-sizing: border-box;
+	box-sizing: border-box;
 	text-align: center;
 }
 
@@ -494,7 +490,6 @@ main#shopping-cart-main p.price{
 
 main#shopping-cart-main div.shopping-cart-action {
 	display: flex;
-	flex: wrap;
 	align-items: baseline;
 	justify-content: space-between;
 }
@@ -537,10 +532,9 @@ main#order-main .row {
 
 main#order-main div.column-1 {
 	grid-column:1;
-	border-sizing: border-box;
+	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
-	border-sizing: border-box;
 	text-align: left;
 	box-sizing: border-box;
 	padding-right: 20px;
@@ -548,10 +542,9 @@ main#order-main div.column-1 {
 
 main#order-main div.column-2 {
 	grid-column:2;
-	border-sizing: border-box;
+	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
-	border-sizing: border-box;
 	text-align: left;
 	box-sizing: border-box;
 	padding-left: 20px;
