@@ -37,15 +37,15 @@
 						<div class="row">
 							<div class="column-1">
 								<label for="first-name">Prénom</label>
-								<input class="form-control" id="first-name" type="text" required pattern="^([A-zÀ-ÿ -]{2,30})$">
+								<input class="form-control" id="first-name" type="text" required pattern="^([A-zÀ-ÿ -]{2,30})$" tabindex="1">
 								<label for="email">Email</label>
-								<input class="form-control" id="email" type="email" required>
+								<input class="form-control" id="email" type="email" required tabindex="3">
 							</div>
 							<div class="column-2">
 								<label for="last-name">Nom</label>
-								<input class="form-control" id="last-name" type="text" required pattern="^([A-zÀ-ÿ -]{2,30})$">
+								<input class="form-control" id="last-name" type="text" required pattern="^([A-zÀ-ÿ -]{2,30})$" tabindex="2">
 								<label for="phone">Téléphone</label>
-								<input class="form-control" id="phone" type="tel" required pattern="^([0-9 +-]{2,15})$">
+								<input class="form-control" id="phone" type="tel" required pattern="^([0-9 +-]{2,15})$" tabindex="4">
 							</div>
 						</div>
 					</section>
@@ -54,15 +54,15 @@
 						 <div class="row">
 							<div class="column-1">
 								<label for="credit-card">Numéro de carte de crédit</label>
-								<input class="form-control" id="credit-card" type="text" required pattern="^([0-9]{1,16})$"> <!-- normalement, utiliser : pattern="^([0-9]{16})$" pour obliger à avoir un code à 16 chiffres -->
+								<input class="form-control" id="credit-card" type="text" required pattern="^([0-9]{1,16})$" tabindex="5"> <!-- normalement, utiliser : pattern="^([0-9]{16})$" pour obliger à avoir un code à 16 chiffres -->
 							</div>
 							<div class="column-2">
 								<label for="credit-card-expiry">Date d'expiration de la carte</label>
-								<input class="form-control" id="credit-card-expiry" type="text" required placeholder="mm/aa" pattern="^(0[1-9]|1[012])[- \/.]\d\d$">
+								<input class="form-control" id="credit-card-expiry" type="text" required placeholder="mm/aa" pattern="^(0[1-9]|1[012])[- \/.]\d\d$" tabindex="6">
 							</div>
 						</div>
 					</section>
-					<input class="btn" type="submit" value="Payer">
+					<input class="btn" type="submit" value="Payer" tabindex="7">
 				</form>
 			</article>
 		</main>
