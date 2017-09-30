@@ -285,6 +285,7 @@ main#products-main aside div.btn-group button {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	transition: background 0.2s ease-out;
+	outline-width: 0;
 }
 
 main#products-main aside div.btn-group button:not(:last-child) {
