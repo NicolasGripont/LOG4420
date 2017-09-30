@@ -520,6 +520,9 @@ main#shopping-cart-main table a {
 	color: #0095c9;
 }
 
+main#shopping-cart-main i.fa-trash-o {
+	margin-right: 5px;
+}
 /** FIN SHOPPING-CART **/
 
 
