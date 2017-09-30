@@ -24,20 +24,16 @@ header > div {
 	margin: 0 auto;
 	width: 100%;
 	display: flex;
-	/*flex-wrap: wrap;*/
 	justify-content: space-between;
 }
 
 header a#logo {
 	height: 100%;
-	/*float: left;*/
 }
 
 header a#logo img {
-	/*float: left;*/
 	height: 100%;
 }
-
 
 header nav {
 	height: 100%;
@@ -123,20 +119,31 @@ main {
 	padding-top: 61px;
 	padding-right: 20px;
 	padding-left: 20px;
-	overflow: auto;	
-	display: flex;
-  flex-direction: column;  
-  margin: 0 auto;
+	margin: 0 auto;
 	max-width: 1200px;
 	min-height: calc(100vh - 70px);
 	box-sizing:border-box;
 }
+
+main#index-main {
+	overflow: auto;	
+	display: flex;
+	flex-direction: column;  
+}
+
 
 #img-home {
 	float:right;
 	height: 40%;
 	width: 40%;
 	margin-top: -80px;
+}
+
+form input.form-control {
+	border: 1px solid #999999;
+	border-radius: 4px;
+	padding: 10px;
+	font-size: 16px;
 }
 
 .btn {
@@ -146,6 +153,7 @@ main {
 	text-decoration: none;
 	color: white;
 	padding: 10px;
+	font-size: 16px;
 	transition: background 0.2s ease-out;
 }
 
@@ -178,9 +186,9 @@ main#products-main article.products-article p#products-number {
 
 
 main#products-main article.products-article {
- 	width: 75%;
+	width: 75%;
 	box-sizing: border-box;
-} 
+}
 
 main#products-main article.products-article div#products-list {
 	width: 100%;
@@ -302,44 +310,125 @@ main#products-main aside div.btn-group button.selected {
 
 /** PRODUIT **/
 
-
-main .row {
+main#product-main .row {
 	display: grid;
 	grid-template-columns:50% 50%;
 	align-items:center;
 }
 
-main div.col1 {
+main#product-main div.img-column {
 	grid-column:1;
 	border-sizing: border-box;
 }
 
-main div.col2 {
+main#product-main div.desc-column {
 	grid-column:2;
 	border-sizing: border-box;
 }
 
-main img#img-product {
+main#product-main img#img-product {
 	width: 100%;
 	height: auto;	
 	justify-self: center;
   align-self: center;
 }
 
-main article section#desc p {
+main#product-main article section#desc p {
 	text-align: justify;
-  text-justify: inter-word;
+	text-justify: inter-word;
 }
 
-main article section p#price-value {
+main#product-main article section p#price-value {
 	font-weight: bold;
 	margin-left: 2px;
 }
 
-main article section#prix {
-	border-top: 1px dashed black;
+main#product-main article section.price-order {
+	border-top: 1px dashed #999999;
 	display: flex;
 	flex-direction: row;
-	padding: 10px;
+	align-items: baseline;
+	justify-content: space-between;
 	margin-top: 30px;
 }
+
+main#product-main article section.price-order > * {
+	margin-left: 10px;
+}
+
+main#product-main article section.price-order form {
+	display: flex;
+	flex-direction: row;
+	align-items: baseline;
+}
+
+main#product-main article section.price-order form > * {
+	margin-left: 10px;
+}
+
+main#product-main article section.price-order div.price {
+	display: flex;
+	flex-direction: row;
+	align-items: baseline;
+}
+
+/** FIN PRODUIT **/
+
+
+/** CONTACT **/
+
+main#contact-main .row {
+	display: grid;
+	grid-template-columns:33.33% 33.33% 33.33%;
+	align-items: baseline;
+	justify-content: space-between;
+	justify-self: center;
+	align-self: center;
+	border: 1px solid #999999;
+	border-radius: 4px;
+	padding: 20px;
+	margin-top: 30px;
+}
+
+main#contact-main section {
+	display: flex;
+	flex-direction: column;
+	border-sizing: border-box;
+	text-align: center;
+}
+
+main#contact-main section.phone-column {
+	grid-column:1;
+}
+
+main#contact-main section.address-column {
+	grid-column:2;
+}
+
+main#contact-main section.mail-column {
+	grid-column:3;
+}
+
+main#contact-main section a {
+	text-decoration: none;
+	color: #0095c9;
+}
+
+
+main#contact-main h2 {
+	display: none;
+}
+i.fa-5 {
+	font-size: 5em;
+}
+
+/** CONTACT **/
+
+
+
+
+
+
+
+
+

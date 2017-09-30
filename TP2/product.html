@@ -15,7 +15,7 @@
 			</a>
 			<nav>
 	      <a href="./index.html">Accueil</a>
-	      <a href="./products.html">Produits</a>
+	      <a href="./products.html" class="active">Produits</a>
 	      <a href="./contact.html">Contact</a>
 				<a href="./shopping-cart.html" class="panier">
 					<span class="fa-stack fa-lg">
@@ -28,13 +28,13 @@
 	  </div>
 	</header>
 
-	<main>
+	<main id="product-main">
 		<article class="row">
 			<h1>Apple TV</h1>
-			<div class="col1">
+			<div class="img-column">
 				<img id="img-product" src="assets/img/apple-tv.png" alt="img-apple-tv"/>
 			</div>
-			<div class="col2">				
+			<div class="desc-column">				
 				<section id="desc">
 					<h3>Description du produit</h3>
 					<p>L'Apple TV est un appareil conçu par Apple qui permet la communication sans fil entre un ordinateur et un téléviseur. Il est disponible depuis fin mars 2007 dans sa première version.L'appareil ressemble alors par sa forme à un Mac mini, bien qu'il ne fasse que la moitié de sa hauteur. Il communique par réseau sans fil ou Ethernet, avec un appareil iOS ou avec un ordinateur (sous Mac OS X ou sous Windows) par le biais du logiciel iTunes, permettant ainsi de diffuser le contenu vidéo et audio sur le téléviseur, via éventuellement un amplificateur audio-vidéo. (<a href='https://fr.wikipedia.org/wiki/Apple_TV' target='_blank'>Wikipédia</a>)</p>
@@ -50,14 +50,15 @@
 					</ul>
 				</section>
 
-				<section id="prix">
-					<p>Prix: </p>
-					<p id="price-value">$ 249.99</p>
-					<p>Ajouter au panier</p>				
+				<section class="price-order">
+					<div class="price">
+						<p>Prix : </p>
+						<p id="price-value">CDN$ 249.99</p>
+					</div>	
 					<form action="#">
 						<label>Quantité : </label>
-						<input id="quantite" type="number" min="1" max="10" value="1">
-						<p><input type="submit" value="Ajouter"></p>
+						<input id="quantite" type="number" min="1" max="10" value="1" class="form-control">
+						<p><input type="submit" value="Ajouter" class="btn"></p>
 					</form>
 				</section>
 			</div>
