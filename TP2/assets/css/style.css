@@ -117,6 +117,7 @@ footer {
 /* FIN FOOTER */
 
 
+
 /* COMMUN */
 
 main {
@@ -409,12 +410,11 @@ main#shopping-cart-main table {
 
 main#shopping-cart-main table tr td:not(:first-child):not(:last-child) { width: 30%; }
 
+main#shopping-cart-main table tr:last-child,
 main#shopping-cart-main table thead tr th { border-bottom: 1px solid #000; }
 
 main#shopping-cart-main table thead tr th:last-child,
 main#shopping-cart-main table tr td:last-child { text-align: right; }
-
-main#shopping-cart-main table tr:last-child { border-bottom: 1px solid #000; }
 
 main#shopping-cart-main table tr td.quantity {
   display: flex;
