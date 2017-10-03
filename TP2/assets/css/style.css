@@ -167,7 +167,8 @@ form input.form-control {
 
 .btn-right-align {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
+  justify-content: flex-end;
 }
 
 /* FIN COMMUN */
@@ -338,7 +339,7 @@ main#product-main article section#desc p {
 
 main#product-main article section p#price-value {
   font-weight: bold;
-  margin-left: 2px;
+  margin-left: 5px;
 }
 
 main#product-main article section.price-order {
@@ -471,6 +472,19 @@ main#shopping-cart-main table a {
 }
 
 main#shopping-cart-main i.fa-trash-o { margin-right: 5px; }
+
+main#shopping-cart-main div.total-price {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+main#shopping-cart-main div.total-price p.price{
+  margin-left: 5px;
+  font-weight: bold;
+}
+
+
 /* FIN SHOPPING-CART */
 
 
