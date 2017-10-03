@@ -165,6 +165,10 @@ form input.form-control {
 
 .btn:hover { background-color: #1fb5e9; }
 
+.btn-right-align {
+  display: flex;
+  flex-direction: row-reverse;
+}
 
 /* FIN COMMUN */
 
