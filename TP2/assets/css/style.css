@@ -15,7 +15,7 @@ main {
   padding-left: 20px;
   margin: 0 auto;
   max-width: 1200px;
-  min-height: calc(100vh - 70px - 60px);
+  min-height: calc(100vh - 71px - 61px);
   box-sizing: border-box; 
 }
 
@@ -102,24 +102,20 @@ header nav a.active {
   background-color: #1fb5e9; 
 }
 
-header nav a.cart {
-  height: 100%;
-  width: auto;
-  display: flex;
-  align-items: center;
-}
 
 header nav span i.fa-shopping-cart {
   color: #14597f;
+  box-sizing: border-box; 
 }
 
 header nav span i.fa-shopping-cart.active {
   color: #1fb5e9;
+  box-sizing: border-box; 
 }
 
 header nav span.count {
   position: relative;
-  left: -17px;
+  left: -20px;
   top: 17px;
   font-size: 14px;
   padding-left: 6px;
@@ -128,6 +124,7 @@ header nav span.count {
   padding-bottom: 2px;
   background-color: #d9534f;
   border-radius: 50%;
+  box-sizing: border-box; 
 }
 
 /* FIN HEADER */
