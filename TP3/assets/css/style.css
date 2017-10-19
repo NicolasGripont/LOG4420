@@ -119,6 +119,7 @@ header nav a.cart {
   padding: 0;
 }
 header nav span.count {
+  display: none;
   position: absolute;
   right: -4px;
   bottom: -4px;
@@ -126,7 +127,6 @@ header nav span.count {
   width: 20px;
   height: 20px;
   text-align: center;
-  display: block;
   line-height: 20px;
   border-radius: 50%;
   font-size: 0.8em;
