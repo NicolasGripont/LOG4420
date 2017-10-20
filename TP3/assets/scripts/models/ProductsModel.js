@@ -1,17 +1,54 @@
 var ProductsModel = function (json) {
-  this.currentList = json;
+  this.allProductsJSON = json;
+  this.currentProductsJSON = json;
+  this.currentProductsChangedEvent = new Event(this);
+  this.criteria = "price";
+  this.orderBy = "asc";
+  this.category = "all";
+
+
 };
 
-Product.prototype = {
-  sort : function() {
-    
-  }
+ProductsModel.prototype = {
+  getProducts : function() {
+    return this.currentProductsJSON;
+  },
 
-  filter : function() {
+  sort : function(criteria, orderBy) {
+    if(criteria, orderBy) {
+      this.criteria = criteria;
+      this.orderBy = orderBy;
+      this.filterAndSort(this.category,criteria,orderBy);
+    }
+  },
 
-  }
+  filter : function(category) {
+    if(category) {
+      this.category = category;
+      this.filterAndSort(category,this.criteria,this.orderBy);
+    }    
+  },
 
-  sortAndFilter : function() {
-
+  filterAndSort : function(category, criteria, orderBy) {
+    this.currentProductsJSON = this.allProductsJSON;
+    if(category !== "all") {
+      this.currentProductsJSON = $.grep(this.currentProductsJSON,function (item,i){
+        return item.category === category;
+      });
+    }
+    this.currentProductsJSON = this.currentProductsJSON.sort(function(a, b) {
+      if (orderBy === undefined || orderBy === "asc") {
+        if($.type(a[criteria]) === "string") {
+          return (a[criteria].toLowerCase() > b[criteria].toLowerCase()) ? 1 : ((a[criteria].toLowerCase() < b[prop].toLowerCase()) ? -1 : 0);
+        }
+        return (a[criteria] > b[criteria]) ? 1 : ((a[criteria] < b[criteria]) ? -1 : 0);
+      } else if(orderBy === "desc") {
+        if($.type(a[criteria]) === "string") {
+          return (b[criteria].toLowerCase() > a[criteria].toLowerCase()) ? 1 : ((b[criteria].toLowerCase() < a[prop].toLowerCase()) ? -1 : 0);
+        }
+        return (b[criteria] > a[criteria]) ? 1 : ((b[criteria] < a[criteria]) ? -1 : 0);
+      }
+    });
+    this.currentProductsChangedEvent.notify({products : this.currentProductsJSON })
   }
 };

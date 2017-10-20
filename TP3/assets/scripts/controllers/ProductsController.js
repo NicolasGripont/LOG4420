@@ -1,51 +1,45 @@
-var ProductsController = function (model, view) {
-    this.model = model;
-    this.view = view;
-    this.init();
-};
+function ProductsController(model, view) {
+    this._model = model;
+    this._view = view;
 
-TaskController.prototype = {
+    var _this = this;
 
-    init: function () {
-        this.createChildren()
-            .setupHandlers()
-            .enable();
+    this._view.criteriaButtonClickedEvent.attach(function (sender, args) {
+        _this.sortProducts(args.criteria, args.orderBy);
+    });
+
+    this._view.categoryButtonClickedEvent.attach(function (sender, args) {
+        _this.filterProducts(args.category);
+    });
+}
+
+ProductsController.prototype = {
+    sortProducts : function (criteria, orderBy) {
+        if(criteria && orderBy) {
+            this._model.sort(criteria,orderBy);
+        }
     },
-
-    createChildren: function () {
-        // no need to create children inside the controller
-        // this is a job for the view
-        // you could all as well leave this function out
-        return this;
-    },
-
-    setupHandlers: function () {
-        this.addTaskHandler = this.addTask.bind(this);
-        this.selectTaskHandler = this.selectTask.bind(this);
-        this.unselectTaskHandler = this.unselectTask.bind(this);
-        this.completeTaskHandler = this.completeTask.bind(this);
-        this.deleteTaskHandler = this.deleteTask.bind(this);
-        return this;
-    },
-
-    enable: function () {
-
-        this.view.addTaskEvent.attach(this.addTaskHandler);
-        this.view.completeTaskEvent.attach(this.completeTaskHandler);
-        this.view.deleteTaskEvent.attach(this.deleteTaskHandler);
-        this.view.selectTaskEvent.attach(this.selectTaskHandler);
-        this.view.unselectTaskEvent.attach(this.unselectTaskHandler);
-
-        return this;
-    },
-
-
-    changeCategory: function (sender, args) {
-        this.model.addTask(args.task);
-    },
-
-    changeCriteria: function (sender, args) {
-        this.model.setSelectedTask(args.taskIndex);
+    
+    filterProducts : function (category) {
+        if(category) {
+            this._model.filter(category);
+        }
     }
-
 };
+
+/* MAIN */
+
+$(function () {
+    var productsJSON = JSON.parse('[{"id": 1,"name": "Apple TV","price": 249.99,"image": "apple-tv.png","category": "computers"},{"id": 2,"name": "Canon EOS 5D Mark II","price": 2999.99,"image": "camera-1.png","category": "cameras"}]');
+    var model = new ProductsModel(productsJSON),
+        view = new ProductsView(model, {
+            'productsList' : $('#products-list'), 
+            'categoriesButtonsGroups' : $('#product-categories'), 
+            'criteriaButtonsGroups' : $('#product-criteria'),
+            'productsCount' : $('#products-count'),
+        }),
+        controller = new ProductsController(model, view);
+    
+    view.show();
+})
+
