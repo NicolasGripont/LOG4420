@@ -8,6 +8,7 @@
 		<title>OnlineShop - Produits</title>
 		<script type="text/javascript" src="./assets/js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="./assets/scripts/script.js"></script>
+		<script type="text/javascript" src="./assets/scripts/products.js"></script>
 	</head>
 	<body>
 		<header>
@@ -35,21 +36,21 @@
 				<section>
 					<h2>Catégories</h2>
 					<div class="btn-group" id="product-categories">
-						<button>Appareils photo</button>
-						<button>Consoles</button>
-						<button>Ecrans</button>
-						<button>Ordinateurs</button>
-						<button class="selected">Tous les produits</button>
+						<button category="cameras">Appareils photo</button>
+						<button category="consoles">Consoles</button>
+						<button category="screens">Ecrans</button>
+						<button category="computers">Ordinateurs</button>
+						<button class="selected" category="all">Tous les produits</button>
 					</div>
 				</section>
 
 				<section>
 					<h2>Classement</h2>
 					<div class="btn-group" id="product-criteria">
-						<button class="selected">Prix (bas-haut)</button>
-						<button>Prix (haut-bas)</button>
-						<button>Nom (A-Z)</button>
-						<button>Nom (Z-A)</button>
+						<button class="selected" criteria="price" orderBy="asc">Prix (bas-haut)</button>
+						<button criteria="price" orderBy="desc">Prix (haut-bas)</button>
+						<button criteria="name" orderBy="asc">Nom (A-Z)</button>
+						<button criteria="name" orderBy="desc">Nom (Z-A)</button>
 					</div>
 				</section>
 			</aside>
