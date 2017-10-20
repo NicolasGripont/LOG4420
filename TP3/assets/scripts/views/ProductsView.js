@@ -1,3 +1,5 @@
+"use strict";
+
 function ProductsView(model, elements) {
     this._model = model;
     this._elements = elements;
@@ -28,6 +30,8 @@ function ProductsView(model, elements) {
         _this.criteriaButtonClickedEvent.notify({criteria: $(e.target).attr("criteria"), orderBy: $(e.target).attr("orderBy")});
       })
     });
+
+
 };
 
 ProductsView.prototype = {
@@ -46,20 +50,21 @@ ProductsView.prototype = {
     },
 
     rebuildProducts : function () {
-        var _this = this;
-        var products, productsList, productsCount;
+      var _this = this
+      var products, productsList, productsCount;
 
-        productsList = this._elements.productsList;
-        productsCount = this._elements.productsCount;
-        productsList.empty();
+      productsList = this._elements.productsList;
+      productsCount = this._elements.productsCount;
+      productsList.empty();
 
-        products = this._model.getProducts();
+      products = this._model.getProducts();
+      if(products) {
         $.each(products, function(i, item) {
           productsList.append(_this.createProductHtml(item));
         });
         productsCount.html(products.length + " produits");
+      }
     },
-
 
     createProductHtml : function (jsonProduct) {
       const produit = '<div class="product">' +
@@ -70,6 +75,10 @@ ProductsView.prototype = {
                       '  </a>' +
                       '</div>';
       return produit;
+    }, 
+
+    showError : function() {
+      $("#products-list").html("Une erreur est survenue lors du chargement des produits...")
     }
 };
 

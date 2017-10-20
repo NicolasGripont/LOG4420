@@ -10,6 +10,11 @@ var ProductsModel = function (json) {
 };
 
 ProductsModel.prototype = {
+  resetProducts : function(json) {
+    this.allProductsJSON = json;
+    this.filterAndSort(this.category,this.criteria,this.orderBy);
+  },
+
   getProducts : function() {
     return this.currentProductsJSON;
   },
@@ -27,28 +32,30 @@ ProductsModel.prototype = {
       this.category = category;
       this.filterAndSort(category,this.criteria,this.orderBy);
     }    
-  },
+  },   
 
   filterAndSort : function(category, criteria, orderBy) {
     this.currentProductsJSON = this.allProductsJSON;
-    if(category !== "all") {
-      this.currentProductsJSON = $.grep(this.currentProductsJSON,function (item,i){
-        return item.category === category;
-      });
-    }
-    this.currentProductsJSON = this.currentProductsJSON.sort(function(a, b) {
-      if (orderBy === undefined || orderBy === "asc") {
-        if($.type(a[criteria]) === "string") {
-          return (a[criteria].toLowerCase() > b[criteria].toLowerCase()) ? 1 : ((a[criteria].toLowerCase() < b[prop].toLowerCase()) ? -1 : 0);
-        }
-        return (a[criteria] > b[criteria]) ? 1 : ((a[criteria] < b[criteria]) ? -1 : 0);
-      } else if(orderBy === "desc") {
-        if($.type(a[criteria]) === "string") {
-          return (b[criteria].toLowerCase() > a[criteria].toLowerCase()) ? 1 : ((b[criteria].toLowerCase() < a[prop].toLowerCase()) ? -1 : 0);
-        }
-        return (b[criteria] > a[criteria]) ? 1 : ((b[criteria] < a[criteria]) ? -1 : 0);
+    if(this.currentProductsJSON) {
+      if(category !== "all") {
+        this.currentProductsJSON = $.grep(this.currentProductsJSON,function (item,i){
+          return item.category === category;
+        });
       }
-    });
-    this.currentProductsChangedEvent.notify({products : this.currentProductsJSON })
+      this.currentProductsJSON = this.currentProductsJSON.sort(function(a, b) {
+        if (orderBy === undefined || orderBy === "asc") {
+          if($.type(a[criteria]) === "string") {
+            return (a[criteria].toLowerCase() > b[criteria].toLowerCase()) ? 1 : ((a[criteria].toLowerCase() < b[criteria].toLowerCase()) ? -1 : 0);
+          }
+          return (a[criteria] > b[criteria]) ? 1 : ((a[criteria] < b[criteria]) ? -1 : 0);
+        } else if(orderBy === "desc") {
+          if($.type(a[criteria]) === "string") {
+            return (b[criteria].toLowerCase() > a[criteria].toLowerCase()) ? 1 : ((b[criteria].toLowerCase() < a[criteria].toLowerCase()) ? -1 : 0);
+          }
+          return (b[criteria] > a[criteria]) ? 1 : ((b[criteria] < a[criteria]) ? -1 : 0);
+        }
+      });
+      this.currentProductsChangedEvent.notify({products : this.currentProductsJSON })
+    }
   }
 };
