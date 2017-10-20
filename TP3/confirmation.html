@@ -1,45 +1,45 @@
 <!DOCTYPE html>
 <html lang="fr">
-	<head>
-		<meta charset="UTF-8">
-		<link rel="stylesheet" type="text/css" 
-			href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" type="text/css" href="./assets/css/style.css">
-		<title>OnlineShop - Confirmation</title>
-		<script type="text/javascript" src="./assets/js/jquery-3.2.1.min.js"></script>
-		<script type="text/javascript" src="./assets/scripts/script.js"></script>
-	</head>
-	<body>
-		<header>
-			<div>
-				<a id="logo" href="index.html">
-					<img src="assets/img/logo.svg" alt="img-logo"/>
-				</a>
-				<nav>
-					<a href="./index.html">Accueil</a>
-					<a href="./products.html">Produits</a>
-					<a href="./contact.html">Contact</a>
-					<a class="cart" href="./shopping-cart.html">
-						<span class="fa-stack fa-lg">
-							<i class="fa fa-circle fa-stack-2x fa-inverse"></i>
-							<i class="fa fa-shopping-cart fa-stack-1x active"></i>
-						</span>
-						<span id="item-number-badge" class="count w3-badge">3</span>
-					</a>
-				</nav>
-			</div>
-		</header>
-		
-		<main id="confirmation-main">
-			<article>
-				<h1>Votre commande est confirmée</h1>
-				<p>Votre numéro de confirmation est le <strong>00001</strong></p>
-			</article>
-		</main>
-
-		<footer>
-			© 2017 NiPi, Inc. Pierre Bayle - 1914941 &#38; Nicolas Gripont - 1919665 
-		</footer>
-
-	</body>
+<head>
+  <meta charset="UTF-8">
+  <title>OnlineShop - Confirmation</title>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <a href="./index.html">
+          <img alt="logo" src="./assets/img/logo.svg" title="Accueil">
+        </a>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="./index.html">Accueil</a></li>
+          <li><a href="./products.html">Produits</a></li>
+          <li><a href="./contact.html">Contact</a></li>
+          <li>
+            <a class="shopping-cart" href="./shopping-cart.html" title="Panier">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                <i class="fa fa-shopping-cart fa-stack-1x"></i>
+              </span>
+              <span class="count">3</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <article>
+      <h1>Votre commande est confirmée Antoine Béland!</h1>
+      <p>Votre numéro de confirmation est le <strong>00001</strong>.</p>
+    </article>
+  </main>
+  <footer>
+    <p>© 2017 NiPi, Inc. Pierre Bayle - 1914941 &#38; Nicolas Gripont - 1919665</p>
+  </footer>
+</body>
 </html>

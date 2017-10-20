@@ -1,77 +1,73 @@
 <!DOCTYPE html>
 <html lang="fr">
-	<head>
-		<meta charset="UTF-8">
-		<link rel="stylesheet" type="text/css" 
-			href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" type="text/css" href="./assets/css/style.css">
-		<title>OnlineShop - Produit</title>
-		<script type="text/javascript" src="./assets/js/jquery-3.2.1.min.js"></script>
-		<script type="text/javascript" src="./assets/scripts/script.js"></script>
-	</head>
-	<body>
-		<header>
-			<div>
-				<a id="logo" href="index.html">
-					<img src="assets/img/logo.svg" alt="img-logo"/>
-				</a>
-				<nav>
-					<a href="./index.html">Accueil</a>
-					<a class="active" href="./products.html">Produits</a>
-					<a href="./contact.html">Contact</a>
-					<a class="cart" href="./shopping-cart.html">
-						<span class="fa-stack fa-lg">
-							<i class="fa fa-circle fa-stack-2x fa-inverse"></i>
-							<i class="fa fa-shopping-cart fa-stack-1x"></i>
-						</span>
-						<span class="count w3-badge">3</span>
-					</a>
-				</nav>
-			</div>
-		</header>
-		
-		<main id="product-main">
-			<article class="row">
-				<h1>Apple TV</h1>
-				<div class="img-column">
-					<img id="img-product" src="assets/img/apple-tv.png" alt="img-apple-tv"/>
-				</div>
-				<div class="desc-column">				
-					<section id="desc">
-						<h3>Description du produit</h3>
-						<p>L'Apple TV est un appareil conçu par Apple qui permet la communication sans fil entre un ordinateur et un téléviseur. Il est disponible depuis fin mars 2007 dans sa première version.L'appareil ressemble alors par sa forme à un Mac mini, bien qu'il ne fasse que la moitié de sa hauteur. Il communique par réseau sans fil ou Ethernet, avec un appareil iOS ou avec un ordinateur (sous Mac OS X ou sous Windows) par le biais du logiciel iTunes, permettant ainsi de diffuser le contenu vidéo et audio sur le téléviseur, via éventuellement un amplificateur audio-vidéo. (<a href='https://fr.wikipedia.org/wiki/Apple_TV' target='_blank'>Wikipédia</a>)</p>
-					</section>
-					<section>
-						<h3>Caractéristiques du produit</h3>
-						<ul>
-							<li>Processeur Apple A8</li>
-							<li>Mémoire vide de 2Go</li>
-							<li>Stockage de 32 ou 64 Go en mémoire flash</li>
-							<li>Connectivités: USB Type-C, HDMI, récepteur infrarouge</li>
-							<li>Réseau: Wi-Fi (802.11a/b/g/n/ac), 10/100 Ethernet, Bluetooth, AirPlay</li>
-						</ul>
-					</section>
-
-					<section class="price-order">
-						<div class="price">
-							<p>Prix : </p>
-							<p id="price-value">CDN$ 249.99</p>
-						</div>	
-						<form action="#">
-							<label>Quantité : </label>
-							<input class="form-control" id="quantite" type="number" min="1" max="10" value="1">
-							<p><input class="btn" type="submit" value="Ajouter"></p>
-						</form>
-					</section>
-				</div>
-
-			</article>		
-
-		</main>
-
-		<footer>
-			© 2017 NiPi, Inc. Pierre Bayle - 1914941 &#38; Nicolas Gripont - 1919665 
-		</footer>
-
-	</body>
+<head>
+  <meta charset="UTF-8">
+  <title>OnlineShop - Produit</title>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <a href="./index.html">
+          <img alt="logo" src="./assets/img/logo.svg" title="Accueil">
+        </a>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="./index.html">Accueil</a></li>
+          <li class="active"><a href="./products.html">Produits</a></li>
+          <li><a href="./contact.html">Contact</a></li>
+          <li>
+            <a class="shopping-cart" href="./shopping-cart.html" title="Panier">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                <i class="fa fa-shopping-cart fa-stack-1x"></i>
+              </span>
+              <span class="count">3</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <article>
+      <h1>Manette Xbox 360</h1>
+      <div class="row">
+        <div class="col">
+          <img id="product-image" alt="Manette Xbox 360" src="./assets/img/xbox-controller.png">
+        </div>
+        <div class="col">
+          <section>
+            <h2>Description</h2>
+            <p>Manette pouvant être branchée à une console Xbox 360 et un PC. Cette manette vous permettra de jouer à vos jeux vidéo préférés.
+            De plus, cette manette est sans fil et comporte un port pour casque d'écoute.</p>
+          </section>
+          <section>
+            <h2>Caractéristiques</h2>
+            <ul>
+              <li>Manette sans fil 2.4GHz avec adapteur USB</li>
+              <li>Compacte et ergonomique</li>
+              <li>Port pour casque d'écoute pour Xbox Live</li>
+            </ul>
+          </section>
+          <hr>
+          <form class="pull-right">
+            <label for="product-quantity">Quantité:</label>
+            <input class="form-control" id="product-quantity" type="number" value="1" min="1">
+            <button class="btn" title="Ajouter au panier" type="submit">
+              <i class="fa fa-cart-plus"></i>&nbsp; Ajouter
+            </button>
+          </form>
+          <p>Prix: <strong>29,99&thinsp;$</strong></p>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer>
+    <p>© 2017 NiPi, Inc. Pierre Bayle - 1914941 &#38; Nicolas Gripont - 1919665</p>
+  </footer>
+</body>
 </html>

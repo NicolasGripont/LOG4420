@@ -1,49 +1,47 @@
 <!DOCTYPE html>
 <html lang="fr">
-	<head>
-		<meta charset="UTF-8">
-		<link rel="stylesheet" type="text/css" 
-			href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" type="text/css" href="./assets/css/style.css">
-		<title>OnlineShop - Accueil</title>
-		<script type="text/javascript" src="./assets/js/jquery-3.2.1.min.js"></script>
-		<script type="text/javascript" src="./assets/scripts/script.js"></script>
-	</head>
-	<body>
-		<header>
-			<div>
-				<a href="index.html" id="logo">
-					<img src="assets/img/logo.svg" alt="img-logo"/>
-				</a>
-				<nav>
-					<a class="active" href="./index.html">Accueil</a>
-					<a href="./products.html">Produits</a>
-					<a href="./contact.html">Contact</a>
-					<a class="cart" href="./shopping-cart.html">
-						<span class="fa-stack fa-lg">
-							<i class="fa fa-circle fa-stack-2x fa-inverse"></i>
-							<i class="fa fa-shopping-cart fa-stack-1x"></i>
-						</span>
-						<span class="count" >3</span>
-					</a>
-				</nav>
-			</div>
-		</header>
-
-		<main id="index-main">
-			<article>
-				<img id="img-home" src="assets/img/home.png" alt="img-home"/>
-				<div>
-					<h1>NiPi Store : Le site numéro 1 de vente en ligne !</h1>
-					<p>Ce site est le meilleur site du monde. Un rabais de -30% pour tout achat immédiat entrainant un surcout éventuel sur le futur paiement.</p>
-					<a class="btn" href="products.html">Voir les produits &#187;</a>
-				</div>
-			</article>
-		</main>
-
-		<footer>
-			© 2017 NiPi, Inc. Pierre Bayle - 1914941 &#38; Nicolas Gripont - 1919665 
-		</footer>
-
-	</body>
+<head>
+  <meta charset="UTF-8">
+  <title>OnlineShop - Accueil</title>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <a href="./index.html">
+          <img alt="logo" src="./assets/img/logo.svg" title="Accueil">
+        </a>
+      </div>
+      <nav>
+        <ul>
+          <li class="active"><a href="./index.html">Accueil</a></li>
+          <li><a href="./products.html">Produits</a></li>
+          <li><a href="./contact.html">Contact</a></li>
+          <li>
+            <a class="shopping-cart" href="./shopping-cart.html" title="Panier">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                <i class="fa fa-shopping-cart fa-stack-1x"></i>
+              </span>
+              <span class="count">3</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <article>
+      <img alt="home" src="./assets/img/home.png" id="home-img">
+      <h1>NiPi Store : Le site numéro 1 de vente en ligne !</h1>
+      <p>Ce site est le meilleur site du monde. Un rabais de -30% pour tout achat immédiat entrainant un surcout éventuel sur le futur paiement.</p>
+      <a class="btn" href="./products.html">En savoir plus <i class="fa fa-angle-double-right"></i></a>
+    </article>
+  </main>
+  <footer>
+    <p>© 2017 NiPi, Inc. Pierre Bayle - 1914941 &#38; Nicolas Gripont - 1919665</p>
+  </footer>
+  </body>
 </html>
