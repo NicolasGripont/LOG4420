@@ -1,20 +1,20 @@
 
 function sortResults(json, prop, orderBy) {
   //TODO CHECK PARAM
-    const sortedJson = json.sort(function(a, b) {
-        if (orderBy === undefined || orderBy === "asc") {
-          if($.type(a[prop]) === "string") {
-            return (a[prop].toLowerCase() > b[prop].toLowerCase()) ? 1 : ((a[prop].toLowerCase() < b[prop].toLowerCase()) ? -1 : 0);
-          }
-          return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
-        } else if(orderBy === "desc") {
-          if($.type(a[prop]) === "string") {
-            return (b[prop].toLowerCase() > a[prop].toLowerCase()) ? 1 : ((b[prop].toLowerCase() < a[prop].toLowerCase()) ? -1 : 0);
-          }
-          return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
+  const sortedJson = json.sort(function(a, b) {
+      if (orderBy === undefined || orderBy === "asc") {
+        if($.type(a[prop]) === "string") {
+          return (a[prop].toLowerCase() > b[prop].toLowerCase()) ? 1 : ((a[prop].toLowerCase() < b[prop].toLowerCase()) ? -1 : 0);
         }
-    });
-    return sortedJson;
+        return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
+      } else if(orderBy === "desc") {
+        if($.type(a[prop]) === "string") {
+          return (b[prop].toLowerCase() > a[prop].toLowerCase()) ? 1 : ((b[prop].toLowerCase() < a[prop].toLowerCase()) ? -1 : 0);
+        }
+        return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
+      }
+  });
+  return sortedJson;
 }
 
 function createProductHtml(jsonProduct) {
@@ -33,7 +33,7 @@ function showProductsList(products) {
   $.each(products, function(i, item) {
     $("#products-list").append(createProductHtml(item));
   });
-  $("#products-number").html(products.length + " produits");
+  $("#products-count").html(products.length + " produits");
 }
 
 
