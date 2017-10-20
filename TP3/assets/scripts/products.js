@@ -117,7 +117,7 @@ function updateProductsList(category, criteria, orderBy) {
 function productsReady() {
   initProducts();
   $("#product-categories button").click(function(event){ onProductCategoriesButtonClick(event.target); });
-  $("#product-criteria button").click(function(){ onProductCriteriaButtonClick(event.target); });
+  $("#product-criteria button").click(function(event){ onProductCriteriaButtonClick(event.target); });
 }
 
 $(window).ready(function(){ productsReady(); });
