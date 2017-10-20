@@ -9,11 +9,11 @@ function getNumberItems() {
 
 function initBadge() {
   const numberItems = getNumberItems();
-  $(".cart > .count").html(numberItems);
+  $(".shopping-cart > .count").html(numberItems);
   if(numberItems == 0) {
-    $(".cart > .count").hide();
+    $(".shopping-cart > .count").hide();
   } else {
-    $(".cart > .count").show();
+    $(".shopping-cart > .count").show();
   }
 }
 

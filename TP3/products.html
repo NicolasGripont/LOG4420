@@ -35,24 +35,25 @@
   <main>
     <section class="sidebar" aria-label="Filtres">
       <section>
-        <h2>Catégories</h2>
-        <div class="btn-group vertical" id="product-categories">
-          <button>Appareils photo</button>
-          <button>Consoles</button>
-          <button>Écrans</button>
-          <button>Ordinateurs</button>
-          <button class="selected">Tous les produits</button>
-        </div>
-      </section>
-      <section>
-        <h2>Classement</h2>
-        <div class="btn-group vertical" id="product-criteria">
-          <button class="selected">Prix (bas-haut)</button>
-          <button>Prix (haut-bas)</button>
-          <button>Nom (A-Z)</button>
-          <button>Nom (Z-A)</button>
-        </div>
-      </section>
+          <h2>Catégories</h2>
+          <div class="btn-group vertical" id="product-categories">
+            <button category="cameras">Appareils photo</button>
+            <button category="consoles">Consoles</button>
+            <button category="screens">Ecrans</button>
+            <button category="computers">Ordinateurs</button>
+            <button class="selected" category="all">Tous les produits</button>
+          </div>
+        </section>
+
+        <section>
+          <h2>Classement</h2>
+          <div class="btn-group vertical" id="product-criteria">
+            <button class="selected" criteria="price" orderBy="asc">Prix (bas-haut)</button>
+            <button criteria="price" orderBy="desc">Prix (haut-bas)</button>
+            <button criteria="name" orderBy="asc">Nom (A-Z)</button>
+            <button criteria="name" orderBy="desc">Nom (Z-A)</button>
+          </div>
+        </section>
     </section>
     <article>
       <span class="right-header" id="products-count">13 produits</span>
@@ -106,5 +107,8 @@
   <footer>
     <p>© 2017 NiPi, Inc. Pierre Bayle - 1914941 &#38; Nicolas Gripont - 1919665</p>
   </footer>
+  <script type="text/javascript" src="./assets/js/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="./assets/scripts/script.js"></script>
+  <script type="text/javascript" src="./assets/scripts/products.js"></script>
 </body>
 </html>

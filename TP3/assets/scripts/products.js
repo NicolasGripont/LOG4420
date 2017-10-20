@@ -18,13 +18,13 @@ function sortResults(json, prop, orderBy) {
 }
 
 function createProductHtml(jsonProduct) {
-  const produit = '<a href="product.html?id='+ jsonProduct["id"] +'">' +
-            '  <section class="product">' +
-            '    <h2>' + jsonProduct["name"] + '</h2>' +
-            '    <img src="assets/img/' + jsonProduct["image"] + '" alt="' + jsonProduct["image"] + '"/>' +
-            '    <p class="product-price">CDN$' + jsonProduct["price"] +'</p>' +
-            '  </section>' +
-            '</a>';
+  const produit = '<div class="product">' +
+                  '  <a href="product.html?id='+ jsonProduct["id"] +'" title="En savoir plus...">' +
+                  '    <h2>' + jsonProduct["name"] + '</h2>' +
+                  '    <img src="./assets/img/' + jsonProduct["image"] + '" alt="' + jsonProduct["image"] + '"/>' +
+                  '    <p class="product-price">CDN$' + jsonProduct["price"] +'</p>' +
+                  '  </a>' +
+                  '</div>';
   return produit;
 }
 
