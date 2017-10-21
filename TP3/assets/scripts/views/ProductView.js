@@ -20,7 +20,7 @@ function ProductView(model, elements) {
 
   // attach listeners to HTML controls
   this._elements.productQuantity.change(function(e) {
-    _this.quantityChangedEvent.notify({quantity : 2});
+    _this.quantityChangedEvent.notify({quantity : $(e.target).val()});
   })
 
   this._elements.addToCartButton.click(function(e) {
@@ -55,7 +55,7 @@ ProductView.prototype = {
   },
 
   showMessageError : function(message) {
-    $(this._elements.productsList).html("<h1>" + message + "</h1>");
+    $(this._elements.main).html("<h1>" + message + "</h1>");
   }
 };
 

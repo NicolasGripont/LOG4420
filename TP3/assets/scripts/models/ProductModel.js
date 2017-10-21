@@ -25,9 +25,7 @@ ProductModel.prototype = {
   },
 
   addToCart : function() {
-    if(category) {
-      //TODO
-    }    
+    //TODO
   }  
 
 };
