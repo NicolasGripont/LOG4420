@@ -1,8 +1,9 @@
 "use strict";
 
-function ProductController(model, view) {
+function ProductController(model, view, messages) {
   this._model = model;
   this._view = view;
+  this._messages = messages;
   var _this = this;
 
 
@@ -38,11 +39,11 @@ ProductController.prototype = {
       const product = self.getProductById(id,json);
       self._model.setProduct(product);
       if(product === undefined) { 
-        self._view.showMessageError("Page non trouvée !");
+        self._view.showMessageError(self._messages.pageNotFound);
       }
     })
     .fail(function( xhr, status, errorThrown ) {
-      self._view.showMessageError("Une erreur est survenue lors du chargement des produits...");
+      self._view.showMessageError(self._messages.anErrorOccured);
     });
   }, 
 
@@ -76,22 +77,21 @@ ProductController.prototype = {
 
 
 $(function () {
-    var productJSON = undefined;
-    var model = new ProductModel(productJSON),
-        view = new ProductView(model, {
-            'productQuantity' : $('#product-quantity'), 
-            'addToCartButton' : $('.btn'), 
-            'productName' : $('#product-name'),
-            'productImage' : $('#product-image'),
-            'productDesc' : $('#product-desc'),
-            'productFeatures' : $('#product-features'),
-            'productPrice' : $('#product-price'),
-            'article' : $('main > article')
-        }),
-        controller = new ProductController(model, view);
-    controller.loadData();
-    view.show();
-
+  var productJSON = undefined;
+  var model = new ProductModel(productJSON);
+  var view = new ProductView(model, {
+      'productQuantity' : $('#product-quantity'), 
+      'addToCartButton' : $('.btn'), 
+      'productName' : $('#product-name'),
+      'productImage' : $('#product-image'),
+      'productDesc' : $('#product-desc'),
+      'productFeatures' : $('#product-features'),
+      'productPrice' : $('#product-price'),
+      'article' : $('main > article')
+  });
+  var controller = new ProductController(model, view, new Messages);
+  controller.loadData();
+  view.show();
 })
 
 

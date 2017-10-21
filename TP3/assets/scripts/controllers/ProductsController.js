@@ -1,10 +1,10 @@
 "use strict";
 
-function ProductsController(model, view) {
+function ProductsController(model, view, messages) {
   this._model = model;
   this._view = view;
+  this._messages = messages;
   var _this = this;
-
 
   this._view.criteriaButtonClickedEvent.attach(function (sender, args) {
       _this.sortProducts(args.criteria, args.orderBy);
@@ -44,7 +44,7 @@ ProductsController.prototype = {
       console.log( "Status: " + status );
       console.dir( xhr );
       localStorage.setItem("products-list","");
-      self._view.showMessageError("Une erreur est survenue lors du chargement des produits...");
+      self._view.showMessageError(self._messages.anErrorOccured);
     });
   }
 };
@@ -52,19 +52,17 @@ ProductsController.prototype = {
 /* MAIN */
 
 $(function () {
-    var productsJSON = undefined;//JSON.parse('[{"id": 1,"name": "Apple TV","price": 249.99,"image": "apple-tv.png","category": "computers"},{"id": 2,"name": "Canon EOS 5D Mark II","price": 2999.99,"image": "camera-1.png","category": "cameras"}]');
-    var model = new ProductsModel(productsJSON),
-        view = new ProductsView(model, {
-            'productsList' : $('#products-list'), 
-            'categoriesButtonsGroups' : $('#product-categories'), 
-            'criteriaButtonsGroups' : $('#product-criteria'),
-            'productsCount' : $('#products-count'),
-            'main' : $("main")
-        }),
-        controller = new ProductsController(model, view);
-    controller.loadData();
-    view.show();
-
+  var model = new ProductsModel();
+  var view = new ProductsView(model, {
+    'productsList' : $('#products-list'), 
+    'categoriesButtonsGroups' : $('#product-categories'), 
+    'criteriaButtonsGroups' : $('#product-criteria'),
+    'productsCount' : $('#products-count'),
+    'main' : $("main")
+  });
+  var controller = new ProductsController(model, view, new Messages());
+  controller.loadData();
+  view.show();
 })
 
 
