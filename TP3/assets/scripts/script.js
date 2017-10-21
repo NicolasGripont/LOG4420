@@ -1,3 +1,4 @@
+"use strict";
 
 function getNumberItems() {
   if(localStorage.getItem("numberItems") === null) {

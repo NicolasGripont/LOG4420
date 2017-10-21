@@ -1,3 +1,5 @@
+"use strict";
+
 function productReady() {
   initProduct();
   $("#add-to-cart-form").click(function(event){ onAddToCartFormButtonClick(event.target); });  

@@ -1,3 +1,5 @@
+"use strict";
+
 var ProductsModel = function (json) {
   this.allProductsJSON = json;
   this.currentProductsJSON = json;
@@ -5,8 +7,6 @@ var ProductsModel = function (json) {
   this.criteria = "price";
   this.orderBy = "asc";
   this.category = "all";
-
-
 };
 
 ProductsModel.prototype = {
