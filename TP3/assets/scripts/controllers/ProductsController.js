@@ -31,7 +31,7 @@ ProductsController.prototype = {
   loadData : function () {
     var self = this;
     $.ajax({
-      url: "./data/productss.json",
+      url: "./data/products.json",
       type: "GET",
       dataType : "json"
     })
