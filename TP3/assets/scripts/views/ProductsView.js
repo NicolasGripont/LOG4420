@@ -75,8 +75,8 @@ ProductsView.prototype = {
     return produit;
   }, 
 
-  showError : function() {
-    $("#products-list").html("Une erreur est survenue lors du chargement des produits...")
+  showMessageError : function(message) {
+    $(this._elements.main).html("<h1>" + message + "</h1>");
   }
 };
 

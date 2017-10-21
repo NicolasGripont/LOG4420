@@ -41,13 +41,21 @@ ProductView.prototype = {
       $(this._elements.productImage).attr("for", product.name);
       $(this._elements.productImage).attr("src", "./assets/img/" + product.image);
       $(this._elements.productDesc).html(product.description);
-      $(this._elements.productFeatures).append(createFeaturesHtml(product.features));
+      $(this._elements.productFeatures).append(_this.createFeaturesHtml(product.features));
       $(this._elements.productPrice).html('Prix: <strong>' + product.price.toString().replace(".",",") + '&thinsp;$</strong>');                  
     }
+  }, 
+
+  createFeaturesHtml : function(features) {
+    var listFeatures = "";
+    $.each(features, function(i, feature) {
+      listFeatures += '<li>' + feature + '</li>';
+    });
+    return listFeatures;
   },
 
-  showError : function() {
-    // $("#products-list").html("Une erreur est survenue lors du chargement des produits...")
+  showMessageError : function(message) {
+    $(this._elements.productsList).html("<h1>" + message + "</h1>");
   }
 };
 

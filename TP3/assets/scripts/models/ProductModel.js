@@ -19,7 +19,7 @@ ProductModel.prototype = {
 
   changeQuantity : function(quantity) {
     if(quantity) {
-      this.criteria = criteria;
+      this.quantity = quantity;
       this.quantityChangedEvent.notify();
     }
   },

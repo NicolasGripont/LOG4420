@@ -31,7 +31,7 @@ ProductsController.prototype = {
   loadData : function () {
     var self = this;
     $.ajax({
-      url: "./data/products.json",
+      url: "./data/productss.json",
       type: "GET",
       dataType : "json"
     })
@@ -44,13 +44,12 @@ ProductsController.prototype = {
       console.log( "Status: " + status );
       console.dir( xhr );
       localStorage.setItem("products-list","");
-      self._view.showError();
+      self._view.showMessageError("Une erreur est survenue lors du chargement des produits...");
     });
   }
 };
 
 /* MAIN */
-
 
 $(function () {
     var productsJSON = undefined;//JSON.parse('[{"id": 1,"name": "Apple TV","price": 249.99,"image": "apple-tv.png","category": "computers"},{"id": 2,"name": "Canon EOS 5D Mark II","price": 2999.99,"image": "camera-1.png","category": "cameras"}]');
@@ -60,6 +59,7 @@ $(function () {
             'categoriesButtonsGroups' : $('#product-categories'), 
             'criteriaButtonsGroups' : $('#product-criteria'),
             'productsCount' : $('#products-count'),
+            'main' : $("main")
         }),
         controller = new ProductsController(model, view);
     controller.loadData();

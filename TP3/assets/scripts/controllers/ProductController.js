@@ -22,11 +22,11 @@ ProductController.prototype = {
       }
   },
   
-  addToCart : function () {
+  addToCart : function() {
     this._model.addToCart(category);
   }, 
 
-  loadData : function () {
+  loadData : function() {
     var self = this;
     $.ajax({
       url: "./data/products.json",
@@ -34,16 +34,42 @@ ProductController.prototype = {
       dataType : "json"
     })
     .done(function(json) {
-      self._model.setProduct(json[1]);
+      const id = self.getUrlParameter("id");
+      const product = self.getProductById(id,json);
+      self._model.setProduct(product);
+      if(product === undefined) { 
+        self._view.showMessageError("Page non trouvée !");
+      }
     })
     .fail(function( xhr, status, errorThrown ) {
-      console.log( "Error: " + errorThrown );
-      console.log( "Status: " + status );
-      console.dir( xhr );
-      localStorage.setItem("products-list","");
-      self._view.showError();
+      self._view.showMessageError("Une erreur est survenue lors du chargement des produits...");
     });
+  }, 
+
+  getUrlParameter : function(sParam) {
+      var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+          sURLVariables = sPageURL.split('&'),
+          sParameterName,
+          i;
+
+      for (i = 0; i < sURLVariables.length; i++) {
+          sParameterName = sURLVariables[i].split('=');
+
+          if (sParameterName[0] === sParam) {
+              return sParameterName[1] === undefined ? true : sParameterName[1];
+          }
+      }
+  }, 
+
+  getProductById : function(id, json) {
+    for(var i = 0; i < json.length; i++) {
+      if(json[i].id == id) {
+        return json[i];
+      }
+    }
+    return undefined;
   }
+
 };
 
 /* MAIN */
@@ -60,6 +86,7 @@ $(function () {
             'productDesc' : $('#product-desc'),
             'productFeatures' : $('#product-features'),
             'productPrice' : $('#product-price'),
+            'article' : $('main > article')
         }),
         controller = new ProductController(model, view);
     controller.loadData();
