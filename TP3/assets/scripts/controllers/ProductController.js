@@ -1,11 +1,11 @@
 "use strict";
 
-function ProductController(model, view, messages) {
+function ProductController(model, view, messages, headerController) {
   this._model = model;
   this._view = view;
   this._messages = messages;
+  this._headerController = headerController;
   var _this = this;
-
 
   this._view.quantityChangedEvent.attach(function (sender, args) {
       _this.changeQuantity(args.quantity);
@@ -76,22 +76,6 @@ ProductController.prototype = {
 /* MAIN */
 
 
-$(function () {
-  var productJSON = undefined;
-  var model = new ProductModel(productJSON);
-  var view = new ProductView(model, {
-      'productQuantity' : $('#product-quantity'), 
-      'addToCartButton' : $('.btn'), 
-      'productName' : $('#product-name'),
-      'productImage' : $('#product-image'),
-      'productDesc' : $('#product-desc'),
-      'productFeatures' : $('#product-features'),
-      'productPrice' : $('#product-price'),
-      'article' : $('main > article')
-  });
-  var controller = new ProductController(model, view, new Messages);
-  controller.loadData();
-  view.show();
-})
+
 
 
