@@ -7,14 +7,19 @@ $(function () {
   headerController.loadNumberOfProducs();
   headerView.show();
 
-  var orderJSON = undefined;
+  var shoppingCartModel = new ShoppingCartModel();
+  var shoppingCartController = new ShoppingCartController(shoppingCartModel);
+
+  var firstName = undefined;
+  var lastName = undefined;
+  var commandId = undefined;
   
-  var model = new OrderModel(orderJSON);
+  var model = new OrderModel(firstName,lastName,commandId);
   var view = new OrderView(model, {
       'buttonSubmitForm' : $('.btn'), 
       'orderForm' : $('#order-form')
   });
-  var controller = new OrderController(model, view, new Messages, headerController);
+  var controller = new OrderController(model, view, new Messages, headerController, shoppingCartController);
   /*controller.loadData();
   view.show();*/
 })
