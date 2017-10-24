@@ -21,7 +21,7 @@ $(function () {
       'productDesc' : $('#product-desc'),
       'productFeatures' : $('#product-features'),
       'productPrice' : $('#product-price'),
-      'dialog' : $('#dialog')
+      'article' : $('article')
   });
   var controller = new ProductController(model, view, new Messages, headerController, shoppingCartController);
   controller.loadData();
