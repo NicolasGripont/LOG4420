@@ -3,7 +3,6 @@
 var ProductsModel = function (json) {
   this.allProductsJSON = json;
   this.currentProductsJSON = json;
-  this.currentProductsChangedEvent = new Event(this);
   this.criteria = "price";
   this.orderBy = "asc";
   this.category = "all";
@@ -55,7 +54,6 @@ ProductsModel.prototype = {
           return (b[criteria] > a[criteria]) ? 1 : ((b[criteria] < a[criteria]) ? -1 : 0);
         }
       });
-      this.currentProductsChangedEvent.notify({products : this.currentProductsJSON })
     }
   }
 };

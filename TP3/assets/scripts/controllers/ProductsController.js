@@ -19,12 +19,14 @@ ProductsController.prototype = {
   sortProducts : function (criteria, orderBy) {
       if(criteria && orderBy) {
           this._model.sort(criteria,orderBy);
+          this._view.rebuildProducts();
       }
   },
   
   filterProducts : function (category) {
       if(category) {
           this._model.filter(category);
+          this._view.rebuildProducts();
       }
   }, 
 
@@ -38,6 +40,7 @@ ProductsController.prototype = {
     .done(function(json) {
       self._model.resetProducts(json);
       localStorage.setItem("products-list",JSON.stringify(json));
+      self._view.rebuildProducts();
     })
     .fail(function( xhr, status, errorThrown ) {
       console.log( "Error: " + errorThrown );

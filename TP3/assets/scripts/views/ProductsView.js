@@ -3,16 +3,9 @@
 function ProductsView(model, elements) {
   this._model = model;
   this._elements = elements;
-
   this.categoryButtonClickedEvent = new Event(this);
   this.criteriaButtonClickedEvent = new Event(this);
-
   var _this = this;
-
-  // attach model listeners
-  this._model.currentProductsChangedEvent.attach(function () {
-    _this.rebuildProducts();
-  });
 
   // attach listeners to HTML controls
   $.each(this._elements.categoriesButtonsGroups.children(), function(i, button) {

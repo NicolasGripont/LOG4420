@@ -15,12 +15,12 @@ HeaderController.prototype = {
   }, 
 
   setNumberOfProducts : function(numberOfProducts) {
-		localStorage.setItem("numberOfProducts", numberOfProducts);
-		if(numberOfProducts) {
-			this._model.setNumberOfProducts(numberOfProducts);
-		} else {
-			this._model.setNumberOfProducts(0);
-		}
+    localStorage.setItem("numberOfProducts", numberOfProducts);
+    if(numberOfProducts) {
+      this._model.setNumberOfProducts(numberOfProducts);
+    } else {
+      this._model.setNumberOfProducts(0);
+    }
   }
 };
 
