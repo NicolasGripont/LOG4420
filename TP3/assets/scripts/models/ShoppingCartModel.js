@@ -7,6 +7,7 @@ var ShoppingCartModel = function () {
   this.numberOfProductsChangedEvent = new Event(this);
   this.shoppingCartInitializedEvent = new Event(this);
   this.productRemovedEvent = new Event(this);
+  this.productQuantityChangedEvent = new Event(this);
 };
 
 ShoppingCartModel.prototype = {
@@ -85,7 +86,7 @@ ShoppingCartModel.prototype = {
   },
 
   removeAllProducts : function() {
-    this.numberOfProducts = 0;
+    this.numberOfProduct = 0;
     this.shoppingCart = {};
     this.products = [];
   },
@@ -99,5 +100,11 @@ ShoppingCartModel.prototype = {
       });
     }
     return totalPrice;
+  },
+
+  changeProductQuantity : function(productId, deltaQuantity) {
+    this.numberOfProducts += deltaQuantity;
+    this.shoppingCart[productId].quantity +=deltaQuantity;
+    this.productQuantityChangedEvent.notify({'productId' : productId});
   }
 }

@@ -15,6 +15,10 @@ function ShoppingCartController(model, view, messages, headerController) {
     this._view.emptyShoppingCartButtonClickedEvent.attach(function () {
       _this.removeAllProducts();
     });
+
+    this._view.quantityProductButtonClickedEvent.attach(function (sender, args) {
+      _this.changeProductQuantity(args.productId, args.deltaQuantity);
+    });
   }
 }
 
@@ -64,7 +68,17 @@ ShoppingCartController.prototype = {
     if(this._view) {
       this._view.showMessageError(this._messages.noProductInCart);
     } 
+  },
+
+  changeProductQuantity : function(productId, deltaQuantity) {
+    this._model.changeProductQuantity(productId, deltaQuantity);
+    this._headerController.setNumberOfProducts(this._model.getNumberOfProducts());
+    localStorage.setItem("shoppingCart",JSON.stringify(this._model.getShoppingCart()));
+    // if(this._view && this._model.getNumberOfProducts() === 0) {
+    //   this._view.showMessageError(this._messages.noProductInCart);
+    // } 
   }
+
 };
 
 

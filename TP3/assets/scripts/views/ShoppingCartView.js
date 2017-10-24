@@ -10,6 +10,7 @@ function ShoppingCartView(model, elements) {
   this.removeProductButtonClickedEvent = new Event(this);
   this.emptyShoppingCartButtonClickedEvent = new Event(this);
   this.commandButtonClickedEvent = new Event(this);
+  this.quantityProductButtonClickedEvent = new Event(this);
 
   var _this = this;
 
@@ -20,6 +21,10 @@ function ShoppingCartView(model, elements) {
 
   this._model.productRemovedEvent.attach(function (sender, args) {
     _this.removeLign(args.productId);
+  });
+
+  this._model.productQuantityChangedEvent.attach(function (sender, args) {
+    _this.quantityChanged(args.productId);
   });
 
   // attach listeners to HTML controls
@@ -60,22 +65,26 @@ ShoppingCartView.prototype = {
                  '      <div class="col">' +
                  '        <button title="Retirer" disabled><i class="fa fa-minus"></i></button>' +
                  '      </div>' +
-                 '      <div class="col">' + quantity + '</div>' +
+                 '      <div class="col quantity">' + quantity + '</div>' +
                  '      <div class="col">' +
                  '        <button title="Ajouter"><i class="fa fa-plus"></i></button>' +
                  '      </div>' +
                  '    </div>' +
                  '  </td>' +
-                 '  <td class="price">' + product.price * quantity + '&thinsp;$</td>' +
+                 '  <td class="price">' + (product.price * quantity).toFixed(2) + '&thinsp;$</td>' +
                  '</tr>');
+    var minusButton = lign.find("button[title='Retirer']");
     if(quantity > 1) {
-      var minusButton = lign.find("button[title='Retirer']");
       minusButton.removeAttr("disabled");
-      minusButton.click(/*TODO*/);
     }
+    minusButton.click(function() {
+      self.quantityProductButtonClickedEvent.notify({"productId" : product.id, "deltaQuantity" : -1});
+    }); 
 
     var plusButton = lign.find("button[title='Ajouter']");
-    plusButton.click(/*TODO*/);
+    plusButton.click(function() {
+      self.quantityProductButtonClickedEvent.notify({"productId" : product.id, "deltaQuantity" : 1});
+    });
 
     var removeButton = lign.find("button[title='Supprimer']");
     removeButton.click(function() {
@@ -92,7 +101,21 @@ ShoppingCartView.prototype = {
 
   removeLign : function(productId) {
     $('tr[productId="' + productId + '"]').remove();
-    $(this._elements.total).html(_this._model.getTotalAmount() + '&thinsp;$');
+    $(this._elements.total).html(this._model.getTotalAmount().toFixed(2) + '&thinsp;$');
+  },
+
+  quantityChanged : function(productId) {
+    var shoppingCart = this._model.getShoppingCart();
+    var quantity = shoppingCart[productId].quantity;
+    var product = shoppingCart[productId].product;
+    $('tr[productId="' + productId + '"] .quantity').html(quantity);
+    $('tr[productId="' + productId + '"] .price').html((product.price * quantity).toFixed(2) + '&thinsp;$');
+    $(this._elements.total).html(this._model.getTotalAmount().toFixed(2) + '&thinsp;$');
+    if(quantity <= 1) {
+      var b = $('tr[productId="' + productId + '"] button[title="Retirer"]').attr("disabled",true);
+    } else {
+      $('tr[productId="' + productId + '"] button[title="Retirer"]').removeAttr("disabled");
+    }
   }
 
 
