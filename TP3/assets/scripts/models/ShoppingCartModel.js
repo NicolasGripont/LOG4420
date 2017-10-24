@@ -2,13 +2,20 @@
 
 var ShoppingCartModel = function () {
   this.shoppingCart = {};
+  this.products = [];
   this.numberOfProducts = 0;
   this.numberOfProductsChangedEvent = new Event(this);
+  this.shoppingCartInitializedEvent = new Event(this);
+  this.productRemovedEvent = new Event(this);
 };
 
 ShoppingCartModel.prototype = {
   getShoppingCart : function() {
     return this.shoppingCart;
+  }, 
+
+  getProducts : function() {
+    return this.products;
   }, 
 
   addProduct : function (product, quantity) {
@@ -35,9 +42,62 @@ ShoppingCartModel.prototype = {
       this.shoppingCart = json;
       $.each(this.shoppingCart, function(i, item) {
         self.numberOfProducts += item["quantity"];
-      })
+        self.products.push(item["product"]);
+      });
+      this.sort("name","asc");
     } else {
       this.shoppingCart = {};
     }
+    this.shoppingCartInitializedEvent.notify();
+  }, 
+
+  sort : function(criteria, orderBy) {
+    if(this.products) {
+      //TODO sort list of product
+      this.products = this.products.sort(function(a, b) {
+        if (orderBy === undefined || orderBy === "asc") {
+          if($.type(a[criteria]) === "string") {
+            return (a[criteria].toLowerCase() > b[criteria].toLowerCase()) ? 1 : ((a[criteria].toLowerCase() < b[criteria].toLowerCase()) ? -1 : 0);
+          }
+          return (a[criteria] > b[criteria]) ? 1 : ((a[criteria] < b[criteria]) ? -1 : 0);
+        } else if(orderBy === "desc") {
+          if($.type(a[criteria]) === "string") {
+            return (b[criteria].toLowerCase() > a[criteria].toLowerCase()) ? 1 : ((b[criteria].toLowerCase() < a[criteria].toLowerCase()) ? -1 : 0);
+          }
+          return (b[criteria] > a[criteria]) ? 1 : ((b[criteria] < a[criteria]) ? -1 : 0);
+        }
+      });
+    }
+  }, 
+
+  removeProduct : function(id) {
+    if(id) {
+      this.numberOfProducts -= this.shoppingCart[id]["quantity"];
+      this.shoppingCart[id] = undefined;
+      for(var i = 0; i < this.products.length; i++) {
+        if(this.products[i].id === id) {
+          this.products.splice(i,1);
+          break;
+        }
+      }
+      this.productRemovedEvent.notify({'productId' : id});
+    }
+  },
+
+  removeAllProducts : function() {
+    this.numberOfProducts = 0;
+    this.shoppingCart = {};
+    this.products = [];
+  },
+
+  getTotalAmount : function() {
+    var _this = this;
+    var totalPrice = 0;
+    if(this.numberOfProducts > 0) {
+      $.each(this.products,function(i, item) {
+        totalPrice += item.price * _this.shoppingCart[item.id]["quantity"];
+      });
+    }
+    return totalPrice;
   }
-};
+}

@@ -99,15 +99,23 @@
           </tr>
         </tbody>
       </table>
-      <p class="shopping-cart-total">Total: <strong>704,94&thinsp;$</strong></p>
+      <p class="shopping-cart-total" id="total-amount">Total: <strong>704,94&thinsp;$</strong></p>
       <a class="btn pull-right" href="./order.html">Commander <i class="fa fa-angle-double-right"></i></a>
-      <button class="btn"><i class="fa fa-trash-o"></i>&nbsp; Vider le panier</button>
+      <button class="btn" id="remove-all-items-button"><i class="fa fa-trash-o"></i>&nbsp; Vider le panier</button>
     </article>
   </main>
   <footer>
     <p>© 2017 NiPi, Inc. Pierre Bayle - 1914941 &#38; Nicolas Gripont - 1919665</p>
   </footer>
   <script type="text/javascript" src="./assets/js/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="./assets/scripts/script.js"></script>
+  <script type="text/javascript" src="./assets/scripts/messages/messages_fr.js"></script>
+ <script type="text/javascript" src="./assets/scripts/utils/Event.js"></script>
+  <script type="text/javascript" src="./assets/scripts/controllers/HeaderController.js"></script>
+  <script type="text/javascript" src="./assets/scripts/models/HeaderModel.js"></script>
+  <script type="text/javascript" src="./assets/scripts/views/HeaderView.js"></script>
+  <script type="text/javascript" src="./assets/scripts/controllers/ShoppingCartController.js"></script>
+  <script type="text/javascript" src="./assets/scripts/models/ShoppingCartModel.js"></script>
+  <script type="text/javascript" src="./assets/scripts/views/ShoppingCartView.js"></script>
+  <script type="text/javascript" src="./assets/scripts/mains/ShoppingCartMain.js"></script>
 </body>
 </html>

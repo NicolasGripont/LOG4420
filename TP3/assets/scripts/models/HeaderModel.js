@@ -11,10 +11,8 @@ HeaderModel.prototype = {
   },
 
   setNumberOfProducts : function(numberOfProducts) {
-    if(numberOfProducts) {
-      this.numberOfProducts = numberOfProducts;
-      this.numberOfProductsChangedEvent.notify();
-    }
+    this.numberOfProducts = numberOfProducts;
+    this.numberOfProductsChangedEvent.notify(); 
   }
 
 };

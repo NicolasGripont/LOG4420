@@ -1,62 +1,101 @@
-// "use strict";
+"use strict";
 
-// function SView(model, elements) {
-//   this._model = model;
-//   this._elements = elements;
+function ShoppingCartView(model, elements) {
+  this._model = model;
+  this._elements = elements;
+  this.productligns = {};
 
-//   this.quantityChangedEvent = new Event(this);
-//   this.addToCartButtonClickedEvent = new Event(this);
+  // this.quantityChangedEvent = new Event(this);
 
-//   var _this = this;
+  this.removeProductButtonClickedEvent = new Event(this);
+  this.emptyShoppingCartButtonClickedEvent = new Event(this);
+  this.commandButtonClickedEvent = new Event(this);
 
-//   // attach model listeners
-//   this._model.quantityChangedEvent.attach(function () {
+  var _this = this;
 
-//   });
+  // attach model listeners
+  this._model.shoppingCartInitializedEvent.attach(function () {
+  	_this.rebuildShoppingCart();
+  });
 
-//   this._model.productChangedEvent.attach(function () {
-//     _this.rebuildProduct();
-//   });
+  this._model.productRemovedEvent.attach(function (sender, args) {
+    _this.removeLign(args.productId);
+  });
 
-//   // attach listeners to HTML controls
-//   this._elements.productQuantity.change(function(e) {
-//     _this.quantityChangedEvent.notify({quantity : $(e.target).val()});
-//   })
+  // attach listeners to HTML controls
 
-//   this._elements.addToCartButton.click(function(e) {
-//     _this.addToCartButtonClickedEvent.notify();
-//   })
-// }
+  this._elements.emptyShoppingCartButton.click(function(e) {
+    _this.emptyShoppingCartButtonClickedEvent.notify();
+  })
+}
 
-// ProductView.prototype = {
-//   show : function () {
-//       this.rebuildProduct();
-//   },
+ShoppingCartView.prototype = {
+  show : function () {
+      this.rebuildShoppingCart();
+  },
 
-//   rebuildProduct : function () {
-//     var _this = this
-//     var product = this._model.getProduct();
-//     if(product) {
-//       $(this._elements.productName).html(product.name);
-//       $(this._elements.productImage).attr("for", product.name);
-//       $(this._elements.productImage).attr("src", "./assets/img/" + product.image);
-//       $(this._elements.productDesc).html(product.description);
-//       $(this._elements.productFeatures).append(_this.createFeaturesHtml(product.features));
-//       $(this._elements.productPrice).html('Prix: <strong>' + product.price.toString().replace(".",",") + '&thinsp;$</strong>');                  
-//     }
-//   }, 
+  rebuildShoppingCart : function () {
+    var _this = this
+    var shoppingCart = this._model.getShoppingCart();
+    var products = this._model.getProducts();
+    if(shoppingCart && this._model.getNumberOfProducts()) {
+    	$(this._elements.tbody).empty();
+    	$.each(products,function(i, item) {
+        $(_this._elements.tbody).append(_this.createTableLignHtml(shoppingCart[item.id]["product"],shoppingCart[item.id]["quantity"]));
+    	});
+    }
+    $(this._elements.total).html(this._model.getTotalAmount().toFixed(2) + '&thinsp;$');
+  }, 
 
-//   createFeaturesHtml : function(features) {
-//     var listFeatures = "";
-//     $.each(features, function(i, feature) {
-//       listFeatures += '<li>' + feature + '</li>';
-//     });
-//     return listFeatures;
-//   },
 
-//   showMessageError : function(message) {
-//     $(this._elements.main).html("<h1>" + message + "</h1>");
-//   }
-// };
+
+  createTableLignHtml : function(product, quantity) {
+    var self = this;
+    var lign = $('<tr productId="'+product.id+'"">' +
+                 '  <td><button title="Supprimer"><i class="fa fa-times"></i></button></td>' +
+                 '  <td><a href="./product.html?id=' + product.id + '"> ' + product.name + '</a></td>' +
+                 '  <td>' + product.price + '&thinsp;$</td>' +
+                 '  <td>' +
+                 '    <div class="row">' +
+                 '      <div class="col">' +
+                 '        <button title="Retirer" disabled><i class="fa fa-minus"></i></button>' +
+                 '      </div>' +
+                 '      <div class="col">' + quantity + '</div>' +
+                 '      <div class="col">' +
+                 '        <button title="Ajouter"><i class="fa fa-plus"></i></button>' +
+                 '      </div>' +
+                 '    </div>' +
+                 '  </td>' +
+                 '  <td class="price">' + product.price * quantity + '&thinsp;$</td>' +
+                 '</tr>');
+    if(quantity > 1) {
+      var minusButton = lign.find("button[title='Retirer']");
+      minusButton.removeAttr("disabled");
+      minusButton.click(/*TODO*/);
+    }
+
+    var plusButton = lign.find("button[title='Ajouter']");
+    plusButton.click(/*TODO*/);
+
+    var removeButton = lign.find("button[title='Supprimer']");
+    removeButton.click(function() {
+      self.removeProductButtonClickedEvent.notify({"productId" : product.id});
+    });
+
+    return lign;
+  },
+
+  showMessageError : function(message) {
+    $(this._elements.main).css("display","block");
+    $(this._elements.main).html("<h1>Panier</h1><p>" + message + "</p>");
+  },
+
+  removeLign : function(productId) {
+    $('tr[productId="' + productId + '"]').remove();
+    $(this._elements.total).html(_this._model.getTotalAmount() + '&thinsp;$');
+  }
+
+
+};
 
 

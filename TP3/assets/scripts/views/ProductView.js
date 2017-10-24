@@ -35,14 +35,13 @@ ProductView.prototype = {
   },
 
   rebuildProduct : function () {
-    var _this = this
     var product = this._model.getProduct();
     if(product) {
       $(this._elements.productName).html(product.name);
       $(this._elements.productImage).attr("for", product.name);
       $(this._elements.productImage).attr("src", "./assets/img/" + product.image);
       $(this._elements.productDesc).html(product.description);
-      $(this._elements.productFeatures).append(_this.createFeaturesHtml(product.features));
+      $(this._elements.productFeatures).append(this.createFeaturesHtml(product.features));
       $(this._elements.productPrice).html('Prix: <strong>' + product.price.toString().replace(".",",") + '&thinsp;$</strong>');                  
     }
   }, 
