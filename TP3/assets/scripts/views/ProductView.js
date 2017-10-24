@@ -11,7 +11,7 @@ function ProductView(model, elements) {
 
   // attach model listeners
   this._model.quantityChangedEvent.attach(function () {
-
+    _this._elements.productQuantity.val(_this._model.getQuantity());
   });
 
   this._model.productChangedEvent.attach(function () {
@@ -20,11 +20,12 @@ function ProductView(model, elements) {
 
   // attach listeners to HTML controls
   this._elements.productQuantity.change(function(e) {
-    _this.quantityChangedEvent.notify({quantity : $(e.target).val()});
+    _this.quantityChangedEvent.notify({quantity : parseInt($(e.target).val())});
   })
 
   this._elements.addToCartButton.click(function(e) {
     _this.addToCartButtonClickedEvent.notify();
+    return false;
   })
 }
 

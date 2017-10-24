@@ -17,15 +17,15 @@ ProductModel.prototype = {
     return this.productJSON;
   },
 
-  changeQuantity : function(quantity) {
+  setQuantity : function(quantity) {
     if(quantity) {
       this.quantity = quantity;
       this.quantityChangedEvent.notify();
     }
   },
 
-  addToCart : function() {
-    //TODO
+  getQuantity : function() {
+    return this.quantity;
   }  
 
 };

@@ -1,11 +1,15 @@
 $(function () {
-	var headerModel = new HeaderModel();
+  var headerModel = new HeaderModel();
   var headerView = new HeaderView(headerModel, {
       'count' : $('.shopping-cart > .count')
   });
   var headerController = new HeaderController(headerModel, headerView);
   headerController.loadNumberOfProducs();
   headerView.show();
+
+  var shoppingCartModel = new ShoppingCartModel();
+  var shoppingCartController = new ShoppingCartController(shoppingCartModel);
+  shoppingCartController.loadShoppingCart();
 
   var productJSON = undefined;
   var model = new ProductModel(productJSON);
@@ -19,7 +23,7 @@ $(function () {
       'productPrice' : $('#product-price'),
       'article' : $('main > article')
   });
-  var controller = new ProductController(model, view, new Messages, headerController);
+  var controller = new ProductController(model, view, new Messages, headerController, shoppingCartController);
   controller.loadData();
   view.show();
 })

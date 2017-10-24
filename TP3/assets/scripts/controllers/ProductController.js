@@ -1,14 +1,15 @@
 "use strict";
 
-function ProductController(model, view, messages, headerController) {
+function ProductController(model, view, messages, headerController, shoppingCartController) {
   this._model = model;
   this._view = view;
   this._messages = messages;
   this._headerController = headerController;
+  this._shoppingCartController = shoppingCartController;
   var _this = this;
 
   this._view.quantityChangedEvent.attach(function (sender, args) {
-      _this.changeQuantity(args.quantity);
+      _this.setQuantity(args.quantity);
   });
 
   this._view.addToCartButtonClickedEvent.attach(function (sender, args) {
@@ -17,14 +18,18 @@ function ProductController(model, view, messages, headerController) {
 }
 
 ProductController.prototype = {
-  changeQuantity : function (quantity) {
+  setQuantity : function (quantity) {
       if(quantity) {
-          this._model.changeQuantity(quantity);
+        this._model.setQuantity(quantity);
       }
   },
   
   addToCart : function() {
-    this._model.addToCart(category);
+    var product = this._model.getProduct();
+    var quantity = this._model.getQuantity();
+    this._shoppingCartController.addProduct(product, quantity);
+    this._headerController.setNumberOfProducts(this._shoppingCartController.getNumberOfProducts());
+    this._model.setQuantity(1);
   }, 
 
   loadData : function() {
