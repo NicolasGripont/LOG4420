@@ -116,8 +116,11 @@ ShoppingCartView.prototype = {
     } else {
       $('tr[productId="' + productId + '"] button[title="Retirer"]').removeAttr("disabled");
     }
-  }
+  },
 
+  showModalConfirmMessage : function(message) {
+    return (confirm(message) == true) 
+  }
 
 };
 
