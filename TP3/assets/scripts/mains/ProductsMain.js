@@ -5,7 +5,8 @@ $(function () {
     'categoriesButtonsGroups' : $('#product-categories'), 
     'criteriaButtonsGroups' : $('#product-criteria'),
     'productsCount' : $('#products-count'),
-    'main' : $("main")
+    'main' : $("main"),
+    'dialog' : $("#dialog")
   });
   var controller = new ProductsController(model, view, new Messages());
   controller.loadData();

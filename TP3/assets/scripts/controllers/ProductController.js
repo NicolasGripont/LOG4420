@@ -30,6 +30,7 @@ ProductController.prototype = {
     this._shoppingCartController.addProduct(product, quantity);
     this._headerController.setNumberOfProducts(this._shoppingCartController.getNumberOfProducts());
     this._model.setQuantity(1);
+    this._view.showDialogMessage(this._messages.productAdded);
   }, 
 
   loadData : function() {

@@ -78,8 +78,4 @@ ProductsView.prototype = {
   showMessageError : function(message) {
     $(this._elements.main).html("<h1>" + message + "</h1>");
   }
-};
-
-
-
-
+}

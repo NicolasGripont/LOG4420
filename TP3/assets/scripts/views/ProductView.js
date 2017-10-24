@@ -56,7 +56,16 @@ ProductView.prototype = {
 
   showMessageError : function(message) {
     $(this._elements.main).html("<h1>" + message + "</h1>");
+  },
+
+  showDialogMessage : function(message) {
+    var dialog = $(this._elements.dialog);
+    dialog.html(message);
+    dialog.addClass("show");
+    setTimeout(function(){ dialog.removeClass("show"); }, 5000);
   }
+
+
 };
 
 

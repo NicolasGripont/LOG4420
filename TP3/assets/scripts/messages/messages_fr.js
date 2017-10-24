@@ -13,4 +13,5 @@ function Messages() {
   this.badPhoneFormat = "Le numéro de téléphone doit être un numéro de téléphone canadien valide.";
   this.badCreditCardFormat = "Veuillez saisir un numéro de carte valide au format VISA.";
   this.badExpirationDate = "La date d'expiration de votre carte de crédit est invalide.";
+  this.productAdded = "Le produit a été ajouté au panier.";
 }
