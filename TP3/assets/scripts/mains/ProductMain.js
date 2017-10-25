@@ -23,7 +23,8 @@ $(function () {
       'productDesc' : $('#product-desc'),
       'productFeatures' : $('#product-features'),
       'productPrice' : $('#product-price'),
-      'article' : $('article')
+      'main' : $("main"),
+      'dialog' : $('#dialog')
   });
   var controller = new ProductController(model, view, new Messages, headerController, shoppingCartController);
   controller.loadData();

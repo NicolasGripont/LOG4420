@@ -49,13 +49,9 @@ ProductView.prototype = {
   },
 
   showDialogMessage : function(message) {
-    if($("#dialog")) {
-      $("#dialog").remove();
-    }
-    var article = $(this._elements.article);
-    var dialog = '<div class="show" id="dialog">' + message + '</div>';
-    article.append(dialog);
-    setTimeout(function(){ $("#dialog").remove(); }, 5000);
+    var dialog = $(this._elements.dialog);
+    dialog.addClass("show");
+    setTimeout(function(){ dialog.removeClass("show"); }, 5000);
   },
 
 

@@ -53,7 +53,11 @@ ProductsView.prototype = {
       $.each(products, function(i, item) {
         productsList.append(_this.createProductHtml(item));
       });
-      productsCount.html(products.length + " produits");
+      if(products.length > 1) {
+        productsCount.html(products.length + " produits");
+      } else {
+        productsCount.html(products.length + " produit");
+      }
     }
   },
 
