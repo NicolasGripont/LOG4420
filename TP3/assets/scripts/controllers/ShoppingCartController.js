@@ -60,13 +60,16 @@ ShoppingCartController.prototype = {
         } else {
           this._view.productRemoved(productId);
         }
+        if(this._headerController) {
+          this._headerController.setNumberOfProducts(this._model.getNumberOfProducts());
+        }
       } 
     } else {
       this._model.removeProduct(productId);
       localStorage.setItem("shoppingCart",JSON.stringify(this._model.getShoppingCart()));
-    }
-    if(this._headerController) {
-      this._headerController.setNumberOfProducts(this._model.getNumberOfProducts());
+      if(this._headerController) {
+        this._headerController.setNumberOfProducts(this._model.getNumberOfProducts());
+      }
     }
   }, 
 
@@ -76,14 +79,17 @@ ShoppingCartController.prototype = {
         this._model.removeAllProducts();
         localStorage.removeItem("shoppingCart",JSON.stringify());
         this._view.showMessageError(this._messages.noProductInCart);
+        if(this._headerController) {
+          this._headerController.setNumberOfProducts(0);
+        }
       }
     } else {
       this._model.removeAllProducts();
       
       localStorage.removeItem("shoppingCart",JSON.stringify());
-    }
-    if(this._headerController) {
-      this._headerController.setNumberOfProducts(0);
+      if(this._headerController) {
+        this._headerController.setNumberOfProducts(0);
+      }
     }
   },
 
