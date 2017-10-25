@@ -3,17 +3,13 @@
 function ProductView(model, elements) {
   this._model = model;
   this._elements = elements;
-  this.quantityChangedEvent = new Event(this);
   this.addToCartButtonClickedEvent = new Event(this);
   var _this = this;
 
   // attach listeners to HTML controls
-  this._elements.productQuantity.change(function(e) {
-    _this.quantityChangedEvent.notify({quantity : parseInt($(e.target).val())});
-  })
 
-  this._elements.addToCartButton.click(function(e) {
-    _this.addToCartButtonClickedEvent.notify();
+  this._elements.form.submit(function(e) {
+    _this.addToCartButtonClickedEvent.notify({quantity : parseInt(_this._elements.productQuantity.val()), product : _this._model.getProduct()});
     //block l'envoi du formulaire
     return false;
   })

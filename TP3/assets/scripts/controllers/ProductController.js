@@ -9,34 +9,16 @@ function ProductController(model, view, messages, headerController, shoppingCart
   var _this = this;
 
   if(this._view) {
-    this._view.quantityChangedEvent.attach(function (sender, args) {
-      _this.setQuantity(args.quantity);
-    });
-
     this._view.addToCartButtonClickedEvent.attach(function (sender, args) {
-      _this.addToCart();
+      _this.addToCart(args.product, args.quantity);
     });
   }
 };
 
 ProductController.prototype = {
-  setQuantity : function (quantity) {
-      if(quantity) {
-      this._model.setQuantity(quantity);
-
-      if(this._view) {
-        this._view.updateQuantity(quantity);
-      }
-    }
-  },
-  
-  addToCart : function() {
-    var product = this._model.getProduct();
-    var quantity = this._model.getQuantity();
-    
+  addToCart : function(product, quantity) {    
     this._shoppingCartController.addProduct(product, quantity);
-    this._model.setQuantity(1);
-
+    console.log(this._shoppingCartController.getNumberOfProducts());
     this._headerController.setNumberOfProducts(this._shoppingCartController.getNumberOfProducts());
 
     if(this._view) {

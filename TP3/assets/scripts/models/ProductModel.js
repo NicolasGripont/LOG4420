@@ -2,7 +2,6 @@
 
 var ProductModel = function (json) {
   this.productJSON = json;
-  this.quantity = 1;
 };
 
 ProductModel.prototype = {
@@ -12,16 +11,5 @@ ProductModel.prototype = {
 
   getProduct : function() {
     return this.productJSON;
-  },
-
-  setQuantity : function(quantity) {
-    if(quantity) {
-      this.quantity = quantity;
-    }
-  },
-
-  getQuantity : function() {
-    return this.quantity;
-  }  
-
+  }
 };
