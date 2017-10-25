@@ -20,6 +20,5 @@ $(function () {
       'lastName' : $('#last-name')
   });
   var controller = new OrderController(model, view, new Messages, headerController, shoppingCartController);
-  /*controller.loadData();
-  view.show();*/
+
 });

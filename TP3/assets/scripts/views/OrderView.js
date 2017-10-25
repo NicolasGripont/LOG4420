@@ -8,9 +8,10 @@ function OrderView(model, elements) {
 
   this._elements.orderForm.submit(function(e) {
     _this.submitFormEvent.notify(_this._elements.orderForm);
-    if(_this._elements.orderForm.valid()) { //TODO MOVE IN CONTROLLER IF POSSIBLE
+    if(_this._elements.orderForm.valid()) {
     	return true;
     }
+    //bloque le post si formulaire invalide
     return false;
   });
 

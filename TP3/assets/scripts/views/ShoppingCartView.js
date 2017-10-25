@@ -53,7 +53,7 @@ ShoppingCartView.prototype = {
                  '  </td>' +
                  '  <td class="price">' + (product.price * quantity).toFixed(2).toString().replace(".",",") + '&thinsp;$</td>' +
                  '</tr>');
-    var minusButton = lign.find("button[title='Retirer']"); //TODO USE CLASS
+    var minusButton = lign.find("button.remove-quantity-button"); //TODO USE CLASS
     if(quantity > 1) {
       minusButton.removeAttr("disabled");
     }
@@ -61,12 +61,12 @@ ShoppingCartView.prototype = {
       self.quantityProductButtonClickedEvent.notify({"productId" : product.id, "deltaQuantity" : -1});
     }); 
 
-    var plusButton = lign.find("button[title='Ajouter']");
+    var plusButton = lign.find("button.add-quantity-button");
     plusButton.click(function() {
       self.quantityProductButtonClickedEvent.notify({"productId" : product.id, "deltaQuantity" : 1});
     });
 
-    var removeButton = lign.find("button[title='Supprimer']");
+    var removeButton = lign.find("button.remove-item-button");
     removeButton.click(function() {
       self.removeProductButtonClickedEvent.notify({"productId" : product.id});
     });
@@ -92,9 +92,9 @@ ShoppingCartView.prototype = {
     $('tr[productId="' + productId + '"] .price').html((product.price * quantity).toFixed(2).toString().replace(".",",") + '&thinsp;$');
     this.updateTotal();
     if(quantity <= 1) {
-      $('tr[productId="' + productId + '"] button[title="Retirer"]').attr("disabled",true); //TODO REPLACE BY CLASS
+      $('tr[productId="' + productId + '"] button.remove-quantity-button').attr("disabled",true);
     } else {
-      $('tr[productId="' + productId + '"] button[title="Retirer"]').removeAttr("disabled");
+      $('tr[productId="' + productId + '"] button.remove-quantity-button').removeAttr("disabled");
     }
   },
 

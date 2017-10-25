@@ -88,7 +88,6 @@ OrderController.prototype = {
     if(fieldsForm.valid()){
       self._shoppingCartController.removeAllProducts();
       self.createCommand();
-      // fieldsForm.submit();
     }
   },
 
