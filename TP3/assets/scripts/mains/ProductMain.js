@@ -1,3 +1,5 @@
+"use strict";
+
 $(function () {
   var headerModel = new HeaderModel();
   var headerView = new HeaderView(headerModel, {
@@ -26,4 +28,4 @@ $(function () {
   var controller = new ProductController(model, view, new Messages, headerController, shoppingCartController);
   controller.loadData();
   view.show();
-})
+});

@@ -8,29 +8,41 @@ function ProductController(model, view, messages, headerController, shoppingCart
   this._shoppingCartController = shoppingCartController;
   var _this = this;
 
-  this._view.quantityChangedEvent.attach(function (sender, args) {
+  if(this._view) {
+    this._view.quantityChangedEvent.attach(function (sender, args) {
       _this.setQuantity(args.quantity);
-  });
+    });
 
-  this._view.addToCartButtonClickedEvent.attach(function (sender, args) {
+    this._view.addToCartButtonClickedEvent.attach(function (sender, args) {
       _this.addToCart();
-  });
-}
+    });
+  }
+};
 
 ProductController.prototype = {
   setQuantity : function (quantity) {
       if(quantity) {
-        this._model.setQuantity(quantity);
+      this._model.setQuantity(quantity);
+
+      if(this._view) {
+        this._view.updateQuantity(quantity);
       }
+    }
   },
   
   addToCart : function() {
     var product = this._model.getProduct();
     var quantity = this._model.getQuantity();
+    
     this._shoppingCartController.addProduct(product, quantity);
-    this._headerController.setNumberOfProducts(this._shoppingCartController.getNumberOfProducts());
     this._model.setQuantity(1);
-    this._view.showDialogMessage(this._messages.productAdded);
+
+    this._headerController.setNumberOfProducts(this._shoppingCartController.getNumberOfProducts());
+
+    if(this._view) {
+      this._view.showDialogMessage(this._messages.productAdded);
+      this._view.updateQuantity(1);
+    }
   }, 
 
   loadData : function() {
@@ -44,28 +56,33 @@ ProductController.prototype = {
       const id = self.getUrlParameter("id");
       const product = self.getProductById(id,json);
       self._model.setProduct(product);
-      if(product === undefined) { 
-        self._view.showMessageError(self._messages.pageNotFound);
+      if(self._view) {
+        if(product) { 
+          self._view.rebuildProduct();
+        } else {
+          self._view.showMessageError(self._messages.pageNotFound);
+        }
       }
     })
     .fail(function( xhr, status, errorThrown ) {
-      self._view.showMessageError(self._messages.anErrorOccured);
+      if(self._view) {
+        self._view.showMessageError(self._messages.anErrorOccured);
+      }
     });
   }, 
 
   getUrlParameter : function(sParam) {
-      var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-          sURLVariables = sPageURL.split('&'),
-          sParameterName,
-          i;
+    var sPageURL = decodeURIComponent(window.location.search.substring(1));
+    var sURLVariables = sPageURL.split('&');
+    var sParameterName;
+    var i;
+    for (i = 0; i < sURLVariables.length; i++) {
+      sParameterName = sURLVariables[i].split('=');
 
-      for (i = 0; i < sURLVariables.length; i++) {
-          sParameterName = sURLVariables[i].split('=');
-
-          if (sParameterName[0] === sParam) {
-              return sParameterName[1] === undefined ? true : sParameterName[1];
-          }
+      if (sParameterName[0] === sParam) {
+          return sParameterName[1] === undefined ? true : sParameterName[1];
       }
+    }
   }, 
 
   getProductById : function(id, json) {
@@ -78,10 +95,5 @@ ProductController.prototype = {
   }
 
 };
-
-/* MAIN */
-
-
-
 
 

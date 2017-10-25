@@ -6,14 +6,16 @@ function ProductsController(model, view, messages) {
   this._messages = messages;
   var _this = this;
 
-  this._view.criteriaButtonClickedEvent.attach(function (sender, args) {
-      _this.sortProducts(args.criteria, args.orderBy);
-  });
+  if(this._view) {
+    this._view.criteriaButtonClickedEvent.attach(function (sender, args) {
+        _this.sortProducts(args.criteria, args.orderBy);
+    });
 
-  this._view.categoryButtonClickedEvent.attach(function (sender, args) {
-      _this.filterProducts(args.category);
-  });
-}
+    this._view.categoryButtonClickedEvent.attach(function (sender, args) {
+        _this.filterProducts(args.category);
+    });
+  }
+};
 
 ProductsController.prototype = {
   sortProducts : function (criteria, orderBy) {

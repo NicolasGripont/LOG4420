@@ -1,6 +1,6 @@
 "use strict";
 
-function Messages() {
+var Messages = function() {
   this.pageNotFound = "Page non trouvée !";
   this.anErrorOccured = "Une erreur est survenue lors du chargement des produits...";
   this.noProductInCart = "Aucun produit dans le panier.";
@@ -14,4 +14,4 @@ function Messages() {
   this.badCreditCardFormat = "Veuillez saisir un numéro de carte valide au format VISA.";
   this.badExpirationDate = "La date d'expiration de votre carte de crédit est invalide.";
   this.productAdded = "Le produit a été ajouté au panier.";
-}
+};

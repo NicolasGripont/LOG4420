@@ -4,35 +4,17 @@ function ShoppingCartView(model, elements) {
   this._model = model;
   this._elements = elements;
   this.productligns = {};
-
-  // this.quantityChangedEvent = new Event(this);
-
   this.removeProductButtonClickedEvent = new Event(this);
   this.emptyShoppingCartButtonClickedEvent = new Event(this);
   this.commandButtonClickedEvent = new Event(this);
   this.quantityProductButtonClickedEvent = new Event(this);
-
   var _this = this;
 
-  // attach model listeners
-  this._model.shoppingCartInitializedEvent.attach(function () {
-  	_this.rebuildShoppingCart();
-  });
-
-  this._model.productRemovedEvent.attach(function (sender, args) {
-    _this.removeLign(args.productId);
-  });
-
-  this._model.productQuantityChangedEvent.attach(function (sender, args) {
-    _this.quantityChanged(args.productId);
-  });
-
   // attach listeners to HTML controls
-
   this._elements.emptyShoppingCartButton.click(function(e) {
     _this.emptyShoppingCartButtonClickedEvent.notify();
   })
-}
+};
 
 ShoppingCartView.prototype = {
   show : function () {
@@ -99,7 +81,7 @@ ShoppingCartView.prototype = {
     $(this._elements.main).html("<h1>Panier</h1><p>" + message + "</p>");
   },
 
-  removeLign : function(productId) {
+  productRemoved : function(productId) {
     $('tr[productId="' + productId + '"]').remove();
     $(this._elements.total).html(this._model.getTotalAmount().toFixed(2) + '&thinsp;$');
   },

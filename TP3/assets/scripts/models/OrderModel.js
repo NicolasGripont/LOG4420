@@ -7,8 +7,7 @@ var OrderModel = function (firstName, lastName, commandId) {
 };
 
 OrderModel.prototype = {
-  getClientFirstName = function() {
-  	return this.firstName;
+  getClientFirstName : function() {
+    return this.firstName;
   }
-  
 };

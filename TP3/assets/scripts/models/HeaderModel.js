@@ -2,7 +2,6 @@
 
 var HeaderModel = function () {
   this.numberOfProducts = 0;
-  this.numberOfProductsChangedEvent = new Event(this);
 };
 
 HeaderModel.prototype = {
@@ -12,7 +11,6 @@ HeaderModel.prototype = {
 
   setNumberOfProducts : function(numberOfProducts) {
     this.numberOfProducts = numberOfProducts;
-    this.numberOfProductsChangedEvent.notify(); 
   }
 
 };

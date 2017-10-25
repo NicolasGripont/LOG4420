@@ -26,14 +26,8 @@ ShoppingCartController.prototype = {
   addProduct : function (product, quantity) {
     if(product && quantity) {
       this._model.addProduct(product,quantity);
-      localStorage.setItem("shoppingCart",JSON.stringify(this._model.getShoppingCart()));
       this.sortShoppingCart("name","asc");
-    }
-  }, 
-
-  modifyProductQuantity : function (productId, quantity) {
-    if(product && quantity) {
-      // this._model.sort(criteria,orderBy);
+      localStorage.setItem("shoppingCart",JSON.stringify(this._model.getShoppingCart()));
     }
   }, 
 
@@ -43,8 +37,12 @@ ShoppingCartController.prototype = {
 
   loadShoppingCart : function() {
     this._model.initShoppingCart(JSON.parse(localStorage.getItem("shoppingCart")));
-    if(this._view && this._model.getNumberOfProducts() === 0) {
-      this._view.showMessageError(this._messages.noProductInCart);
+    if(this._view) {
+      if(this._model.getNumberOfProducts() === 0 ) {
+        this._view.showMessageError(this._messages.noProductInCart);
+      } else {
+        this._view.rebuildShoppingCart();
+      }
     } 
   },
 
@@ -53,31 +51,52 @@ ShoppingCartController.prototype = {
   }, 
 
   removeProduct : function(productId) {
-    if(this._view.showModalConfirmMessage(this._messages.askToRemoveProduct)) {
-      this._model.removeProduct(productId);
-      this._headerController.setNumberOfProducts(this._model.getNumberOfProducts());
-      localStorage.setItem("shoppingCart",JSON.stringify(this._model.getShoppingCart()));
-      if(this._view && this._model.getNumberOfProducts() === 0) {
-        this._view.showMessageError(this._messages.noProductInCart);
+    if(this._view) {
+      if(this._view.showModalConfirmMessage(this._messages.askToRemoveProduct)) {
+        this._model.removeProduct(productId);
+        localStorage.setItem("shoppingCart",JSON.stringify(this._model.getShoppingCart()));
+        if(this._model.getNumberOfProducts() === 0) {
+          this._view.showMessageError(this._messages.noProductInCart);
+        } else {
+          this._view.productRemoved(productId);
+        }
       } 
-    } 
+    } else {
+      this._model.removeProduct(productId);
+      localStorage.setItem("shoppingCart",JSON.stringify(this._model.getShoppingCart()));
+    }
+    if(this._headerController) {
+      this._headerController.setNumberOfProducts(this._model.getNumberOfProducts());
+    }
   }, 
 
   removeAllProducts : function() {
-    if(this._view.showModalConfirmMessage(this._messages.askToEmptyShoppingCart)) {
-      this._model.removeAllProducts();
-      this._headerController.setNumberOfProducts(0);
-      localStorage.removeItem("shoppingCart",JSON.stringify());
-      if(this._view) {
+    if(this._view) {
+      if(this._view.showModalConfirmMessage(this._messages.askToEmptyShoppingCart)) {
+        this._model.removeAllProducts();
+        localStorage.removeItem("shoppingCart",JSON.stringify());
         this._view.showMessageError(this._messages.noProductInCart);
       }
-    } 
+    } else {
+      this._model.removeAllProducts();
+      
+      localStorage.removeItem("shoppingCart",JSON.stringify());
+    }
+    if(this._headerController) {
+      this._headerController.setNumberOfProducts(0);
+    }
   },
 
   changeProductQuantity : function(productId, deltaQuantity) {
     this._model.changeProductQuantity(productId, deltaQuantity);
-    this._headerController.setNumberOfProducts(this._model.getNumberOfProducts());
     localStorage.setItem("shoppingCart",JSON.stringify(this._model.getShoppingCart()));
+    if(this._headerController) {
+      this._headerController.setNumberOfProducts(this._model.getNumberOfProducts());
+    }
+    if(this._view) {
+      this._view.quantityChanged(productId);
+    }
+    
   }
 
 };

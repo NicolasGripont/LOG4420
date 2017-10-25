@@ -1,3 +1,5 @@
+"use strict";
+
 $(function () {
   var model = new ProductsModel();
   var view = new ProductsView(model, {
@@ -11,4 +13,4 @@ $(function () {
   var controller = new ProductsController(model, view, new Messages());
   controller.loadData();
   view.show();
-})
+});

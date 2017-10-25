@@ -1,3 +1,5 @@
+"use strict";
+
 $(function () {
   var headerModel = new HeaderModel();
   var headerView = new HeaderView(headerModel, {
@@ -8,18 +10,16 @@ $(function () {
   headerView.show();
 
   var shoppingCartModel = new ShoppingCartModel();
-  var shoppingCartController = new ShoppingCartController(shoppingCartModel);
-
-  var firstName = undefined;
-  var lastName = undefined;
-  var commandId = undefined;
+  var shoppingCartController = new ShoppingCartController(shoppingCartModel, undefined, undefined, headerController);
   
-  var model = new OrderModel(firstName,lastName,commandId);
+  var model = new OrderModel();
   var view = new OrderView(model, {
       'buttonSubmitForm' : $('.btn'), 
-      'orderForm' : $('#order-form')
+      'orderForm' : $('#order-form'),
+      'firstName' : $('#first-name'),
+      'lastName' : $('#last-name')
   });
   var controller = new OrderController(model, view, new Messages, headerController, shoppingCartController);
   /*controller.loadData();
   view.show();*/
-})
+});

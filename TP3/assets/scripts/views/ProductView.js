@@ -3,20 +3,9 @@
 function ProductView(model, elements) {
   this._model = model;
   this._elements = elements;
-
   this.quantityChangedEvent = new Event(this);
   this.addToCartButtonClickedEvent = new Event(this);
-
   var _this = this;
-
-  // attach model listeners
-  this._model.quantityChangedEvent.attach(function () {
-    _this._elements.productQuantity.val(_this._model.getQuantity());
-  });
-
-  this._model.productChangedEvent.attach(function () {
-    _this.rebuildProduct();
-  });
 
   // attach listeners to HTML controls
   this._elements.productQuantity.change(function(e) {
@@ -25,9 +14,10 @@ function ProductView(model, elements) {
 
   this._elements.addToCartButton.click(function(e) {
     _this.addToCartButtonClickedEvent.notify();
+    //block l'envoi du formulaire
     return false;
   })
-}
+};
 
 ProductView.prototype = {
   show : function () {
@@ -66,8 +56,12 @@ ProductView.prototype = {
     var dialog = '<div class="show" id="dialog">' + message + '</div>';
     article.append(dialog);
     setTimeout(function(){ $("#dialog").remove(); }, 5000);
-  }
+  },
 
+
+  updateQuantity : function(quantity) {
+    this._elements.productQuantity.val(quantity);
+  }
 
 };
 

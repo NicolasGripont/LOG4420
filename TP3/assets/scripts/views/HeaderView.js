@@ -3,14 +3,7 @@
 function HeaderView(model, elements) {
   this._model = model;
   this._elements = elements;
-
-  var _this = this;
-
-  // attach model listeners
-  this._model.numberOfProductsChangedEvent.attach(function () {
-    _this.rebuildHeader();
-  });
-}
+};
 
 HeaderView.prototype = {
   show : function () {

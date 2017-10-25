@@ -4,10 +4,6 @@ var ShoppingCartModel = function () {
   this.shoppingCart = {};
   this.products = [];
   this.numberOfProducts = 0;
-  this.numberOfProductsChangedEvent = new Event(this);
-  this.shoppingCartInitializedEvent = new Event(this);
-  this.productRemovedEvent = new Event(this);
-  this.productQuantityChangedEvent = new Event(this);
 };
 
 ShoppingCartModel.prototype = {
@@ -49,7 +45,6 @@ ShoppingCartModel.prototype = {
     } else {
       this.shoppingCart = {};
     }
-    this.shoppingCartInitializedEvent.notify();
   }, 
 
   sort : function(criteria, orderBy) {
@@ -81,7 +76,6 @@ ShoppingCartModel.prototype = {
           break;
         }
       }
-      this.productRemovedEvent.notify({'productId' : id});
     }
   },
 
@@ -105,6 +99,5 @@ ShoppingCartModel.prototype = {
   changeProductQuantity : function(productId, deltaQuantity) {
     this.numberOfProducts += deltaQuantity;
     this.shoppingCart[productId].quantity +=deltaQuantity;
-    this.productQuantityChangedEvent.notify({'productId' : productId});
   }
-}
+};

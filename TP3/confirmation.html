@@ -34,14 +34,25 @@
   </header>
   <main>
     <article>
-      <h1>Votre commande est confirmée Antoine Béland!</h1>
-      <p>Votre numéro de confirmation est le <strong>00001</strong>.</p>
+      <h1>Votre commande est confirmée <div id="name">Antoine Béland!</div></h1>
+      <p>Votre numéro de confirmation est le <strong id="confirmation-number">00001</strong>.</p>
     </article>
   </main>
   <footer>
     <p>© 2017 NiPi, Inc. Pierre Bayle - 1914941 &#38; Nicolas Gripont - 1919665</p>
   </footer>
   <script type="text/javascript" src="./assets/js/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="./assets/scripts/script.js"></script>
+  <script type="text/javascript" src="./assets/scripts/utils/Event.js"></script>  
+  <script type="text/javascript" src="./assets/scripts/messages/messages_fr.js"></script>  
+  <script type="text/javascript" src="./assets/scripts/controllers/HeaderController.js"></script>
+  <script type="text/javascript" src="./assets/scripts/models/HeaderModel.js"></script>
+  <script type="text/javascript" src="./assets/scripts/views/HeaderView.js"></script> 
+  <script type="text/javascript" src="./assets/scripts/controllers/OrderController.js"></script>
+  <script type="text/javascript" src="./assets/scripts/models/OrderModel.js"></script>
+  <script type="text/javascript" src="./assets/scripts/controllers/ConfirmationController.js"></script>
+  <script type="text/javascript" src="./assets/scripts/mains/ConfirmationMain.js"></script>
+  <script type="text/javascript" src="./assets/scripts/models/ConfirmationModel.js"></script>
+  <script type="text/javascript" src="./assets/scripts/views/ConfirmationView.js"></script>
+  <script type="text/javascript" src="./assets/scripts/mains/BasicMain.js"></script>
 </body>
 </html>
