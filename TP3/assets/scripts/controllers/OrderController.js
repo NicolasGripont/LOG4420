@@ -85,11 +85,11 @@ OrderController.prototype = {
         }
       }
     });
-    // if(fieldsForm.valid()){
-    //   self._shoppingCartController.removeAllProducts();
-    //   self.createCommand();
-    //   fieldsForm.submit();
-    // }
+    if(fieldsForm.valid()){
+      self._shoppingCartController.removeAllProducts();
+      self.createCommand();
+      // fieldsForm.submit();
+    }
   },
 
   createCommand : function () {
