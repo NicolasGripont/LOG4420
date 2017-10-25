@@ -13,8 +13,6 @@ function OrderView(model, elements) {
 };
 
 OrderView.prototype = {
-  doNothing : function() {
-    alert("BLABLA");
-  }
+
 };
 
