@@ -205,6 +205,7 @@ header nav .shopping-cart .fa-shopping-cart {
   color: #14597f;
 }
 header nav .shopping-cart .count {
+  display: none;
   position: absolute;
   right: -8px;
   bottom: -14px;
