@@ -26,36 +26,34 @@ ShoppingCartView.prototype = {
     var shoppingCart = this._model.getShoppingCart();
     var products = this._model.getProducts();
     if(shoppingCart && this._model.getNumberOfProducts()) {
-    	$(this._elements.tbody).empty();
-    	$.each(products,function(i, item) {
+      $(this._elements.tbody).empty();
+      $.each(products,function(i, item) {
         $(_this._elements.tbody).append(_this.createTableLignHtml(shoppingCart[item.id]["product"],shoppingCart[item.id]["quantity"]));
-    	});
+      });
     }
-    $(this._elements.total).html(this._model.getTotalAmount().toFixed(2) + '&thinsp;$');
+    this.updateTotal();
   }, 
-
-
 
   createTableLignHtml : function(product, quantity) {
     var self = this;
     var lign = $('<tr productId="'+product.id+'"">' +
-                 '  <td><button title="Supprimer"><i class="fa fa-times"></i></button></td>' +
+                 '  <td><button class="remove-item-button" title="Supprimer"><i class="fa fa-times"></i></button></td>' +
                  '  <td><a href="./product.html?id=' + product.id + '"> ' + product.name + '</a></td>' +
-                 '  <td>' + product.price + '&thinsp;$</td>' +
+                 '  <td>' + product.price.toString().replace(".",",") + '&thinsp;$</td>' +
                  '  <td>' +
                  '    <div class="row">' +
                  '      <div class="col">' +
-                 '        <button title="Retirer" disabled><i class="fa fa-minus"></i></button>' +
+                 '        <button class="remove-quantity-button" title="Retirer" disabled><i class="fa fa-minus"></i></button>' +
                  '      </div>' +
                  '      <div class="col quantity">' + quantity + '</div>' +
                  '      <div class="col">' +
-                 '        <button title="Ajouter"><i class="fa fa-plus"></i></button>' +
+                 '        <button class="add-quantity-button" title="Ajouter"><i class="fa fa-plus"></i></button>' +
                  '      </div>' +
                  '    </div>' +
                  '  </td>' +
-                 '  <td class="price">' + (product.price * quantity).toFixed(2) + '&thinsp;$</td>' +
+                 '  <td class="price">' + (product.price * quantity).toFixed(2).toString().replace(".",",") + '&thinsp;$</td>' +
                  '</tr>');
-    var minusButton = lign.find("button[title='Retirer']");
+    var minusButton = lign.find("button[title='Retirer']"); //TODO USE CLASS
     if(quantity > 1) {
       minusButton.removeAttr("disabled");
     }
@@ -83,7 +81,7 @@ ShoppingCartView.prototype = {
 
   productRemoved : function(productId) {
     $('tr[productId="' + productId + '"]').remove();
-    $(this._elements.total).html(this._model.getTotalAmount().toFixed(2) + '&thinsp;$');
+    this.updateTotal();
   },
 
   quantityChanged : function(productId) {
@@ -91,10 +89,10 @@ ShoppingCartView.prototype = {
     var quantity = shoppingCart[productId].quantity;
     var product = shoppingCart[productId].product;
     $('tr[productId="' + productId + '"] .quantity').html(quantity);
-    $('tr[productId="' + productId + '"] .price').html((product.price * quantity).toFixed(2) + '&thinsp;$');
-    $(this._elements.total).html(this._model.getTotalAmount().toFixed(2) + '&thinsp;$');
+    $('tr[productId="' + productId + '"] .price').html((product.price * quantity).toFixed(2).toString().replace(".",",") + '&thinsp;$');
+    this.updateTotal();
     if(quantity <= 1) {
-      var b = $('tr[productId="' + productId + '"] button[title="Retirer"]').attr("disabled",true);
+      $('tr[productId="' + productId + '"] button[title="Retirer"]').attr("disabled",true); //TODO REPLACE BY CLASS
     } else {
       $('tr[productId="' + productId + '"] button[title="Retirer"]').removeAttr("disabled");
     }
@@ -102,6 +100,10 @@ ShoppingCartView.prototype = {
 
   showModalConfirmMessage : function(message) {
     return (confirm(message) == true) 
+  }, 
+
+  updateTotal : function() {
+    $(this._elements.total).html(this._model.getTotalAmount().toFixed(2).toString().replace(".",",") + '&thinsp;$');
   }
 
 };

@@ -116,3 +116,11 @@ typings/
 # dotenv environment variables file
 .env
 
+
+TP3/tests/reports/CHROME_61.0.3163.100_XP_1-products.xml
+
+TP3/tests/reports/CHROME_61.0.3163.100_XP_2-product.xml
+
+TP3/tests/reports/CHROME_61.0.3163.100_XP_3-shopping-cart.xml
+
+TP3/tests/reports/CHROME_61.0.3163.100_XP_4-order.xml
