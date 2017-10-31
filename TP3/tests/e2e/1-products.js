@@ -21,43 +21,71 @@ function validateProductsList(client, expectedProductsList) {
   }, 2000, "L'indicateur du nombre de produits doit indiquer '" + expectedProductsCountText + "'.");
 
   client.elements("css selector", config.elements.list + " > *", function(result) {
+    var count = 0;
+
     // Check if the products count is correct.
-    assert.equal(result.value.length, expectedProductsList.length,
-      "La liste de produits doit compter un total de " + expectedProductsList.length + " produits.");
+    function checkProductsCount() {
+      assert.equal(count, expectedProductsList.length,
+        "La liste de produits doit compter un total de " + expectedProductsList.length + " produits.");
+    }
 
     // Iterates over all the products of the list.
-    result.value.forEach(function(v, i) {
-      var id = i + 1;
+    var products = result.value;
+    products.forEach(function(v, i) {
+      client.elementIdDisplayed(v.ELEMENT, function(result) {
+        if (!result.value) {
+          if (i === products.length - 1) { // Checks the products count at the end.
+            checkProductsCount();
+          }
+          return;
+        }
+        var index = count;
+        ++count;
 
-      // Retrieve the element text.
-      client.elementIdText(v.ELEMENT, function(result) {
-        // Check if the product name is correct.
-        client.assert.ok(result.value.indexOf(expectedProductsList[i].name) !== -1,
-          "Le produit #" + id + " doit être '" + expectedProductsList[i].name + "'.");
 
-        // Check if the product price is correct.
-        var price = utils.getFormattedPrice(expectedProductsList[i].price);
-        assert(result.value.indexOf(price) !== -1,
-          "Le prix pour le produit #" + id + " doit être '" + price + "$'.");
-      });
+        // Retrieve the element text.
+        client.elementIdText(v.ELEMENT, function(result) {
+          // Check if the product name is correct.
+          client.assert.ok(result.value.indexOf(expectedProductsList[index].name) !== -1,
+            "Le produit #" + count + " doit être '" + expectedProductsList[index].name + "'.");
 
-      // Check if the product image is correct.
-      client.elementIdElement(v.ELEMENT, "css selector", "img", function(result) {
-        client.elementIdAttribute(result.value.ELEMENT, "src", function(result) {
-         assert(result.value.indexOf(expectedProductsList[i].image) !== -1,
-            "L'image pour le produit #" + id + " doit être '" + expectedProductsList[i].image + "'.");
+          // Check if the product price is correct.
+          var price = utils.getFormattedPrice(expectedProductsList[index].price);
+          assert(result.value.indexOf(price) !== -1,
+            "Le prix pour le produit #" + count + " doit être '" + price + "$'.");
         });
-      });
 
-      // Check if the product link is correct.
-      client.elementIdElement(v.ELEMENT, "css selector", "a", function(result) {
-        client.elementIdAttribute(result.value.ELEMENT, "href", function(result) {
-          var link = productConfig.url + expectedProductsList[i].id;
-          assert(result.value.indexOf(link) !== -1,
-            "Le lien pour le produit #" + id + " doit être '" + link + "'.");
+        // Check if the product image is correct.
+        client.elementIdElement(v.ELEMENT, "css selector", "img", function(result) {
+          client.elementIdAttribute(result.value.ELEMENT, "src", function(result) {
+            assert(result.value.indexOf(expectedProductsList[index].image) !== -1,
+              "L'image pour le produit #" + count + " doit être '" + expectedProductsList[index].image + "'.");
+          });
         });
+
+        // Check if the product link is correct.
+        client.elementIdName(v.ELEMENT, function(result) {
+          function validateLink(element) {
+            client.elementIdAttribute(element, "href", function(result) {
+              var link = productConfig.url + expectedProductsList[index].id;
+              assert(result.value.indexOf(link) !== -1,
+                "Le lien pour le produit #" + count + " doit être '" + link + "'.");
+            });
+          }
+          if (result.value.toLowerCase() === "a") {
+            validateLink(v.ELEMENT);
+          } else {
+            client.elementIdElement(v.ELEMENT, "css selector", "a", function(result) {
+              validateLink(result.value.ELEMENT);
+            });
+          }
+        });
+
+        if (i === products.length - 1) { // Checks the products count at the end.
+          checkProductsCount();
+        }
       });
-    })
+    });
   });
 }
 

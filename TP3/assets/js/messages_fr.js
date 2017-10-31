@@ -46,5 +46,6 @@ $.extend( $.validator.messages, {
 	nifES: "Veuillez fournir un numéro NIF valide.",
 	nieES: "Veuillez fournir un numéro NIE valide.",
 	cifES: "Veuillez fournir un numéro CIF valide.",
-	postalCodeCA: "Veuillez fournir un code postal valide."
+	postalCodeCA: "Veuillez fournir un code postal valide.",
+	creditcardexpiry: "La date d'expiration de votre carte de crédit est invalide.",
 } );

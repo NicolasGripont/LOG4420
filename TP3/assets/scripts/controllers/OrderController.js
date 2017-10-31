@@ -10,13 +10,14 @@ function OrderController(model, view, messages, headerController, shoppingCartCo
 
   if(this._view) {
     this._view.submitFormEvent.attach(function (sender, args) {
-        _this.validateFields(args);
+        _this.orderSubmitted();
     });
+    this.initFormValidator(this._view.getForm());
   }
 };
 
 OrderController.prototype = {
-  validateFields : function (fieldsForm) {
+  initFormValidator : function (fieldsForm) {
     var self = this;
     // Eviter d'avoir un nom avec un chiffre par exemple
     jQuery.validator.addMethod("nameregex", function(value, element) {
@@ -55,40 +56,8 @@ OrderController.prototype = {
           required : true,
           creditcardexpiry : true
         }
-      },
-      messages : {
-        "first-name" : {
-          required : this._messages.fieldRequired,
-          minlength : this._messages.minLengthNamesField,
-          nameregex : this._messages.goodFormatNamesField
-        },
-        "last-name" : {
-          required : this._messages.fieldRequired,
-          minlength : this._messages.minLengthNamesField,
-          nameregex : this._messages.goodFormatNamesField
-        },
-        "email" : {
-          required : this._messages.fieldRequired,
-          email : this._messages.badEmailFormat
-        },
-        "phone" : {
-          required : this._messages.fieldRequired,
-          phoneUS : this._messages.badPhoneFormat
-        },
-        "credit-card" : {
-          required : this._messages.fieldRequired,
-          creditcard : this._messages.badCreditCardFormat
-        },
-        "credit-card-expiry" : {
-          required : this._messages.fieldRequired,
-          creditcardexpiry : this._messages.badExpirationDate
-        }
       }
     });
-    if(fieldsForm.valid()){
-      self._shoppingCartController.removeAllProducts();
-      self.createCommand();
-    }
   },
 
   createCommand : function () {
@@ -106,5 +75,10 @@ OrderController.prototype = {
       return parseInt(test);
     }
     return 0;
+  }, 
+
+  orderSubmitted: function() {
+    this._shoppingCartController.removeAllProducts();
+    this.createCommand();
   }
 };

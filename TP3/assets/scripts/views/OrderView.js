@@ -7,17 +7,18 @@ function OrderView(model, elements) {
   var _this = this;
 
   this._elements.orderForm.submit(function(e) {
-    _this.submitFormEvent.notify(_this._elements.orderForm);
     if(_this._elements.orderForm.valid()) {
+      _this.submitFormEvent.notify(_this._elements.orderForm);
     	return true;
     }
     //bloque le post si formulaire invalide
     return false;
   });
-
 };
 
 OrderView.prototype = {
-
+  getForm : function() {
+    return $(this._elements.orderForm);
+  }
 };
 
