@@ -1,7 +1,37 @@
 doctype html
-html
+html(lang='fr')
   head
+    meta(charset='UTF-8')
     title= title
-    link(rel='stylesheet', href='/css/style.css')
+    link(rel='stylesheet', type='text/css', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+    link(rel='stylesheet', type='text/css', href='/assets/css/style.css')
   body
+    header
+      .header-container
+        .logo
+          a(href='./accueil')
+            img(alt='logo', src='./assets/img/logo.svg', title='Accueil')
+        nav
+          ul
+            li.active
+              a(href='./accueil') Accueil
+            li
+              a(href='./produits') Produits
+            li
+              a(href='./contact') Contact
+            li
+              a.shopping-cart(href='./panier', title='Panier')
+                span.fa-stack.fa-lg
+                  i.fa.fa-circle.fa-stack-2x.fa-inverse
+                  i.fa.fa-shopping-cart.fa-stack-1x
+                span.count 3
+
     block content
+
+    footer
+      p Par Nicolas Gripont et Pierre Bayle
+
+    script(type='text/javascript', src='/assets/js/jquery-3.2.1.min.js')
+    script(type='text/javascript', src='/assets/scripts/utils.js')
+
+    block scripts
