@@ -7,8 +7,11 @@ var bodyParser = require("body-parser");
 var session = require("express-session");
 
 require("./lib/db");
-var index = require("./routes/index");
 
+var index = require("./routes/index");
+var products = require("./routes/products");
+var shoppingCart = require("./routes/shopping-cart");
+var order = require("./routes/order");
 var app = express();
 
 // view engine setup
@@ -35,6 +38,9 @@ app.use(session({
 }));
 
 app.use("/", index);
+app.use("/", products);
+app.use("/", shoppingCart);
+app.use("/", order);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
