@@ -10,22 +10,22 @@ router.get("/accueil", function(req, res) {
 });
 
 router.get("/produits", function(req, res) {
-  res.render("produits", { title: "Accueil", message: "Ça semble fonctionner!" });
+  res.render("products", { title: "Accueil", message: "Ça semble fonctionner!" });
 });
 
 router.get("/produit", function(req, res) {
-  res.render("produit", { title: "Accueil", message: "Ça semble fonctionner!" });
+  res.render("product", { title: "Accueil", message: "Ça semble fonctionner!" });
 });
 
 router.get("/contact", function(req, res) {
   res.render("contact", { title: "Accueil", message: "Ça semble fonctionner!" });
 });
 router.get("/panier", function(req, res) {
-  res.render("panier", { title: "Accueil", message: "Ça semble fonctionner!" });
+  res.render("shopping-cart", { title: "Accueil", message: "Ça semble fonctionner!" });
 });
 
 router.get("/commande", function(req, res) {
-  res.render("commande", { title: "Accueil", message: "Ça semble fonctionner!" });
+  res.render("order", { title: "Accueil", message: "Ça semble fonctionner!" });
 });
 router.get("/confirmation", function(req, res) {
   res.render("confirmation", { title: "Accueil", message: "Ça semble fonctionner!" });
