@@ -13,12 +13,15 @@ html(lang='fr')
             img(alt='logo', src='./assets/img/logo.svg', title='Accueil')
         nav
           ul
-            li.active
+            li(class={'active': activeLi==='Accueil'})
               a(href='./accueil') Accueil
-            li
+
+            li(class={'active': activeLi==='Produits'})
               a(href='./produits') Produits
-            li
+
+            li(class={'active': activeLi==='Contact'})
               a(href='./contact') Contact
+
             li
               a.shopping-cart(href='./panier', title='Panier')
                 span.fa-stack.fa-lg
