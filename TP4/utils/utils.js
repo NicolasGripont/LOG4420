@@ -21,6 +21,20 @@ class Utils{
     return products;
   }
 
+  isString(str) {
+    if(typeof str == 'string' || str instanceof String) {
+      return true;
+    }
+    return false;
+  }
+
+  isNumber(n) {
+    if(typeof n == 'number' || str instanceof Number) {
+      return true;
+    }
+    return false;
+  }
+
 }
 
 
