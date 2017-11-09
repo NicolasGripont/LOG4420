@@ -13,7 +13,7 @@ router.get("/api/products", function(req, res) {
   const error = checkCategoryAndCriteria(category,criteria);
 
   if(!(error === "")) {
-    res.status(400).json({ error: error })
+    return res.status(400).json({ error: error })
   } else {
     var options = {};
     if(category !== undefined && category !== '') {
@@ -60,10 +60,9 @@ router.post("/api/products", function(req, res) {
   }
   product.save(function (error) {
     if (error) {
-      res.status(400).json({ error : error });
-    } else {
-      res.status(201).json({message : "OK"});
+      return res.status(400).json({ error : error });
     }
+    return res.status(201).json({message : "OK"});
   });
 });
 
@@ -105,25 +104,43 @@ function isCriteriaValid(criteria) {
 
 function sortProducts(products, criteria) {
   var utils = new Utils();
-  switch (criteria) {
-    case "alpha-asc":
-      return utils.sortJSON(products,"name","asc");
-    case "alpha-dsc":
-      return utils.sortJSON(products,"name","dsc");
-    case "price-asc":
-      return utils.sortJSON(products,"price","asc");
-    case "price-dsc":
-      return utils.sortJSON(products,"price","dsc");
-    case undefined :
-    case "" :
-    default :
-      return products;
+  if(products.length > 1) {
+    switch (criteria) {
+      case "alpha-asc":
+        return utils.sortJSON(products, "name", "asc");
+      case "alpha-dsc":
+        return utils.sortJSON(products, "name", "dsc");
+      case "price-asc":
+        return utils.sortJSON(products, "price", "asc");
+      case "price-dsc":
+        return utils.sortJSON(products, "price", "dsc");
+      case undefined :
+      case "" :
+      default :
+        return utils.sortJSON(products, "price", "asc");
+    }
   }
+  return products;
 }
 
 function checkCategoryAndCriteria(category, criteria) {
-  const testCategory = validator.isIn(category, ['', 'cameras', 'computers', 'consoles', 'screens']);
-  const testCriteria = validator.isIn(criteria, ['','alpha-asc','alpha-dsc','price-asc','price-dsc']);
+  var utils = new Utils();
+  var testCategory = true;
+  var testCriteria = true;
+  if(category !== undefined) {
+    if(utils.isString(category)) {
+      testCategory = validator.isIn(category, ['', 'cameras', 'computers', 'consoles', 'screens']);
+    } else {
+      testCategory = false;
+    }
+  }
+  if(criteria !== undefined) {
+    if(utils.isString(criteria)) {
+      testCriteria = validator.isIn(criteria, ['','alpha-asc','alpha-dsc','price-asc','price-dsc']);
+    } else {
+      testCriteria = false;
+    }
+  }
 
   var error = "";
   if(!testCategory && !testCriteria) {
