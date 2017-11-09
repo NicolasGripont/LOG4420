@@ -1,5 +1,7 @@
 var express = require("express");
+var validator = require('validator');
 var router = express.Router();
+
 
 router.get("/commande", function(req, res) {
   res.render("order", { title: "OnlineShop - Commande", activeLi: "Panier"});

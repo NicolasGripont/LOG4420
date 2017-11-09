@@ -59,17 +59,16 @@ var onlineShop = onlineShop || {};
   }
 
   // Initialize the products view.
-  productsService.getProducts(filters.sortingCriteria, filters.category).done(function(data) {
-    _updateView(data);
+  productsService.getProducts(filters.sortingCriteria, filters.category, _updateView);
 
-    $("#product-categories").children().click(function() {
-      filters.category = $(this).attr("data-category");
-      productsService.getProducts(filters.sortingCriteria, filters.category).done(_updateView);
-    });
-    $("#product-criteria").children().click(function() {
-      filters.sortingCriteria = $(this).attr("data-criteria");
-      productsService.getProducts(filters.sortingCriteria, filters.category).done(_updateView);
-    });
+  $("#product-categories").children().click(function() {
+    filters.category = $(this).attr("data-category");
+    productsService.getProducts(filters.sortingCriteria, filters.category, _updateView);
   });
+  $("#product-criteria").children().click(function() {
+    filters.sortingCriteria = $(this).attr("data-criteria");
+    productsService.getProducts(filters.sortingCriteria, filters.category, _updateView);
+  });
+
 
 })(jQuery, onlineShop.productsService, onlineShop.utils);
