@@ -68,31 +68,25 @@ router.post("/api/products", function(req, res) {
 });
 
 router.delete("/api/products/:id", function(req, res) {
-  // var options = {};
-  // options.id = req.params.id;
-  // Product.find(options, function (err, products) {
-  //   if (err) {
-  //     res.status(500).send(err);
-  //   } else if(products.length != 1) {
-  //     res.status(404).send(err);
-  //   } else {
-  //     res.status(200).json(products[0]);
-  //   }
-  // });
+  var options = {};
+  options.id = req.params.id;
+  Product.remove(options, function (error, products) {
+    if (error) {
+      return res.status(500).send({ error : error });
+    } else if(products.result.n === 0){
+      return res.status(404).json({error : "L'id spécifié n’est pas associé à un produit se trouvant dans la base de données."});
+    }
+    return res.status(204).send();
+  });
 });
 
 router.delete("/api/products", function(req, res) {
-  // var options = {};
-  // options.id = req.params.id;
-  // Product.find(options, function (err, products) {
-  //   if (err) {
-  //     res.status(500).send(err);
-  //   } else if(products.length != 1) {
-  //     res.status(404).send(err);
-  //   } else {
-  //     res.status(200).json(products[0]);
-  //   }
-  // });
+  Product.remove({}, function (error) {
+    if (error) {
+      return res.status(500).json({ error : error});
+    }
+    return res.status(204).send();
+  });
 });
 
 function isCategoryValid(category) {
