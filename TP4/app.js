@@ -8,7 +8,7 @@ var session = require("express-session");
 
 require("./lib/db");
 
-var index = require("./routes/index");
+var views = require("./routes/views");
 var products = require("./routes/products");
 var shoppingCart = require("./routes/shopping-cart");
 var order = require("./routes/order");
@@ -37,7 +37,7 @@ app.use(session({
   cookie: { secure: false }
 }));
 
-app.use("/", index);
+app.use("/", views);
 app.use("/", products);
 app.use("/", shoppingCart);
 app.use("/", order);

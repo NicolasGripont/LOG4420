@@ -40,6 +40,20 @@ router.get("/api/products", function(req, res) {
   }
 });
 
+router.get("/api/products/:id", function(req, res) {
+  var options = {};
+  options.id = req.params.id;
+  Product.find(options, function (err, products) {
+    if (err) {
+      res.status(500).send(err);
+    } else if(products.length != 1) {
+      res.status(404).send(err);
+    } else {
+      res.status(200).json(products[0]);
+    }
+  });
+});
+
 
 function isCategoryValid(category) {
   if(category) {

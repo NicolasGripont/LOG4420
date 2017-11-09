@@ -28,7 +28,7 @@ var onlineShop = onlineShop || {};
 
   // Initialize the product view.
   var productId = +utils.getUrlParameter("id");
-  productsService.getProduct(productId).done(function(product) {
+  productsService.getProduct(productId, function(product) {
     if (product) {
       _updateView(product);
     } else {

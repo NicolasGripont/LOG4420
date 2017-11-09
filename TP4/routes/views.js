@@ -13,4 +13,8 @@ router.get("/contact", function(req, res) {
   res.render("contact", { title: "OnlineShop - Contact", activeLi: "Contact"});
 });
 
+router.get("/contact", function(req, res) {
+  res.render("contact", { title: "OnlineShop - Contact", activeLi: "Contact"});
+});
+
 module.exports = router;

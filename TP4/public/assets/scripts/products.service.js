@@ -39,16 +39,30 @@ onlineShop.productsService = (function($) {
    * @param productId           The product ID associated with the product to retrieve.
    * @returns {jquery.promise}  A promise that contains the product associated with the ID specified.
    */
-  self.getProduct = function(productId) {
-    return self.getProducts().then(function(products) {
-      var product = products.filter(function(product) {
-        return product.id === productId;
-      });
-      if (product.length > 0) {
-        return product[0];
-      } else {
-        return null;
-      }
+  // self.getProduct = function(productId) {
+  //   return self.getProducts().then(function(products) {
+  //     var product = products.filter(function(product) {
+  //       return product.id === productId;
+  //     });
+  //     if (product.length > 0) {
+  //       return product[0];
+  //     } else {
+  //       return null;
+  //     }
+  //   });
+  // };
+
+  self.getProduct = function(productId, callback) {
+    $.ajax({
+      url: "/api/products/" + productId,
+      type: "GET",
+      dataType : "json"
+    })
+    .done(function(product) {
+      callback(product);
+    })
+    .fail(function(xhr, status, errorThrown) {
+      callback(null);
     });
   };
 

@@ -48,7 +48,7 @@ var onlineShop = onlineShop || {};
    */
   function _createProductElement(product) {
     var template = "<div class='product' data-product-id='" + product.id + "'>" +
-      "<a href='./product.html?id=" + product.id + "' title='En savoir plus...'>" +
+      "<a href='./produit?id=" + product.id + "' title='En savoir plus...'>" +
       "<h2>" + product.name + "</h2>" +
       "<img alt='product' src='./assets/img/" + product.image + "'>" +
       "<p class='price'><small>Prix</small> " + utils.formatPrice(product.price) + "</p>" +
