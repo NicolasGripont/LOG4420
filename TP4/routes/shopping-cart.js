@@ -16,6 +16,7 @@ router.get("/api/shopping-cart", function(req,res) {
     var product = {productId : elem.productId, quantity : elem.quantity};
     products.push(product);
   });
+
   return res.status(200).json(products);
 });
 
@@ -33,8 +34,6 @@ router.get("/api/shopping-cart/:productId", function(req, res) {
   return res.status(404).json({error : "L'identifiant spécifié n'est pas associé à un élément qui se trouve dans le panier"});
 });
 
-
-
 router.post("/api/shopping-cart", function(req, res) {
   if(req.body.productId === undefined || req.body.quantity === undefined) {
     return res.status(400).json({error: "Paramètre(s) manquant(s)."});
@@ -44,8 +43,8 @@ router.post("/api/shopping-cart", function(req, res) {
     req.session.shoppingCart = [];
   }
 
-  const productIdBody = req.body.productId;
-  const quantityBody = req.body.quantity;
+  const productIdBody = parseInt(req.body.productId);
+  const quantityBody = parseInt(req.body.quantity);
 
   // TODO : Voir comment améliorer car asynchrone avec le find
   checkNewProductInShoppingCart(productIdBody, quantityBody, req, res);
@@ -56,7 +55,7 @@ router.put("/api/shopping-cart/:productId", function(req, res) {
     return res.status(400).json({error: "Quantité requise."});
   }
 
-  const quantityBody = req.body.quantity;
+  const quantityBody = parseInt(req.body.quantity);
   const productIdParam = req.params.productId;
   var shoppingCart = req.session.shoppingCart;
 
