@@ -16,7 +16,7 @@ router.get("/api/shopping-cart", function(req,res) {
     var product = {productId : elem.productId, quantity : elem.quantity};
     products.push(product);
   });
-  res.status(200).json(products);
+  return res.status(200).json(products);
 });
 
 router.get("/api/shopping-cart/:productId", function(req, res) {
@@ -30,7 +30,7 @@ router.get("/api/shopping-cart/:productId", function(req, res) {
   if(product.productId) {
     return res.status(200).json(product);
   }
-  res.status(404).json({error : "L'identifiant spécifié n'est pas associé à un élément qui se trouve dans le panier"});
+  return res.status(404).json({error : "L'identifiant spécifié n'est pas associé à un élément qui se trouve dans le panier"});
 });
 
 
@@ -83,6 +83,11 @@ router.delete("/api/shopping-cart/:productId", function(req, res) {
   const productIdParam = req.params.productId;
   var shoppingCart = req.session.shoppingCart;
   removeProduct(shoppingCart, productIdParam, res);
+});
+
+router.delete("/api/shopping-cart", function(req, res) {
+  req.session.shoppingCart = [];
+  return res.status(204).json({message:"ok"});
 });
 
 function getProductIntoShoppingCart(listProducts, productId) {
