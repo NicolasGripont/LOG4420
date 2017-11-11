@@ -79,6 +79,12 @@ router.put("/api/shopping-cart/:productId", function(req, res) {
   }
 });
 
+router.delete("/api/shopping-cart/:productId", function(req, res) {
+  const productIdParam = req.params.productId;
+  var shoppingCart = req.session.shoppingCart;
+  removeProduct(shoppingCart, productIdParam, res);
+});
+
 function getProductIntoShoppingCart(listProducts, productId) {
   /** On fait comme ça car le .forEach() ne peut être stoppé **/
   for(var i = 0; i < listProducts.length; i++) {
@@ -88,6 +94,17 @@ function getProductIntoShoppingCart(listProducts, productId) {
     }
   }
   return {};
+}
+
+function removeProduct(listProducts, productId, res) {
+  for(var i = 0; i < listProducts.length; i++) {
+    var elem = listProducts[i];
+    if (elem.productId == parseInt(productId)) {
+      listProducts.splice(i,1);
+      return res.status(204).json({message : "ok"});
+    }
+  }
+  return res.status(404).json({message : "Le produit n'existe pas dans le panier."});
 }
 
 function sendResponse(productIdBody, quantityBody, req, res, error) {
