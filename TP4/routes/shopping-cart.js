@@ -9,6 +9,9 @@ var Product = require('../models/product');
 
 router.get("/api/shopping-cart", function(req,res) {
   var products = [];
+  if(!req.session.shoppingCart) {
+    req.session.shoppingCart = [];
+  }
   req.session.shoppingCart.forEach(function(elem) {
     var product = {productId : elem.productId, quantity : elem.quantity};
     products.push(product);
@@ -17,18 +20,20 @@ router.get("/api/shopping-cart", function(req,res) {
 });
 
 router.get("/api/shopping-cart/:productId", function(req, res) {
-  const listProductIntoShoppingCart = req.session.shoppingCart;
+  if(!req.session.shoppingCart) {
+    req.session.shoppingCart = [];
+  }
+  const listProductsIntoShoppingCart = req.session.shoppingCart;
+  const productId = req.params.productId;
 
-  /** On fait comme ça car le .forEach() ne peut être stoppé **/
-  for(var i = 0; i < listProductIntoShoppingCart.length; i++) {
-    var elem = listProductIntoShoppingCart[i];
-    if (elem.productId == parseInt(req.params.productId)) {
-      var product = {productId : elem.productId, quantity : elem.quantity};
-      return res.status(200).json(product);
-    }
+  var product = getProductIntoShoppingCart(listProductsIntoShoppingCart, productId);
+  if(product.productId) {
+    return res.status(200).json(product);
   }
   res.status(404).json({error : "L'identifiant spécifié n'est pas associé à un élément qui se trouve dans le panier"});
 });
+
+
 
 router.post("/api/shopping-cart", function(req, res) {
   if(req.body.productId === undefined || req.body.quantity === undefined) {
@@ -42,10 +47,48 @@ router.post("/api/shopping-cart", function(req, res) {
   const productIdBody = req.body.productId;
   const quantityBody = req.body.quantity;
 
-  /** TODO : Voir comment améliorer car asynchrone avec le find **/
+  // TODO : Voir comment améliorer car asynchrone avec le find
   checkNewProductInShoppingCart(productIdBody, quantityBody, req, res);
-
 });
+
+router.put("/api/shopping-cart/:productId", function(req, res) {
+  if(req.body.quantity === undefined) {
+    return res.status(400).json({error: "Quantité requise."});
+  }
+
+  const quantityBody = req.body.quantity;
+  const productIdParam = req.params.productId;
+  var shoppingCart = req.session.shoppingCart;
+
+  var product = getProductIntoShoppingCart(shoppingCart, productIdParam);
+  var error = {};
+
+  if(!product.productId) {
+    error.status = 404;
+    error.message = "Le produit n'existe pas dans le panier.";
+  } else if (!isGoodQuantity(quantityBody)) {
+    error.status = 400;
+    error.message = "La quantité spécifiée est invalide.";
+  }
+
+  if(error.status) {
+    res.status(error.status).json({message : error.message});
+  } else {
+    product.quantity = quantityBody;
+    res.status(204).json({message : "ok"});
+  }
+});
+
+function getProductIntoShoppingCart(listProducts, productId) {
+  /** On fait comme ça car le .forEach() ne peut être stoppé **/
+  for(var i = 0; i < listProducts.length; i++) {
+    var elem = listProducts[i];
+    if (elem.productId == parseInt(productId)) {
+      return elem;
+    }
+  }
+  return {};
+}
 
 function sendResponse(productIdBody, quantityBody, req, res, error) {
   if(!error.status && !error.message) {
@@ -73,12 +116,18 @@ function checkNewProductInShoppingCart(productId, quantity, req, res) {
   });
 }
 
+function isGoodQuantity(quantity) {
+  var test = Number.isInteger(quantity) && quantity > 0;
+  return test;
+}
+
 function checkProductAndQuantity(productId, quantity, req) {
   var errorToReturn = {};
+  /** TODO : mettre get ... à la place **/
   if(isProductIntoShoppingCart(productId, req)) {
     errorToReturn.status = 400;
     errorToReturn.message = "Le produit associé à l'identifiant spécifié a déjà été ajouté dans le panier.";
-  } else if (!Number.isInteger(quantity) || quantity === 0) {
+  } else if (!isGoodQuantity(quantity)) {
     errorToReturn.status = 400;
     errorToReturn.message = "La quantité spécifiée n'est pas valide.";
   }
