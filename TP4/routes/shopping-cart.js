@@ -74,7 +74,7 @@ router.put("/api/shopping-cart/:productId", function(req, res) {
     res.status(error.status).json({message : error.message});
   } else {
     product.quantity = quantityBody;
-    res.status(204).json({message : "ok"});
+    res.status(204).send();
   }
 });
 
@@ -86,7 +86,7 @@ router.delete("/api/shopping-cart/:productId", function(req, res) {
 
 router.delete("/api/shopping-cart", function(req, res) {
   req.session.shoppingCart = [];
-  return res.status(204).json({message:"ok"});
+  return res.status(204).send();
 });
 
 function getProductIntoShoppingCart(listProducts, productId) {
@@ -105,7 +105,7 @@ function removeProduct(listProducts, productId, res) {
     var elem = listProducts[i];
     if (elem.productId == parseInt(productId)) {
       listProducts.splice(i,1);
-      return res.status(204).json({message : "ok"});
+      return res.status(204).send();
     }
   }
   return res.status(404).json({message : "Le produit n'existe pas dans le panier."});
@@ -114,7 +114,7 @@ function removeProduct(listProducts, productId, res) {
 function sendResponse(productIdBody, quantityBody, req, res, error) {
   if(!error.status && !error.message) {
     req.session.shoppingCart.push({productId : productIdBody, quantity : quantityBody});
-    return res.status(201).json({message : "ok"});
+    return res.status(201).json({message : "OK"});
   }
   return res.status(error.status).json({message : error.message});
 }
