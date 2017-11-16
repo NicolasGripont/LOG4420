@@ -41,14 +41,9 @@ onlineShop.shoppingCartService = (function($, productsService) {
       }
     })
     .done(function() {
-      callback(1);
+      callback();
     })
     .fail(function(xhr, status, errorThrown) {
-      if(xhr.responseJSON.message.toString() === "Le produit associé à l'identifiant spécifié a déjà été ajouté dans le panier." ) {
-        callback(2);
-      } else {
-        callback(3);
-      }
     });
 
   };

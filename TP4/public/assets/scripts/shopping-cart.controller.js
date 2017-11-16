@@ -134,38 +134,16 @@ var onlineShop = onlineShop || {};
     event.preventDefault();
     var productId = $(this).attr("data-product-id");
     var quantityFilled = +$(this).find("input").val();
-    shoppingCartService.addItem(productId, quantityFilled, function(retourPost) {
-      switch (retourPost) {
-        case 1 :
-          var dialog = $("#dialog");
-          dialog.fadeIn();
-          setTimeout(function() {
-            dialog.fadeOut();
-          }, 5000);
-          _updateCount();
-          shoppingCartService.getItemQuantity(productId, function(quantity) {
-            $("#shopping-cart-quantity").text(quantity);
-          });
-          break;
-        case 2 :
-          var dialog = $("#dialog");
-          dialog.fadeIn();
-          setTimeout(function() {
-            dialog.fadeOut();
-          }, 5000);
-
-          shoppingCartService.getItemQuantity(productId, function(quantity) {
-            shoppingCartService.updateItemQuantity(productId, quantity + quantityFilled, function() {
-              $("#shopping-cart-quantity").text(quantity + quantityFilled);
-              _updateCount();
-            });
-          });
-          break;
-
-        default :
-          break;
-      }
-
+    shoppingCartService.addItem(productId, quantityFilled, function() {
+      var dialog = $("#dialog");
+      dialog.fadeIn();
+      setTimeout(function() {
+        dialog.fadeOut();
+      }, 5000);
+      _updateCount();
+      shoppingCartService.getItemQuantity(productId, function(quantity) {
+        $("#shopping-cart-quantity").text(quantity);
+      });
     });
   });
 
