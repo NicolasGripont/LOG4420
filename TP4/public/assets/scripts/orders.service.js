@@ -21,7 +21,6 @@ onlineShop.ordersService = (function() {
    */
   self.createOrder = function(order) {
     order.id = id++;
-    console.log(order);
     $.ajax({
       url: "/api/orders",
       type: "POST",
@@ -32,7 +31,7 @@ onlineShop.ordersService = (function() {
         lastName : order.lastName,
         email : order.email,
         phone : order.phone,
-        products : order.products
+        products : JSON.stringify(order.products)
       }
     })
     .done(function() {

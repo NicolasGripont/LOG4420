@@ -30,15 +30,15 @@ router.get("/api/orders/:id", function(req, res) {
 });
 
 router.post("/api/orders", function(req, res) {
+  var products = JSON.parse(req.body.products);
   var order = new Order({
     id : req.body.id,
     firstName : req.body.firstName,
     lastName : req.body.lastName,
     email : req.body.email,
     phone : req.body.phone,
-    products : req.body.products
+    products : JSON.parse(req.body.products)
   });
-
   // TODO : Améliorer asynchrone avec find
   checkNewOrder(order, res);
 });
