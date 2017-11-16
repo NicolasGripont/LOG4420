@@ -78,6 +78,7 @@ function checkNewOrder(order, res) {
       if(message !== "") {
         return res.status(400).json({message : message});
       } else {
+
         // TODO : Check si les id de produits sont bons ?
         order.save(function (error) {
           if (error) {
