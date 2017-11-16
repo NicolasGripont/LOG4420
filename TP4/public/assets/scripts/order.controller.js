@@ -22,22 +22,32 @@ var onlineShop = onlineShop || {};
     if (!orderForm.valid()) {
       return false;
     }
-    shoppingCartService.getItems().done(function(items) {
+    shoppingCartService.getItems(function(items) {
+      var products = [];
+      for(var i = 0; i < items.length; ++i) {
+        console.log(items[i]);
+        if(items[i].product.id && items[i].quantity) {
+          products.push({id : items[i].product.id, quantity : items[i].quantity});
+        }
+      }
       var order = {
         firstName: $("#first-name").val(),
         lastName: $("#last-name").val(),
         email: $("#email").val(),
         phone: $("#phone").val(),
-        products: items.map(function(item) {
+        products: products/*items.map(function(item) {
           return {
-            productId: item.product.id,
+            id: item.product.id,
             quantity: item.quantity
           }
-        })
+        })*/
       };
-      ordersService.createOrder(order);
-      shoppingCartService.removeAllItems();
-      orderForm.unbind("submit").submit();
+      console.log(order.products);
+      ordersService.createOrder(order, function() {
+        shoppingCartService.removeAllItems(function(){
+          orderForm.unbind("submit").submit();
+        });
+      });
     });
     return true;
   }
@@ -52,10 +62,12 @@ var onlineShop = onlineShop || {};
   }, "La date d'expiration de votre carte de crédit est invalide.");
 
   // Initializes the view.
-  if (shoppingCartService.getItemsCount() <= 0) {
-    $("article").html("<h1>Votre panier est vide!<h1>");
-    return;
-  }
+  shoppingCartService.getItemsCount(function(count) {
+    if(count <= 0) {
+      $("article").html("<h1>Votre panier est vide!<h1>");
+      return;
+    }
+  });
 
   orderForm.validate({
     rules: {

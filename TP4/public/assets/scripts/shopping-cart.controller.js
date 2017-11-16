@@ -181,10 +181,9 @@ var onlineShop = onlineShop || {};
   // Checks if we are on the "shopping cart" page.
   if ($("#shopping-cart-container").length) {
     shoppingCartService.getItems(function(items) {
-      if (items === null) {
+      if (items.length === 0) {
         _renderEmptyView();
       } else {
-        console.log(items);
         _renderShoppingCartView(items);
       }
       _updateTotalAmount();
