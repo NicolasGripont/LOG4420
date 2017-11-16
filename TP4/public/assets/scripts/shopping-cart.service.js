@@ -1,5 +1,6 @@
 var onlineShop = onlineShop || {};
 
+
 /**
  * Defines a service to manage the shopping cart.
  *
@@ -18,34 +19,46 @@ onlineShop.shoppingCartService = (function($, productsService) {
    * @param [quantity]  The quantity of the product.
    */
   self.addItem = function(productId, quantity, callback) {
-    /*if (productId === undefined) {
-      throw new Error("The specified product ID is invalid.")
-    }
-    if (!quantity || typeof quantity !== "number" || quantity <= 0) {
-      quantity = 1;
-    }
-    if (items[productId]) {
-      items[productId] += quantity;
-    } else {
-      items[productId] = quantity;
-    }
-    _updateLocalStorage();*/
+    self.getItem(productId, function(product) {
+      if(product) {
+        self.updateItemQuantity(productId, product.quantity + quantity, function() {
+          callback();
+        });
+      } else {
+        addNewItem($, productId, quantity, callback);
+      }
+    });
+  };
 
+  self.addNewItem = function($, productId, quantity, callback) {
     $.ajax({
       url: "/api/shopping-cart",
       type: "POST",
-      dataType : "json",
-      data : {
-        productId : productId,
-        quantity : quantity
+      dataType: "json",
+      data: {
+        productId: productId,
+        quantity: quantity
       }
     })
-    .done(function() {
+    .done(function () {
       callback();
     })
-    .fail(function(xhr, status, errorThrown) {
+    .fail(function (xhr, status, errorThrown) {
     });
+  };
 
+  self.getItem = function(productId, callback) {
+    $.ajax({
+      url: "/api/shopping-cart/" + productId,
+      type: "GET",
+      dataType : "json"
+    })
+    .done(function(product) {
+      callback(product);
+    })
+    .fail(function(xhr, status, errorThrown) {
+      callback(null);
+    });
   };
 
   /**
@@ -54,17 +67,6 @@ onlineShop.shoppingCartService = (function($, productsService) {
    * @returns {jquery.promise}    A promise that contains the list of items in the shopping cart.
    */
   self.getItems = function(callback) {
-    /*return productsService.getProducts("alpha-asc").then(function(products) {
-      return products.filter(function(product) {
-        return items.hasOwnProperty(product.id) && items[product.id] !== undefined;
-      }).map(function(product) {
-        return {
-          product: product,
-          quantity: items[product.id],
-          total: product.price * items[product.id]
-        };
-      });
-    });*/
 
     $.ajax({
       url: "/api/shopping-cart",
@@ -101,11 +103,6 @@ onlineShop.shoppingCartService = (function($, productsService) {
   self.getItemsCount = function(callback) {
     var total = 0;
     self.getItems(function(products) {
-      /*for(var test in products) {
-        if (test) {
-          total += test.quantity;
-        }
-      }*/
       products.forEach(function(item) {
         if (item) {
           total += item.quantity;
@@ -141,15 +138,6 @@ onlineShop.shoppingCartService = (function($, productsService) {
    *  {jquery.promise}    A promise that contains the total amount.
    */
   self.getTotalAmount = function(callback) {
-    /*return self.getItems().then(function(items) {
-      var total = 0;
-      items.forEach(function(item) {
-        if (item) {
-          total += item.total;
-        }
-      });
-      return total;
-    });*/
     var total = 0;
     self.getItems(function(products) {
       products.forEach(function(item) {
@@ -169,15 +157,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
    * @param quantity    The item quantity.
    */
   self.updateItemQuantity = function(productId, quantity, callback) {
-    /*if (!quantity || typeof quantity !== "number" || quantity <= 0) {
-      throw new Error("The specified quantity is invalid.")
-    }
-    if (items[productId]) {
-      items[productId] = quantity;
-      _updateLocalStorage();
-    }*/
 
-    //TODO : Voir comment améliorer l'appel (surtout le .fail)
     $.ajax({
       url: "/api/shopping-cart/" + productId,
       type: "PUT",
@@ -197,11 +177,6 @@ onlineShop.shoppingCartService = (function($, productsService) {
    * @param productId   The product ID associated with the item to remove.
    */
   self.removeItem = function(productId, callback) {
-    /*if (items[productId]) {
-      items[productId] = undefined;
-    }
-    _updateLocalStorage();*/
-
     $.ajax({
       url: "/api/shopping-cart/" + productId,
       type: "DELETE",
@@ -217,10 +192,6 @@ onlineShop.shoppingCartService = (function($, productsService) {
    * Removes all the items in the shopping cart.
    */
   self.removeAllItems = function(callback) {
-    //items = {};
-    //_updateLocalStorage();
-    //_updateLocalStorage();
-
     $.ajax({
       url: "/api/shopping-cart",
       type: "DELETE",
@@ -230,20 +201,6 @@ onlineShop.shoppingCartService = (function($, productsService) {
       callback();
     });
   };
-
-  /**
-   * Updates the shopping cart in the local storage.
-   *
-   * @private
-   */
-  /*function _updateLocalStorage() {
-    localStorage["shoppingCart"] = JSON.stringify(items);
-  }
-
-  // Initializes the shopping cart.
-  /*if (localStorage["shoppingCart"]) {
-    items = JSON.parse(localStorage["shoppingCart"]);
-  }*/
 
   return self;
 })(jQuery, onlineShop.productsService);
