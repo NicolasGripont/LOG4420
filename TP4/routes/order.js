@@ -29,8 +29,6 @@ router.get("/api/orders/:id", function(req, res) {
 });
 
 router.post("/api/orders", function(req, res) {
-  var products = req.body.products;
-
   var order = new Order({
     id : req.body.id,
     firstName : req.body.firstName,

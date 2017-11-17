@@ -18,7 +18,6 @@ onlineShop.ordersService = (function() {
    * @param order   The order to create.
    */
   self.createOrder = function(order, callback) {
-
     $.ajax({
       url: "/api/orders/ids/newIdAvailable",
       type: "GET",
