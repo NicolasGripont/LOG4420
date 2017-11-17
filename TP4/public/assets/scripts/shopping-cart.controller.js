@@ -23,7 +23,6 @@ var onlineShop = onlineShop || {};
         countElement.removeClass("visible");
       }
     });
-
   }
 
   /**

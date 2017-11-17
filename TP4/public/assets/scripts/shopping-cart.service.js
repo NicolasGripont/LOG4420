@@ -25,7 +25,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
           callback();
         });
       } else {
-        addNewItem($, productId, quantity, callback);
+        self.addNewItem($, productId, quantity, callback);
       }
     });
   };
