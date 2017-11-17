@@ -35,12 +35,7 @@ var onlineShop = onlineShop || {};
         lastName: $("#last-name").val(),
         email: $("#email").val(),
         phone: $("#phone").val(),
-        products: products/*items.map(function(item) {
-          return {
-            id: item.product.id,
-            quantity: item.quantity
-          }
-        })*/
+        products: products
       };
       console.log(order.products);
       ordersService.createOrder(order, function() {

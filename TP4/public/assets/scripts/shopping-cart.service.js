@@ -25,12 +25,12 @@ onlineShop.shoppingCartService = (function($, productsService) {
           callback();
         });
       } else {
-        addNewItem($, productId, quantity, callback);
+        self.addNewItem(productId, quantity, callback);
       }
     });
   };
 
-  self.addNewItem = function($, productId, quantity, callback) {
+  self.addNewItem = function(productId, quantity, callback) {
     $.ajax({
       url: "/api/shopping-cart",
       type: "POST",

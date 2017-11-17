@@ -30,7 +30,8 @@ router.get("/api/products", function(req, res) {
 
 router.get("/api/products/:id", function(req, res) {
   var options = {};
-  options.id = req.params.id;
+  //TODO ckeck Params
+  options.id = parseInt(req.params.id);
   Product.find(options, function (error, products) {
     if (error) {
       return res.status(500).json({ error : error });
@@ -68,6 +69,7 @@ router.post("/api/products", function(req, res) {
 
 router.delete("/api/products/:id", function(req, res) {
   var options = {};
+  //TODO ckeck Params
   options.id = req.params.id;
   Product.remove(options, function (error, products) {
     if (error) {

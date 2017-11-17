@@ -9,11 +9,12 @@ var Product = require('../models/product');
 
 router.get("/api/shopping-cart", function(req,res) {
   var products = [];
+
   if(!req.session.shoppingCart) {
     req.session.shoppingCart = [];
   }
   req.session.shoppingCart.forEach(function(elem) {
-    var product = {productId : elem.productId, quantity : elem.quantity};
+    var product = { productId : elem.productId, quantity : elem.quantity };
     products.push(product);
   });
 
@@ -24,10 +25,12 @@ router.get("/api/shopping-cart/:productId", function(req, res) {
   if(!req.session.shoppingCart) {
     req.session.shoppingCart = [];
   }
-  const listProductsIntoShoppingCart = req.session.shoppingCart;
-  const productId = req.params.productId;
 
-  var product = getProductIntoShoppingCart(listProductsIntoShoppingCart, productId);
+  const shoppingCart = req.session.shoppingCart;
+  //TODO check param
+  const productId = parseInt(req.params.productId);
+
+  var product = getProductFromShoppingCart(shoppingCart, productId);
   if(product.productId) {
     return res.status(200).json(product);
   }
@@ -46,8 +49,7 @@ router.post("/api/shopping-cart", function(req, res) {
   const productIdBody = parseInt(req.body.productId);
   const quantityBody = parseInt(req.body.quantity);
 
-  // TODO : Voir comment améliorer car asynchrone avec le find
-  checkNewProductInShoppingCart(productIdBody, quantityBody, req, res);
+  addNewProductInShoppingCart(req.session.shoppingCart, productIdBody, quantityBody, res);
 });
 
 router.put("/api/shopping-cart/:productId", function(req, res) {
@@ -59,7 +61,7 @@ router.put("/api/shopping-cart/:productId", function(req, res) {
   const productIdParam = req.params.productId;
   var shoppingCart = req.session.shoppingCart;
 
-  var product = getProductIntoShoppingCart(shoppingCart, productIdParam);
+  var product = getProductFromShoppingCart(shoppingCart, productIdParam);
   var error = {};
 
   if(!product.productId) {
@@ -89,11 +91,10 @@ router.delete("/api/shopping-cart", function(req, res) {
   return res.status(204).send();
 });
 
-function getProductIntoShoppingCart(listProducts, productId) {
-  /** On fait comme ça car le .forEach() ne peut être stoppé **/
-  for(var i = 0; i < listProducts.length; i++) {
-    var elem = listProducts[i];
-    if (elem.productId == parseInt(productId)) {
+function getProductFromShoppingCart(shoppingCart, productId) {
+  for(var i = 0; i < shoppingCart.length; i++) {
+    var elem = shoppingCart[i];
+    if (elem.productId == productId) {
       return elem;
     }
   }
@@ -111,29 +112,33 @@ function removeProduct(listProducts, productId, res) {
   return res.status(404).json({message : "Le produit n'existe pas dans le panier."});
 }
 
-function sendResponse(productIdBody, quantityBody, req, res, error) {
-  if(!error.status && !error.message) {
-    req.session.shoppingCart.push({productId : productIdBody, quantity : quantityBody});
-    return res.status(201).json({message : "OK"});
-  }
-  return res.status(error.status).json({message : error.message});
-}
-
-function checkNewProductInShoppingCart(productId, quantity, req, res) {
+function addNewProductInShoppingCart(shoppingCart, productId, quantity, res) {
   var options = {};
-  var errorToReturn={};
+  var error = {};
   options.id = productId;
   Product.find(options, function (err, products) {
     if (err) {
-      errorToReturn.status = 500;
-      errorToReturn.message = err;
+      error.status = 500;
+      error.message = err;
     } else if (products.length != 1) {
-      errorToReturn.status = 400;
-      errorToReturn.message = "L'identifiant spécifié n'existe pas.";
+      error.status = 400;
+      error.message = "L'identifiant spécifié n'existe pas.";
     } else {
-      errorToReturn = checkProductAndQuantity(productId, quantity, req);
+      const product = getProductFromShoppingCart(shoppingCart, productId);
+      if(product.productId) {
+        error.status = 400;
+        error.message = "Le produit associé à l'identifiant spécifié a déjà été ajouté dans le panier.";
+      } else if (!isGoodQuantity(quantity)) {
+        error.status = 400;
+        error.message = "La quantité spécifiée n'est pas valide.";
+      }
+      error = checkProductAndQuantity(shoppingCart, productId, quantity);
     }
-    sendResponse(productId, quantity, req, res, errorToReturn);
+    if(!error.status && !error.message) {
+      shoppingCart.push({productId : productId, quantity : quantity});
+      return res.status(201).json({message : "OK"});
+    }
+    return res.status(error.status).json({message : error.message});
   });
 }
 
@@ -142,10 +147,10 @@ function isGoodQuantity(quantity) {
   return test;
 }
 
-function checkProductAndQuantity(productId, quantity, req) {
+function checkProductAndQuantity(shoppingCart, productId, quantity) {
   var errorToReturn = {};
   /** TODO : mettre get ... à la place **/
-  if(isProductIntoShoppingCart(productId, req)) {
+  if(isProductInShoppingCart(shoppingCart, productId)) {
     errorToReturn.status = 400;
     errorToReturn.message = "Le produit associé à l'identifiant spécifié a déjà été ajouté dans le panier.";
   } else if (!isGoodQuantity(quantity)) {
@@ -155,16 +160,14 @@ function checkProductAndQuantity(productId, quantity, req) {
   return errorToReturn;
 }
 
-function isProductIntoShoppingCart(productId, req) {
-  const listProductIntoShoppingCart = req.session.shoppingCart;
-
-  /** On fait comme ça car le .forEach() ne peut être stoppé **/
-  for(var i = 0; i < listProductIntoShoppingCart.length; i++) {
-    var elem = listProductIntoShoppingCart[i];
+function isProductInShoppingCart(shoppingCart, productId) {
+  for(var i = 0; i < shoppingCart.length; i++) {
+    var elem = shoppingCart[i];
     if (elem.productId === productId) {
       return true;
     }
   }
+
   return false;
 }
 

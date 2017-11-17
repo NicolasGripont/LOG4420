@@ -5,7 +5,6 @@ var Order = require('../models/order');
 var Product = require('../models/product');
 var Utils = require('../utils/utils');
 
-
 router.get("/api/orders", function(req, res) {
   var options = {};
   Order.find(options, function (err, orders) {
@@ -39,8 +38,8 @@ router.post("/api/orders", function(req, res) {
     phone : req.body.phone,
     products : JSON.parse(req.body.products)
   });
-  // TODO : Améliorer asynchrone avec find
-  checkNewOrder(order, res);
+
+  addNewOrder(order, req, res);
 });
 
 router.delete("/api/orders/:id", function(req, res) {
@@ -65,7 +64,20 @@ router.delete("/api/orders", function(req, res) {
   });
 });
 
-function checkNewOrder(order, res) {
+router.get("/api/orders/ids/newIdAvailable", function(req, res) {
+  var query = Order.find().select('id').sort({id : -1}).limit(1);
+  query.exec(function (err, orderIds) {
+    if(err) {
+      return res.status(500).json({error : err});
+    } else if (orderIds.length !== 1) {
+      return res.status(200).json({newId : 1});
+    }
+    return res.status(200).json({newId : orderIds[0].id+1});
+  })
+
+});
+
+function addNewOrder(order, req, res) {
   var options = {};
   options.id = order.id;
   Order.find(options, function (err, orders) {
@@ -74,18 +86,30 @@ function checkNewOrder(order, res) {
     } else if (orders.length !== 0) {
       return res.status(400).json({error : "L'identifiant spécifié est déjà utilisé."});
     } else {
-      var message = checkParameters(order);
-      if(message !== "") {
-        return res.status(400).json({message : message});
+      var error = checkParameters(order);
+      if(error !== "") {
+        return res.status(400).json({error : error});
       } else {
-
-        // TODO : Check si les id de produits sont bons ?
-        order.save(function (error) {
-          if (error) {
-            return res.status(500).json({error : error});
+        var productIds = [];
+        for (var i = 0; i < order.products.length; i++) {
+          productIds.push(order.products[i].id);
+        }
+        var query = Product.find({id : { $in: productIds}}).select('id');
+        query.exec(function (err, products) {
+          if(err) {
+            return res.status(500).json({error : err});
+          } else if (!checkProductIds(products,productIds)){
+            return res.status(400).json({error : "Un ou plusieurs identifiants de produit sont invalide"});
           }
-          return res.status(201).json({message : "OK"});
-        });
+          order.save(function (err) {
+            if (err) {
+              return res.status(500).json({error : error});
+            }
+            req.session.shoppingCart = undefined;
+            return res.status(201).json({message : "OK"});
+          });
+
+        })
       }
     }
   });
@@ -128,5 +152,26 @@ function checkParameters(order) {
   return error;
 }
 
+function checkProductIds(products, productIds) {
+  if(products.length !== productIds.length) {
+    return false;
+  }
+
+  for (var i = 0; i < productIds.length; i++) {
+    if(!checkProductId(products,productIds[i])){
+      return false;
+    }
+  }
+  return true;
+}
+
+function checkProductId(products, productId) {
+  for (var i = 0; i < products.length; i++) {
+      if(products[i].id === productId) {
+        return true;
+      }
+  }
+  return false;
+}
 
 module.exports = router;

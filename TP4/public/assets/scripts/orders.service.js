@@ -10,38 +10,43 @@ onlineShop.ordersService = (function() {
   "use strict";
 
   var self = {};
-
-  //TODO : Gestion des id de commande ?
-  var id = 1;
+  var orders = [];
 
   /**
    * Creates a new order.
    *
    * @param order   The order to create.
    */
-  self.createOrder = function(order) {
-    order.id = id++;
+  self.createOrder = function(order, callback) {
+
     $.ajax({
-      url: "/api/orders",
-      type: "POST",
-      dataType : "json",
-      data : {
-        id : 10,
-        firstName : order.firstName,
-        lastName : order.lastName,
-        email : order.email,
-        phone : order.phone,
-        products : JSON.stringify(order.products)
-      }
+      url: "/api/orders/ids/newIdAvailable",
+      type: "GET",
+      dataType : "json"
     })
-    .done(function() {
-      callback();
+    .done(function(data) {
+      order.id = data.newId;
+      $.ajax({
+        url: "/api/orders",
+        type: "POST",
+        dataType : "json",
+        data : {
+          id : order.id,
+          firstName : order.firstName,
+          lastName : order.lastName,
+          email : order.email,
+          phone : order.phone,
+          products : JSON.stringify(order.products)
+        }
+      })
+      .done(function() {
+        if (order) {
+          orders.push(order);
+          _updateLocalStorage();
+        }
+        callback();
+      });
     });
-    /*if (order) {
-      order.id = orders.length + 1;
-      orders.push(order);
-      _updateLocalStorage();
-    }*/
   };
 
   /**
