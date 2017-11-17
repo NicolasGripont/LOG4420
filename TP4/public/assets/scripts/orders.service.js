@@ -19,7 +19,7 @@ onlineShop.ordersService = (function() {
    *
    * @param order   The order to create.
    */
-  self.createOrder = function(order) {
+  self.createOrder = function(order, callback) {
     order.id = id++;
     $.ajax({
       url: "/api/orders",
@@ -37,11 +37,6 @@ onlineShop.ordersService = (function() {
     .done(function() {
       callback();
     });
-    /*if (order) {
-      order.id = orders.length + 1;
-      orders.push(order);
-      _updateLocalStorage();
-    }*/
   };
 
   /**
