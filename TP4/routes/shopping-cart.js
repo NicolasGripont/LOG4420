@@ -38,16 +38,18 @@ router.get("/api/shopping-cart/:productId", function(req, res) {
 });
 
 router.post("/api/shopping-cart", function(req, res) {
-  if(req.body.productId === undefined || req.body.quantity === undefined) {
-    return res.status(400).json({error: "Paramètre(s) manquant(s)."});
+  const productIdBody = parseInt(req.body.productId);
+  const quantityBody = parseInt(req.body.quantity);
+
+  if(!productIdBody || !quantityBody) {
+    return res.status(400).json({error: "Paramètre(s) manquant(s) ou invalide(s)."});
   }
 
   if(!req.session.shoppingCart) {
     req.session.shoppingCart = [];
   }
 
-  const productIdBody = parseInt(req.body.productId);
-  const quantityBody = parseInt(req.body.quantity);
+
 
   addNewProductInShoppingCart(req.session.shoppingCart, productIdBody, quantityBody, res);
 });

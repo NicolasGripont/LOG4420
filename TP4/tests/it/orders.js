@@ -237,11 +237,13 @@ describe("API des commandes", function() {
     });
     it("doit créer une commande dans la base de données lorsque les informations sont valides", function(done) {
       var order = JSON.parse(JSON.stringify(ORDER));
+      console.log("--->"+JSON.stringify(order));
       chai.request(server)
         .post("/api/orders/")
         .set("content-type", "application/json")
         .send(order)
         .end(function(err, res) {
+          console.log("--->"+JSON.stringify(res));
           res.should.have.status(201);
           chai.request(server)
             .get("/api/orders/" + order.id)
