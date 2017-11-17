@@ -84,6 +84,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
             items.push(productInShoppingCart);
             // TODO : Voir comment améliorer avec les asynchrone
             if(items.length === products.length) {
+              items = self.sortShoppingCart(items);
               callback(items);
             }
           });
@@ -201,6 +202,15 @@ onlineShop.shoppingCartService = (function($, productsService) {
       callback();
     });
   };
+
+
+  self.sortShoppingCart = function(shoppingCart) {
+    shoppingCart = shoppingCart.sort(function(a, b) {
+      return (a.product.name.toLowerCase() > b.product.name.toLowerCase()) ? 1 : ((a.product.name.toLowerCase() < b.product.name.toLowerCase()) ? -1 : 0);
+    });
+    return shoppingCart;
+  };
+
 
   return self;
 })(jQuery, onlineShop.productsService);

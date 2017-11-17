@@ -21,22 +21,22 @@ onlineShop.ordersService = (function() {
     $.ajax({
       url: "/api/orders/ids/newIdAvailable",
       type: "GET",
-      dataType : "json"
     })
     .done(function(data) {
       order.id = data.newId;
       $.ajax({
         url: "/api/orders",
         type: "POST",
-        dataType : "json",
-        data : {
+        data : JSON.stringify({
           id : order.id,
           firstName : order.firstName,
           lastName : order.lastName,
           email : order.email,
           phone : order.phone,
-          products : JSON.stringify(order.products)
-        }
+          products : order.products
+        }),
+        processData: false,
+        contentType: "application/json; charset=UTF-8"
       })
       .done(function() {
         if (order) {

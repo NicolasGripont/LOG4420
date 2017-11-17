@@ -106,7 +106,7 @@ function isCriteriaValid(criteria) {
 
 function sortProducts(products, criteria) {
   var utils = new Utils();
-  if(products.length > 1) {
+  if(products && products.length > 1) {
     switch (criteria) {
       case "alpha-asc":
         return utils.sortJSON(products, "name", "asc");

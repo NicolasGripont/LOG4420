@@ -49,8 +49,6 @@ router.post("/api/shopping-cart", function(req, res) {
     req.session.shoppingCart = [];
   }
 
-
-
   addNewProductInShoppingCart(req.session.shoppingCart, productIdBody, quantityBody, res);
 });
 

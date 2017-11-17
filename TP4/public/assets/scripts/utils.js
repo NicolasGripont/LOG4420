@@ -43,5 +43,22 @@ onlineShop.utils = {
     symbol = symbol || '0';
     number = number + '';
     return number.length >= width ? number : new Array(width - number.length + 1).join(symbol) + number;
+  },
+
+  sortJSON : function(products, criteria, orderBy) {
+    products = products.sort(function(a, b) {
+      if (orderBy === undefined || orderBy === "asc") {
+        if(typeof(a[criteria]) === "string") {
+          return (a[criteria].toLowerCase() > b[criteria].toLowerCase()) ? 1 : ((a[criteria].toLowerCase() < b[criteria].toLowerCase()) ? -1 : 0);
+        }
+        return (a[criteria] > b[criteria]) ? 1 : ((a[criteria] < b[criteria]) ? -1 : 0);
+      } else if(orderBy === "dsc") {
+        if(typeof(a[criteria]) === "string") {
+          return (b[criteria].toLowerCase() > a[criteria].toLowerCase()) ? 1 : ((b[criteria].toLowerCase() < a[criteria].toLowerCase()) ? -1 : 0);
+        }
+        return (b[criteria] > a[criteria]) ? 1 : ((b[criteria] < a[criteria]) ? -1 : 0);
+      }
+    });
+    return products;
   }
 };
