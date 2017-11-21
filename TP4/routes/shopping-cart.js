@@ -1,11 +1,7 @@
 var express = require("express");
 var router = express.Router();
-var validator = require('validator');
-
-var express = require("express");
-var router = express.Router();
-var validator = require('validator');
 var Product = require('../models/product');
+var ShoppingCartController = require('../controllers/shopping-cart-controller');
 
 router.get("/api/shopping-cart", function(req,res) {
   var products = [];

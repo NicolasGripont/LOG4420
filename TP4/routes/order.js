@@ -4,6 +4,7 @@ var router = express.Router();
 var Order = require('../models/order');
 var Product = require('../models/product');
 var Utils = require('../utils/utils');
+var OrderController = require('../controllers/order-controller');
 
 router.get("/api/orders", function(req, res) {
   var options = {};
