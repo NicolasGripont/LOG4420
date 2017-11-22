@@ -1,5 +1,9 @@
 var Product = require('../models/product');
 
+
+/**
+ * Controller Of the Shopping Cart API
+ */
 class ShoppingCartController {
 
   constructor(req, res) {
@@ -7,6 +11,9 @@ class ShoppingCartController {
     this.res = res;
   }
 
+  /**
+   * Get products and corresponding quantity from the shopping cart
+   */
   findProducts() {
     var self = this;
     var products = [];
@@ -26,6 +33,10 @@ class ShoppingCartController {
     }
   }
 
+  /**
+   * Get product and corresponding quantity from the shopping cart and send it to the client
+   * @param productId
+   */
   findProduct(productId) {
     var self = this;
 
@@ -37,11 +48,16 @@ class ShoppingCartController {
         return self.res.status(200).json(product);
       }
       return self.res.status(404).json({error : "L'identifiant spécifié n'est pas associé à un élément qui se trouve dans le panier"});
-    } else {
-      return self.res.status(404).json({error: "Url invalide."});
     }
+    return self.res.status(404).json({error: "Url invalide."});
   }
 
+  /**
+   * Get product and corresponding quantity from the shopping cart
+   * @param shoppingCart Shopping cart from where we search the product
+   * @param productId Product to get
+   * @returns {*} A json object with the product id and corresponding quantity
+   */
   getProductFromShoppingCart(shoppingCart, productId) {
     for(var i = 0; i < shoppingCart.length; i++) {
       var elem = shoppingCart[i];
@@ -52,45 +68,59 @@ class ShoppingCartController {
     return {};
   }
 
-  addNewProduct(productIdBody, quantityBody) {
+  /**
+   * Add the product in th the session shopping cart
+   * @param productId Product id to add
+   * @param quantity  Quantity of the product
+   */
+  addNewProduct(productId, quantity) {
     var self = this;
-    if(!productIdBody || !quantityBody) {
+    if(!productId || !quantity) {
       return self.res.status(400).json({error: "Paramètre(s) manquant(s) ou invalide(s)."});
     }
     self.initShoppingCart();
-    self.addNewProductInShoppingCart(self.req.session.shoppingCart, productIdBody, quantityBody);
+    self.addNewProductInShoppingCart(self.req.session.shoppingCart, productId, quantity);
   }
 
-  updateQuantity(productIdParam, quantityBody) {
+  /**
+   * Update the product quatity form the session shopping cart
+   * @param productId Product id to update quantity
+   * @param quantity New quantity
+   */
+  updateQuantity(productId, quantity) {
     var self = this;
     var shoppingCart = self.req.session.shoppingCart;
 
-    var product = self.getProductFromShoppingCart(shoppingCart, productIdParam);
+    var product = self.getProductFromShoppingCart(shoppingCart, productId);
     var error = {};
 
     if(!product.productId) {
       error.status = 404;
       error.message = "Le produit n'existe pas dans le panier.";
-    } else if (!self.isGoodQuantity(quantityBody)) {
+    } else if (!self.isGoodQuantity(quantity)) {
       error.status = 400;
       error.message = "La quantité spécifiée est invalide.";
     }
 
     if(error.status) {
-      self.res.status(error.status).json({message : error.message});
+      return self.res.status(error.status).json({message : error.message});
     } else {
-      product.quantity = quantityBody;
-      self.res.status(204).send();
+      product.quantity = quantity;
+      return self.res.status(204).send();
     }
   }
 
-  removeProduct(productIdParam) {
+  /**
+   * Remove product from the session shopping cart
+   * @param productId Product ID to remove
+   */
+  removeProduct(productId) {
     var self = this;
-    if(productIdParam) {
+    if(productId) {
       var listProducts = self.req.session.shoppingCart;
       for(var i = 0; i < listProducts.length; i++) {
         var elem = listProducts[i];
-        if (elem.productId === parseInt(productIdParam)) {
+        if (elem.productId === parseInt(productId)) {
           listProducts.splice(i,1);
           return self.res.status(204).send();
         }
@@ -101,12 +131,21 @@ class ShoppingCartController {
     }
   }
 
+  /**
+   * Remove all products from the session shopping cart
+   */
   removeProducts() {
     var self = this;
     self.req.session.shoppingCart = [];
     return self.res.status(204).send();
   }
 
+  /**
+   * Add the product in th the session shopping cart
+   * @param shoppingCart Shopping where to add the product
+   * @param productId Product id to add
+   * @param quantity  Quantity of the product
+   */
   addNewProductInShoppingCart(shoppingCart, productId, quantity) {
     var self = this;
     var options = {};
@@ -130,6 +169,13 @@ class ShoppingCartController {
     });
   }
 
+  /**
+   * Check if product ID is valid and not in shopping cart and if quantity is valid
+   * @param shoppingCart Shopping Cart
+   * @param productId Product ID to check
+   * @param quantity Quantity to check
+   * @returns {{}} An empty json object if OK, else an error json object with a status and a message
+   */
   checkProductAndQuantity(shoppingCart, productId, quantity) {
     var self = this;
     var errorToReturn = {};
@@ -144,6 +190,11 @@ class ShoppingCartController {
     return errorToReturn;
   }
 
+  /**
+   * Check if quantity is an integer
+   * @param quantity Quantity to check
+   * @returns {boolean} true if quantity is an integer, else false
+   */
   isGoodQuantity(quantity) {
     return Number.isInteger(quantity) && quantity > 0;
   }

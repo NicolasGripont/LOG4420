@@ -4,6 +4,9 @@ var Utils = require('../utils/utils');
 var Validator = require('validator');
 var Promise = require('promise');
 
+/**
+ * Controller Of the Order API
+ */
 class OrderController {
 
   constructor(req, res) {
@@ -11,6 +14,9 @@ class OrderController {
     this.res = res;
   }
 
+  /**
+   * Get the Orders corresponding to the id and send it to the client
+   */
   findOrders() {
     var self = this;
 
@@ -24,6 +30,10 @@ class OrderController {
     });
   }
 
+  /**
+   * Get the Order corresponding to the id and send it to the client
+   * @param id
+   */
   findOrder(id) {
     var self = this;
 
@@ -44,6 +54,11 @@ class OrderController {
     }
   }
 
+  /**
+   * Create the order in DB
+   *
+   * @param order Order to create
+   */
   createOrder(order) {
     var self = this;
     var error = this.checkParameters(order);
@@ -72,6 +87,10 @@ class OrderController {
     }
   }
 
+  /**
+   * Delete the Order corresponding to the id from the DB
+   * @param id
+   */
   deleteOrder(id) {
     var self = this;
 
@@ -92,6 +111,10 @@ class OrderController {
     }
   }
 
+  /**
+   * Delete all Orders from the DB
+   * @param id
+   */
   deleteOrders() {
     var self = this;
 
@@ -105,6 +128,9 @@ class OrderController {
     });
   }
 
+  /**
+   * Get the next available id for Order in DB and send it to the client
+   */
   getNewIdAvailable() {
     var self = this;
 
@@ -120,7 +146,11 @@ class OrderController {
     })
   }
 
-
+  /**
+   * Check the availability of the order id
+   * @param order  Order to check id
+   * @returns {*|Promise} A promise that contains the order checked or an error (status message).
+   */
   ckeckOrderId(order) {
     return new Promise(function(resolve, reject) {
         var options = {};
@@ -137,6 +167,11 @@ class OrderController {
     });
   }
 
+  /**
+   * Check the produtct ids
+   * @param order  Order to check the products id
+   * @returns {*|Promise} A promise that contains the order checked or an error (status message).
+   */
   ckeckProductsId(order) {
     var self = this;
     return new Promise(function(resolve, reject) {
@@ -157,6 +192,11 @@ class OrderController {
     });
   }
 
+  /**
+   * Save the order in DB
+   * @param order Order to save
+   * @returns {*|Promise} A promise that contains a result message (status message).
+   */
   saveOrder(order) {
     var self = this;
     return new Promise(function(resolve, reject) {
@@ -170,6 +210,11 @@ class OrderController {
     });
   }
 
+  /**
+   * Check if the order attributes are valid
+   * @param order Order to check
+   * @returns {string} Empty string if no error in order attributes, else error messsage(s)
+   */
   checkParameters(order) {
     var utils = new Utils();
     var error = "";
@@ -208,6 +253,12 @@ class OrderController {
     return error;
   }
 
+  /**
+   * Check if the products ID of the 'productIds' array are in the 'products' array
+   * @param possible products
+   * @param productIds Product IDs to check
+   * @returns {boolean} return true if all ID of the 'productIds' array are in the 'products' array, else false
+   */
   checkProductIds(products, productIds) {
     if(products.length !== productIds.length) {
       return false;
@@ -222,10 +273,10 @@ class OrderController {
   }
 
   /**
-   *
-   * @param products
-   * @param productId
-   * @returns {boolean}
+   * Check if the products id of the 'productIds' array are in the 'products' array
+   * @param possible products
+   * @param productId Product ID to check
+   * @returns {boolean} return true if the 'productId' is in the 'products' array, else false
    */
   checkProductId(products, productId) {
     for (var i = 0; i < products.length; i++) {

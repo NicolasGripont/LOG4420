@@ -2,12 +2,21 @@ var Validator = require('validator');
 var Product = require('../models/product');
 var Utils = require('../utils/utils');
 
+
+/**
+ * Controller Of the Products API
+ */
 class ProductsController {
 
   constructor(res) {
     this.res = res;
   }
 
+  /**
+   * Get all products corresponding to the category and sorting by the criteria
+   * @param category Category of product to return
+   * @param criteria Sorting criteria of the product list
+   */
   findProducts(category, criteria) {
     var self = this;
 
@@ -29,6 +38,10 @@ class ProductsController {
     }
   }
 
+  /**
+   * Get the product corresponding to the ID
+   * @param id ID of the product to return
+   */
   findProduct(id) {
     var self = this;
 
@@ -49,6 +62,10 @@ class ProductsController {
     }
   }
 
+  /**
+   * Create the product in DB
+   * @param product Product to create
+   */
   createProduct(product) {
     var self = this;
 
@@ -65,6 +82,10 @@ class ProductsController {
     });
   }
 
+  /**
+   * Delete the product corresponding to the ID from DB
+   * @param id ID of the product to delete
+   */
   deleteProduct(id) {
     var self = this;
 
@@ -85,6 +106,10 @@ class ProductsController {
     }
   }
 
+  /**
+   * Delete all products corresponding form DB
+   * @param id ID of the product to delete
+   */
   deleteProducts() {
     var self = this;
     Product.remove({}, function (error) {
@@ -95,6 +120,13 @@ class ProductsController {
     });
   }
 
+
+  /**
+   * Sort the product list by the criteria
+   * @param products Products list to sort
+   * @param criteria Sorting criteria
+   * @returns {*}
+   */
   sortProducts(products, criteria) {
     var utils = new Utils();
     if(products && products.length > 1) {
@@ -116,6 +148,12 @@ class ProductsController {
     return products;
   }
 
+  /**
+   * Check if the category and criteria are valid
+   * @param category Category to check
+   * @param criteria Criteria to check
+   * @returns {string}
+   */
   checkCategoryAndCriteria(category, criteria) {
     var utils = new Utils();
     var testCategory = true;
@@ -147,6 +185,11 @@ class ProductsController {
     return error;
   }
 
+  /**
+   * Check if the product attributes are valid
+   * @param product Product to check
+   * @returns {string} Empty string if no error in order attributes, else error messsage(s)
+   */
   checkNewProduct(product) {
     var utils = new Utils();
     var error = "";
