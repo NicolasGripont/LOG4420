@@ -113,11 +113,13 @@ onlineShop.shoppingCartService = (function($, productsService) {
     });
   };
 
+
   /**
    * Gets the quantity associated with an item.
    *
    * @param productId   The product ID associated with the item quantity to retrieve.
-   * @returns {*}
+   * @param callback    Function called when result is gotten. Called with the json of product if success or
+   *                    null value if fail
    */
   self.getItemQuantity = function(productId, callback) {
     $.ajax({
@@ -135,8 +137,8 @@ onlineShop.shoppingCartService = (function($, productsService) {
 
   /**
    * Gets the total amount of the products in the shopping cart.
-   *
-   *  {jquery.promise}    A promise that contains the total amount.
+   * @param callback  Function called when result is gotten. Called with the total amount of
+   *                  the products in the shopping cart.
    */
   self.getTotalAmount = function(callback) {
     var total = 0;
@@ -156,6 +158,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
    *
    * @param productId   The product ID associated with the item to update.
    * @param quantity    The item quantity.
+   * @param callback    Function called on success.
    */
   self.updateItemQuantity = function(productId, quantity, callback) {
 
@@ -176,6 +179,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
    * Removes the specified item in the shopping cart.
    *
    * @param productId   The product ID associated with the item to remove.
+   * @param callback    Function called on success.
    */
   self.removeItem = function(productId, callback) {
     $.ajax({
@@ -191,6 +195,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
 
   /**
    * Removes all the items in the shopping cart.
+   * * @param callback    Function called on success.
    */
   self.removeAllItems = function(callback) {
     $.ajax({

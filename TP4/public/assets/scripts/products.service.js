@@ -12,6 +12,13 @@ onlineShop.productsService = (function($) {
   var self = {};
 
 
+  /**
+   * Gets all products associated with the category and order by the sortingCriteria
+   * @param sortingCriteria     The sorting criteria of the products to retrieve.
+   * @param category            The product category associated with the products to retrieve.
+   * @param callback            Function called when result is gotten. Called with the json array of products if
+   *                            success or an empty json array if fail as parameter.
+   */
   self.getProducts = function (sortingCriteria, category, callback) {
     if(category === "all") {
       category = "";
@@ -35,11 +42,10 @@ onlineShop.productsService = (function($) {
 
   /**
    * Gets the product associated with the product ID specified.
-   *
-   * @param productId           The product ID associated with the product to retrieve.
-   * @returns {jquery.promise}  A promise that contains the product associated with the ID specified.
+   * @param productId   The product ID associated with the product to retrieve.
+   * @param callback    Function called when result is gotten. Called with the json of product if success or
+   *                    null value if fail as parameter.
    */
-
   self.getProduct = function(productId, callback) {
     $.ajax({
       url: "/api/products/" + productId,

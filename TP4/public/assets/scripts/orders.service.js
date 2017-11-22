@@ -16,6 +16,7 @@ onlineShop.ordersService = (function() {
    * Creates a new order.
    *
    * @param order   The order to create.
+   * @param callback Function to exucute if the creation is a success
    */
   self.createOrder = function(order, callback) {
     $.ajax({
