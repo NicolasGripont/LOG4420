@@ -1,7 +1,8 @@
 var Order = require('../models/order');
 var Product = require('../models/product');
 var Utils = require('../utils/utils');
-var validator = require('validator');
+var Validator = require('validator');
+var Promise = require('promise');
 
 class OrderController {
 
@@ -44,11 +45,30 @@ class OrderController {
   }
 
   createOrder(order) {
+    var self = this;
     var error = this.checkParameters(order);
     if(error !== "") {
       return this.res.status(400).json({error : error});
     } else {
-      this.addNewOrder(order);
+      self.ckeckOrderId(order)
+        .then(function() {
+          self.ckeckProductsId(order)
+            .then(function () {
+              self.saveOrder(order)
+                .then(function(success){
+                  return self.res.status(success.status).json({ error : success.message});
+                })
+                .catch(function(error){
+                  return self.res.status(error.status).json({ error : error.message});
+                });
+            })
+            .catch(function(error){
+              return self.res.status(error.status).json({ error : error.message});
+            });
+        })
+        .catch(function(error){
+          return self.res.status(error.status).json({ error : error.message});
+        });
     }
   }
 
@@ -100,39 +120,53 @@ class OrderController {
     })
   }
 
-  addNewOrder(order) {
-    var self = this;
 
-    var options = {};
-    options.id = order.id;
-
-    Order.find(options, function (err, orders) {
-      if (err) {
-        return self.res.status(500).json({error : err});
-      } else if (orders.length !== 0) {
-        return self.res.status(400).json({error : "L'identifiant spécifié est déjà utilisé."});
-      } else {
-        var productIds = [];
-        for (var i = 0; i < order.products.length; i++) {
-          productIds.push(order.products[i].id);
-        }
-        var query = Product.find({id : { $in: productIds}}).select('id');
-        query.exec(function (err, products) {
-          if(err) {
-            return self.res.status(500).json({error : err});
-          } else if (!self.checkProductIds(products,productIds)){
-            return self.res.status(400).json({error : "Un ou plusieurs identifiants de produit sont invalide"});
+  ckeckOrderId(order) {
+    return new Promise(function(resolve, reject) {
+        var options = {};
+        options.id = order.id;
+        Order.find(options, function (err, orders) {
+          if (err) {
+            return reject({status : 500, message : err});
+          } else if (orders.length !== 0) {
+            return reject({status : 400, message : "L'identifiant spécifié est déjà utilisé."});
+          } else {
+            return resolve(order);
           }
-          order.save(function (err) {
-            if (err) {
-              return self.res.status(500).json({error : error});
-            }
-            self.req.session.shoppingCart = undefined;
-            return self.res.status(201).json({message : "OK"});
-          });
+        });
+    });
+  }
 
-        })
+  ckeckProductsId(order) {
+    var self = this;
+    return new Promise(function(resolve, reject) {
+      var productIds = [];
+      for (var i = 0; i < order.products.length; i++) {
+        productIds.push(order.products[i].id);
       }
+      var query = Product.find({id: {$in: productIds}}).select('id');
+      query.exec(function (error, products) {
+        if (error) {
+          return reject({status : 500, message: err});
+        } else if (!self.checkProductIds(products, productIds)) {
+          return reject({status : 400, message: "Un ou plusieurs identifiants de produit sont invalide"});
+        } else {
+          return resolve(order);
+        }
+      });
+    });
+  }
+
+  saveOrder(order) {
+    var self = this;
+    return new Promise(function(resolve, reject) {
+      order.save(function (error) {
+        if (error) {
+          return reject({status : 500, message: error});
+        }
+        self.req.session.shoppingCart = undefined;
+        return resolve({status : 201, message: "OK"});
+      });
     });
   }
 
@@ -149,11 +183,11 @@ class OrderController {
     if(!order.lastName || !utils.isString(order.lastName) || (order.lastName === "")){
       error += "\nLe paramètre 'lastName' doit être une chaîne de caractères non vide.";
     }
-    if(!order.email || !validator.isEmail(order.email)){
+    if(!order.email || !Validator.isEmail(order.email)){
       error += "\nLe paramètre 'email' doit être une adresse mail valide.";
     }
     // .replace(/-/g,'') sinon test ne marche pas avec les '-'
-    if(!order.phone || !validator.isMobilePhone(order.phone.replace(/-/g,''), "en-CA")){
+    if(!order.phone || !Validator.isMobilePhone(order.phone.replace(/-/g,''), "en-CA")){
       error += "\nLe paramètre 'phone' doit être un numéro de téléphone valide.";
     }
     if(!order.products || order.products.length === 0){
@@ -187,6 +221,12 @@ class OrderController {
     return true;
   }
 
+  /**
+   *
+   * @param products
+   * @param productId
+   * @returns {boolean}
+   */
   checkProductId(products, productId) {
     for (var i = 0; i < products.length; i++) {
       if(products[i].id === productId) {

@@ -1,4 +1,4 @@
-var validator = require('validator');
+var Validator = require('validator');
 var Product = require('../models/product');
 var Utils = require('../utils/utils');
 
@@ -122,14 +122,14 @@ class ProductsController {
     var testCriteria = true;
     if(category !== undefined) {
       if(utils.isString(category)) {
-        testCategory = validator.isIn(category, ['', 'cameras', 'computers', 'consoles', 'screens']);
+        testCategory = Validator.isIn(category, ['', 'cameras', 'computers', 'consoles', 'screens']);
       } else {
         testCategory = false;
       }
     }
     if(criteria !== undefined) {
       if(utils.isString(criteria)) {
-        testCriteria = validator.isIn(criteria, ['','alpha-asc','alpha-dsc','price-asc','price-dsc']);
+        testCriteria = Validator.isIn(criteria, ['','alpha-asc','alpha-dsc','price-asc','price-dsc']);
       } else {
         testCriteria = false;
       }
@@ -163,7 +163,7 @@ class ProductsController {
     if(!product.image || !utils.isString(product.image) || (product.image === "")){
       error += "\nLe paramètre 'image' doit être une chaîne de caractères non vide.";
     }
-    if(!product.category || !utils.isString(product.category) || !validator.isIn(product.category, ["cameras", "computers", "consoles", "screens"])){
+    if(!product.category || !utils.isString(product.category) || !Validator.isIn(product.category, ["cameras", "computers", "consoles", "screens"])){
       error += "\nLe paramètre 'category' doit être parmi les valeurs " +
         "suivantes : cameras, computers, consoles, screens.";
     }
