@@ -1,0 +1,53 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "online-shop"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "tsconfig": "tsconfig.app.json",
+      "prefix": "",
+      "styles": [
+        "./assets/css/font-awesome.min.css",
+        "./assets/css/style.css"
+      ],
+      "scripts": [
+        "./assets/js/jquery-3.2.1.min.js",
+        "./assets/js/jquery.validate.min.js",
+        "./assets/js/additional-methods.min.js",
+        "./assets/js/messages_fr.js"
+      ],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    }
+  ],
+  "e2e": {},
+  "lint": [
+    {
+      "project": "src/tsconfig.app.json"
+    },
+    {
+      "project": "src/tsconfig.spec.json"
+    }
+  ],
+  "test": {},
+  "defaults": {
+    "styleExt": "css",
+    "component": {},
+	"serve": {
+      "port": 8000
+    }
+  }
+}
