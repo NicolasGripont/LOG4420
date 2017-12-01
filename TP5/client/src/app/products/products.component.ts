@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { ProductsService } from '../products.service';
 import { Product } from '../products.service';
-import {forEach} from "@angular/router/src/utils/collection";
-
 
 /**
  * Defines the component responsible to manage the display of the products page.
@@ -15,12 +13,12 @@ export class ProductsComponent {
 
   products : Product[];
   category : string;
-  sortingCriteria : string;
+  criteria : string;
 
   constructor(private ProductsService: ProductsService) {
     this.products = [];
     this.category = "all";
-    this.sortingCriteria = "price-asc";
+    this.criteria = "price-asc";
   }
 
 
@@ -31,7 +29,7 @@ export class ProductsComponent {
 
   getProducts(): void {
     var self = this;
-    this.ProductsService.getProducts(this.sortingCriteria,this.category)
+    this.ProductsService.getProducts(this.criteria,this.category)
       .then(function (products) {
         self.products = products;
         console.log(products);
@@ -50,7 +48,7 @@ export class ProductsComponent {
   onSortingCriteriaButtonClick(event) {
     var buttonClicked = event.target;
     var buttonGroup = buttonClicked.parentElement;
-    this.sortingCriteria = buttonClicked.getAttribute("criteria");
+    this.criteria = buttonClicked.getAttribute("criteria");
     this.getProducts();
     this.updateButtonGroup(buttonGroup,buttonClicked);
   }

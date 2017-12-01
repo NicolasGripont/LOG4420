@@ -42,12 +42,12 @@ export class ProductsService {
   /**
    * Gets all the products in the database.
    *
-   * @param [sortingCriteria]       The sorting criteria to use. If no value is specified, the list returned isn't sorted.
+   * @param [criteria]       The sorting criteria to use. If no value is specified, the list returned isn't sorted.
    * @param [category]              The category of the product. The default value is "all".
    * @return {Promise<Product[]>}   The category of the product. The default value is "all".
    */
-  getProducts(sortingCriteria?: string, category?: string): Promise<Product[]> {
-    let url = `${Config.apiUrl}/products?sortingCriteria=${sortingCriteria}`;
+  getProducts(criteria?: string, category?: string): Promise<Product[]> {
+    let url = `${Config.apiUrl}/products?criteria=${criteria}`;
     if (category && category !== 'all') {
       url += `&category=${category}`;
     }

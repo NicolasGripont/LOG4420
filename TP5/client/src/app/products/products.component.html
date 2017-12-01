@@ -25,7 +25,7 @@
   <div class="products" id="products-list">
     <div *ngFor="let product of products" class="product">
       <a routerLink="/produits/{{product.id}}" title="En savoir plus...">
-        <h2>Manette Xbox 360</h2>
+        <h2>{{product.name}}</h2>
         <img alt="./assets/img/{{product.image}}" src="./assets/img/{{product.image}}">
         <p><small>Prix</small> {{product.price | priceFormatPipe}}&thinsp;$</p>
       </a>
