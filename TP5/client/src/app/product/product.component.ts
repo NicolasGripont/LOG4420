@@ -23,5 +23,6 @@ export class ProductComponent implements OnInit {
   ngOnInit() {
     const productId = this.route.snapshot.paramMap.get('id');
     // TODO: Compléter la logique pour afficher le produit associé à l'identifiant spécifié (productId).
+
   }
 }

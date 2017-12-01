@@ -1,0 +1,9 @@
+{
+  "database" : {
+    "name": "online-shop",
+    "host": "ds147265.mlab.com",
+    "port": "47265",
+    "username" :"userTp4",
+    "password": "passwordtp4"
+  }
+}

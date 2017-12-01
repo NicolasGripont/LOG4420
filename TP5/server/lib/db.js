@@ -2,6 +2,7 @@
 
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+var config = require('./config.json');
 
 var Order = new Schema({
   id: { type: Number, unique: true },
@@ -28,5 +29,13 @@ mongoose.model("Product", Product);
 
 mongoose.Promise = global.Promise;
 
-// TODO: Modifier le connect string par le votre!
-mongoose.connect("mongodb://...", { useMongoClient: true });
+// DB connexion
+var dbConfig = config.database;
+var dbOptions = {useMongoClient: true};
+mongoose.connect('mongodb://' + dbConfig.username + ':' + dbConfig.password + '@' +
+  dbConfig.host + ':' + dbConfig.port + '/' + dbConfig.name, dbOptions, function (error) {
+
+  if(error) {
+    console.log("Database error when mongoose.connect : ", error);
+  }
+});
