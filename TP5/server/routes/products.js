@@ -4,7 +4,7 @@ var productsManager = require("../managers/products");
 
 // Gets all the products in the database.
 router.get("/", function(req, res) {
-  productsManager.getProducts(req.query.criteria, req.query.category).done(function(result) {
+  productsManager.getProducts(req.query.sortingCriteria, req.query.category).done(function(result) {
     if (result.err) {
       res.status(400).send();
     } else {
