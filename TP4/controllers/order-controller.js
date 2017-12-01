@@ -24,7 +24,7 @@ class OrderController {
 
     Order.find(options, function (err, orders) {
       if (err) {
-        return self.res.status(505).json({error: err});
+        return self.res.status(500).json({error: err});
       }
       return self.res.status(200).json(orders);
     });
@@ -43,7 +43,7 @@ class OrderController {
       options.id = id;
       Order.find(options, function (error, orders) {
         if (error) {
-          return self.res.status(504).json({error: error});
+          return self.res.status(500).json({error: error});
         } else if (orders.length !== 1) {
           return self.res.status(404).json({error: error});
         }
@@ -100,7 +100,7 @@ class OrderController {
 
       Order.remove(option, function (error, orders) {
         if (error) {
-          return self.res.status(503).send({error: error});
+          return self.res.status(500).send({error: error});
         } else if (orders.result.n === 0) {
           return self.res.status(404).json({error: "L'id spécifié n’est pas associé à une commande se trouvant dans la base de données."});
         }
@@ -122,7 +122,7 @@ class OrderController {
 
     Order.remove(options, function (error) {
       if (error) {
-        return self.res.status(502).json({ error : error});
+        return self.res.status(500).json({ error : error});
       }
       return self.res.status(204).send();
     });
@@ -138,7 +138,7 @@ class OrderController {
 
     query.exec(function (err, orderIds) {
       if(err) {
-        return self.res.status(501).json({error : err});
+        return self.res.status(500).json({error : err});
       } else if (orderIds.length !== 1) {
         return self.res.status(200).json({newId : 1});
       }
@@ -182,7 +182,7 @@ class OrderController {
       var query = Product.find({id: {$in: productIds}}).select('id');
       query.exec(function (error, products) {
         if (error) {
-          return reject({status : 500, message: err});
+          return reject({status : 500, message: error});
         } else if (!self.checkProductIds(products, productIds)) {
           return reject({status : 400, message: "Un ou plusieurs identifiants de produit sont invalide"});
         } else {
