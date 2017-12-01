@@ -15,7 +15,7 @@ export class ProductsComponent {
   category : string;
   criteria : string;
 
-  constructor(private ProductsService: ProductsService) {
+  constructor(private productsService: ProductsService) {
     this.products = [];
     this.category = "all";
     this.criteria = "price-asc";
@@ -29,7 +29,7 @@ export class ProductsComponent {
 
   getProducts(): void {
     var self = this;
-    this.ProductsService.getProducts(this.criteria,this.category)
+    this.productsService.getProducts(this.criteria,this.category)
       .then(function (products) {
         self.products = products;
         console.log(products);

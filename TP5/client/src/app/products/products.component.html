@@ -26,7 +26,7 @@
     <div *ngFor="let product of products" class="product">
       <a routerLink="/produits/{{product.id}}" title="En savoir plus...">
         <h2>{{product.name}}</h2>
-        <img alt="./assets/img/{{product.image}}" src="./assets/img/{{product.image}}">
+        <img alt="{{product.name}}" src="./assets/img/{{product.image}}">
         <p><small>Prix</small> {{product.price | priceFormatPipe}}&thinsp;$</p>
       </a>
     </div>
