@@ -36,7 +36,6 @@ export class AppComponent {
           shoppingCartItems.forEach(function (item, index) {
             totalQuantiy += item.quantity;
           })
-          console.log(totalQuantiy);
           self.countElement.nativeElement.innerText = "" + totalQuantiy;
           self.countElement.nativeElement.hidden = false;
         }

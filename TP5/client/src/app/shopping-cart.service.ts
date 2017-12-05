@@ -1,7 +1,8 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { Config } from './config';
-
+import { ProductsService } from './products.service';
+import { Product } from './products.service';
 
 /**
  * Defines a product.
@@ -11,6 +12,15 @@ export class ShoppingCartItem {
   quantity : number;
 }
 
+export class FullShoppingCartItem {
+  product : Product;
+  quantity : number;
+}
+
+export class ShoppingCart {
+  items : FullShoppingCartItem[];
+  total : number;
+}
 
 /**
  * Defines the service responsible to manage the shopping cart in the session.
@@ -43,7 +53,7 @@ export class ShoppingCartService {
    *
    * @param http                    The HTTP service to use.
    */
-  constructor(private http: Http) { }
+  constructor(private http: Http, private  productsService: ProductsService) { }
 
   /**
    * Gets shopping cart in session.
@@ -68,7 +78,7 @@ export class ShoppingCartService {
     let url = `${Config.apiUrl}/shopping-cart/${productId}`;
     return this.http.get(url, ShoppingCartService.getOptions())
       .toPromise()
-      .then(items => items.json() as ShoppingCartItem)
+      .then(item => item.json() as ShoppingCartItem)
       .catch(() => null);
   }
 
@@ -110,5 +120,49 @@ export class ShoppingCartService {
       .catch(error => error.status as number);
   }
 
+
+  getFullShoppingCartItems(): Promise<ShoppingCart> {
+    var self = this;
+    let url = `${Config.apiUrl}/shopping-cart`;
+    return self.http.get(url, ShoppingCartService.getOptions())
+      .toPromise()
+      .then(items => {
+        var shoppingCartItems = items.json() as ShoppingCartItem[];
+        var shoppingCart = new ShoppingCart();
+        shoppingCart.items = [];
+        shoppingCart.total = 0;
+        return self.productsService.getProducts("alpha-asc","all")
+          .then(function (products) {
+            products.forEach(function (product, i) {
+              var item = shoppingCartItems.find(item => item.productId == product.id);
+              if(item) {
+                shoppingCart.items.push({product: product, quantity: item.quantity});
+                shoppingCart.total += product.price * item.quantity;
+              }
+            });
+            return shoppingCart;
+          }
+        )
+      })
+      .catch(() => null);
+  }
+
+  removeItemFromShoppingCart(productId) {
+    var self = this;
+    const url = `${Config.apiUrl}/shopping-cart/${productId}`;
+    return self.http.delete(url, ShoppingCartService.getOptions())
+      .toPromise()
+      .then(success => { self.totalQuantityChanged.next(); return null})
+      .catch(error => error.status as number);
+  }
+
+  removeAllItemsFromShoppingCart() {
+    var self = this;
+    const url = `${Config.apiUrl}/shopping-cart`;
+    return self.http.delete(url, ShoppingCartService.getOptions())
+      .toPromise()
+      .then(success => { self.totalQuantityChanged.next(); return null})
+      .catch(error => error.status as number);
+  }
 
 }
