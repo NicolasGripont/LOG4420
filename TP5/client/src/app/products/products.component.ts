@@ -32,8 +32,6 @@ export class ProductsComponent {
     this.productsService.getProducts(this.criteria,this.category)
       .then(function (products) {
         self.products = products;
-        console.log(products);
-      }).catch(function (error) {
       })
   }
 

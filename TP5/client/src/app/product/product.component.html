@@ -17,9 +17,9 @@
         </ul>
       </section>
       <hr>
-      <form class="pull-right" id="add-to-cart-form">
+      <form class="pull-right" id="add-to-cart-form" (submit)="onAddToCartFormSubmit($event)">
         <label for="product-quantity">Quantité:</label>
-        <input class="form-control" id="product-quantity" name="product-quantity"
+        <input #productQuantityElement class="form-control" id="product-quantity" name="product-quantity"
                type="number" value="1" min="1" required>
         <button class="btn" title="Ajouter au panier" type="submit">
           <i class="fa fa-cart-plus"></i>&nbsp; Ajouter
@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  <div class="dialog" id="dialog" *ngIf="false">
+  <div #dialogElement class="dialog" id="dialog" hidden="true">
     Le produit a été ajouté au panier.
   </div>
 </article>
