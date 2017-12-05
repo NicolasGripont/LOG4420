@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Injectable, EventEmitter } from '@angular/core';
+import { Http, RequestOptions, Headers } from '@angular/http';
 import { Config } from './config';
+
 
 /**
  * Defines a product.
@@ -10,9 +11,6 @@ export class ShoppingCartItem {
   quantity : number;
 }
 
-export class ShoppingCart  {
-  items : ShoppingCartItem[];
-}
 
 /**
  * Defines the service responsible to manage the shopping cart in the session.
@@ -31,6 +29,15 @@ export class ShoppingCartService {
     return Promise.reject(error.feedbackMessage || error);
   }
 
+  private static getOptions() {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers, withCredentials: true });
+    return options;
+  }
+
+  public totalQuantityChanged: EventEmitter<void> = new EventEmitter<void>();
+
+
   /**
    * Initializes a new instance of the ShoppingCartService class.
    *
@@ -43,12 +50,46 @@ export class ShoppingCartService {
    *
    * @return {Promise<ShoppingCartItem[]>}   The shopping cart items.
    */
-  getShoppingCart(): Promise<ShoppingCartItem[]> {
+  getShoppingCartItems(): Promise<ShoppingCartItem[]> {
     let url = `${Config.apiUrl}/shopping-cart`;
-    return this.http.get(url)
+    return this.http.get(url, ShoppingCartService.getOptions())
       .toPromise()
       .then(items => items.json() as ShoppingCartItem[])
-      .catch(ShoppingCartService.handleError);
+      .catch(() => null);
+  }
+
+  /**
+   * Gets product from shopping cart in session.
+   *
+   * @param productId                      Id of the product to get.
+   * @return {Promise<ShoppingCartItem>}   The product from shopping cart corresponding to the productId.
+   */
+  getShoppingCartItem(productId): Promise<ShoppingCartItem> {
+    let url = `${Config.apiUrl}/shopping-cart/${productId}`;
+    return this.http.get(url, ShoppingCartService.getOptions())
+      .toPromise()
+      .then(items => items.json() as ShoppingCartItem)
+      .catch(() => null);
+  }
+
+  /**
+   * Add a new product to the shopping cart.
+   *
+   * @param productId               The product ID of the new  product to add.
+   * @param productId               The quantity of the ne product to add.
+   * @returns {Promise<Product>}    A promise that contains the product associated with the ID specified.
+   */
+  addNewProductToShoppingCart(productId: number, quantity : number): Promise<number> {
+    var self = this;
+    const url = `${Config.apiUrl}/shopping-cart`;
+    var body = {
+      productId : productId,
+      quantity : quantity
+    }
+    return self.http.post(url,body, ShoppingCartService.getOptions())
+      .toPromise()
+      .then(success => { self.totalQuantityChanged.next(); return null})
+      .catch(error => error.status as number);
   }
 
   /**
@@ -57,15 +98,17 @@ export class ShoppingCartService {
    * @param productId               The product ID associated with the product to retrieve.
    * @returns {Promise<Product>}    A promise that contains the product associated with the ID specified.
    */
-  addProductToShoppingCart(productId: number, quantity : number): Promise<number> {
-    const url = `${Config.apiUrl}/shopping-cart`;
+  updateProductQuantityInShoppingCart(productId: number, quantity : number): Promise<number> {
+    var self = this;
+    const url = `${Config.apiUrl}/shopping-cart/${productId}`;
     var body = {
-      productId : productId,
       quantity : quantity
     }
-    return this.http.post(url,body)
+    return self.http.put(url,body, ShoppingCartService.getOptions())
       .toPromise()
-      .then(success => null)
+      .then(success => { self.totalQuantityChanged.next(); return null})
       .catch(error => error.status as number);
   }
+
+
 }

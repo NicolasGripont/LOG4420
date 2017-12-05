@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../products.service';
 import { Product } from '../products.service';
 import { ShoppingCartService } from '../shopping-cart.service';
+import { ShoppingCartItem } from '../shopping-cart.service';
 
 
 /**
@@ -58,21 +59,56 @@ export class ProductComponent implements OnInit {
   }
 
   /**
-   * Add current product to shopping-cart with the quantity in this.productQuantityElement
+   * Add or update quantity of the current product to shopping-cart with the quantity in this.productQuantityElement
    *
    * @param event Event raised
    */
   onAddToCartFormSubmit(event) : void {
     var self = this;
     event.preventDefault();
-    const quantity = parseInt(this.productQuantityElement.nativeElement.value);
-    this.shoppingCartService.addProductToShoppingCart(this.product.id, quantity)
+    const quantity = parseInt(self.productQuantityElement.nativeElement.value);
+    self.shoppingCartService.getShoppingCartItem(self.product.id)
+      .then(function (shoppingCartItem) {
+        if(shoppingCartItem) {
+          console.log("updateProductQuantityInShoppingCart");
+          self.updateProductQuantityInShoppingCart(self.product.id, quantity + shoppingCartItem.quantity);
+        } else {
+          console.log("addNewProductToShoppingCart");
+          self.addNewProductToShoppingCart(self.product.id, quantity);
+        }
+      });
+  }
+
+  /**
+   * Add current product to shopping-cart with the quantity in this.productQuantityElement
+   *
+   * @param event Event raised
+   */
+  addNewProductToShoppingCart(productId : number, quantity : number) : void {
+    var self = this;
+    self.shoppingCartService.addNewProductToShoppingCart(self.product.id, quantity)
       .then(function (error) {
-        if(!error) {
+        if (!error) {
           self.showProductAddedDialog();
         }
-    })
+      });
   }
+
+  /**
+   * Add current product to shopping-cart with the quantity in this.productQuantityElement
+   *
+   * @param event Event raised
+   */
+  updateProductQuantityInShoppingCart(productId : number, quantity : number) : void {
+   var self = this;
+    self.shoppingCartService.updateProductQuantityInShoppingCart(self.product.id, quantity)
+      .then(function (error) {
+        if (!error) {
+          self.showProductAddedDialog();
+        }
+      });
+  }
+
 
   /**
    * Show during 5s this.dialogElement
