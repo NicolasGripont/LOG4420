@@ -49,4 +49,16 @@ router.delete("/", function(req, res) {
   })
 });
 
+//Get new order ID available
+router.get("/ids/newIdAvailable", function(req, res) {
+  ordersManager.getNewIdAvailable().done(function (result) {
+    if (result.err) {
+      res.status(404).send();
+    } else {
+      res.json(result.newId);
+    }
+  })
+
+});
+
 module.exports = router;

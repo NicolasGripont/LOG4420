@@ -7,14 +7,14 @@
         <div class="col">
           <div class="form-group">
             <label for="first-name">Prénom</label>
-            <input class="form-control" type="text" id="first-name" name="first-name"
+            <input #firstNameElement class="form-control" type="text" id="first-name" name="first-name"
                    placeholder="Prénom" minlength="2" required>
           </div>
         </div>
         <div class="col">
           <div class="form-group">
             <label for="last-name">Nom</label>
-            <input class="form-control" type="text" id="last-name" name="last-name"
+            <input #lastNameElement class="form-control" type="text" id="last-name" name="last-name"
                    placeholder="Nom" minlength="2" required>
           </div>
         </div>
@@ -23,14 +23,14 @@
         <div class="col">
           <div class="form-group">
             <label for="email">Adresse courriel</label>
-            <input class="form-control" type="email" id="email" name="email"
+            <input #emailElement class="form-control" type="email" id="email" name="email"
                    placeholder="Adresse courriel" required>
           </div>
         </div>
         <div class="col">
           <div class="form-group">
             <label for="phone">Téléphone</label>
-            <input class="form-control" type="tel" id="phone" name="phone"
+            <input #phoneElement class="form-control" type="tel" id="phone" name="phone"
                    placeholder="###-###-####" required>
           </div>
         </div>
@@ -42,19 +42,19 @@
         <div class="col">
           <div class="form-group">
             <label for="credit-card">Numéro de carte de crédit</label>
-            <input class="form-control" type="text" id="credit-card" name="credit-card"
+            <input #creditCardElement class="form-control" type="text" id="credit-card" name="credit-card"
                    placeholder="•••• •••• •••• ••••" required>
           </div>
         </div>
         <div class="col">
           <div class="form-group">
             <label for="credit-card-expiry">Expiration (mm/aa)</label>
-            <input class="form-control" type="text" id="credit-card-expiry" name="credit-card-expiry"
+            <input #creditCardExpiryElement class="form-control" type="text" id="credit-card-expiry" name="credit-card-expiry"
                    placeholder="mm/aa" required>
           </div>
         </div>
       </div>
     </section>
-    <button class="btn pull-right" type="submit">Payer <i class="fa fa-angle-double-right"></i></button>
+    <button class="btn pull-right" type="submit" (submit)="submit()">Payer <i class="fa fa-angle-double-right"></i></button>
   </form>
 </article>

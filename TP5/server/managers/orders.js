@@ -69,9 +69,11 @@ self.createOrder = function(order) {
   productsManager.getProducts().done(function(result) {
     var productsList = result.data;
 
+
     var isValid = MODEL.every(function(property) {
       return property in order;
     });
+    console.log("MODEL.every " + isValid)
     if (!isValid) { // Missing properties
       deferred.resolve(true);
       return deferred.promise;
@@ -83,6 +85,7 @@ self.createOrder = function(order) {
     isValid &= validator.isEmail(order.email);
     isValid &= validator.isMobilePhone(validator.whitelist(order.phone, "0123456789"), "en-CA");
     isValid &= order.products instanceof Array && order.products.every(function(product) {
+      console.log(product);
       var productIsValid = true;
       productIsValid &= "id" in product;
       productIsValid &= "quantity" in product;
@@ -144,5 +147,23 @@ self.deleteOrders = function() {
   });
   return deferred.promise;
 };
+
+/**
+ * Get the next available id for Order in DB and send it to the client
+ */
+self.getNewIdAvailable = function() {
+  var self = this;
+  var deferred = Q.defer();
+  var query = Order.find().select('id').sort({id : -1}).limit(1);
+  query.exec(function (err, orderIds) {
+    if (err) {
+      deferred.resolve({ err : err });
+    } else if (orderIds.length !== 1) {
+      deferred.resolve({newId : 1});
+    }
+    return deferred.resolve({newId : orderIds[0].id+1});
+  });
+  return deferred.promise;
+}
 
 module.exports = self;

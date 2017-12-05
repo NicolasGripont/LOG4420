@@ -4,9 +4,6 @@ import { Config } from './config';
 import { ProductsService } from './products.service';
 import { Product } from './products.service';
 
-/**
- * Defines a product.
- */
 export class ShoppingCartItem {
   productId : number;
   quantity : number;
@@ -102,12 +99,6 @@ export class ShoppingCartService {
       .catch(error => error.status as number);
   }
 
-  /**
-   * Gets the product associated with the product ID specified.
-   *
-   * @param productId               The product ID associated with the product to retrieve.
-   * @returns {Promise<Product>}    A promise that contains the product associated with the ID specified.
-   */
   updateProductQuantityInShoppingCart(productId: number, quantity : number): Promise<number> {
     var self = this;
     const url = `${Config.apiUrl}/shopping-cart/${productId}`;

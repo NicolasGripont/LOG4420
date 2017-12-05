@@ -1,10 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { ProductsService } from '../products.service';
-import { Product } from '../products.service';
-import { ShoppingCartService } from '../shopping-cart.service';
-import { ShoppingCartItem } from '../shopping-cart.service';
+import { ProductsService, Product } from '../products.service';
+import { ShoppingCartService, ShoppingCartItem } from '../shopping-cart.service';
 
 
 /**
