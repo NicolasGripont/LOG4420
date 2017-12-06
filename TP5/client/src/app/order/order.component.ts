@@ -14,14 +14,48 @@ declare const $: any;
 })
 export class OrderComponent implements OnInit {
 
+  /**
+   * The order form.
+   */
   orderForm: any;
+
+  /**
+   * The first name html input.
+   */
   @ViewChild('firstNameElement') firstNameElement: ElementRef;
+
+  /**
+   * The last name html input.
+   */
   @ViewChild('lastNameElement') lastNameElement: ElementRef;
+
+  /**
+   * The email html input.
+   */
   @ViewChild('emailElement') emailElement: ElementRef;
+
+  /**
+   * The phone html input.
+   */
   @ViewChild('phoneElement') phoneElement: ElementRef;
+
+  /**
+   * The credit card html input.
+   */
   @ViewChild('creditCardElement') creditCardElement: ElementRef;
+
+  /**
+   * The credit card expiry html input.
+   */
   @ViewChild('creditCardExpiryElement') creditCardExpiryElement: ElementRef;
 
+  /**
+   * Initializes a new instance of the ProductComponent class.
+   *
+   * @param {Router} router       The router that provides the navigation and url manipulation capabilities.
+   * @param {OrderService}        The order service which manage order api call.
+   * @param {ShoppingCartService} The shopping cart service which manage shopping cart api call.
+   */
   constructor(private router : Router, private orderService: OrderService, private  shoppingCartService : ShoppingCartService) {
   }
 
@@ -92,6 +126,5 @@ export class OrderComponent implements OnInit {
           })
         })
       });
-
   }
 }

@@ -14,7 +14,7 @@
         <tbody>
         <tr *ngFor="let item of shoppingCart.items">
           <td>
-            <button class="remove-item-button" title="Supprimer" (click)="removeItem($event, item)">
+            <button class="remove-item-button" title="Supprimer" (click)="removeItem(item)">
               <i class="fa fa-times"></i>
             </button>
           </td>
@@ -25,14 +25,14 @@
           <td>
             <div class="row">
               <div class="col">
-                <button *ngIf="item.quantity > 1;else disableMinusButton" class="remove-quantity-button" title="Retirer" (click)="decrementItemQuantity($event, item)"><i class="fa fa-minus"></i></button>
+                <button *ngIf="item.quantity > 1;else disableMinusButton" class="remove-quantity-button" title="Retirer" (click)="decrementItemQuantity(item)"><i class="fa fa-minus"></i></button>
                 <ng-template #disableMinusButton>
                   <button class="remove-quantity-button" title="Retirer" disabled><i class="fa fa-minus"></i></button>
                 </ng-template>
               </div>
               <div class="col quantity">{{item.quantity}}</div>
               <div class="col">
-                <button class="add-quantity-button" title="Ajouter" (click)="incrementItemQuantity($event, item)" ><i class="fa fa-plus"></i></button>
+                <button class="add-quantity-button" title="Ajouter" (click)="incrementItemQuantity(item)" ><i class="fa fa-plus"></i></button>
               </div>
             </div>
           </td>
@@ -42,7 +42,7 @@
       </table>
       <p class="shopping-cart-total">Total: <strong id="total-amount">{{shoppingCart.total | priceFormatPipe}}&thinsp;$</strong></p>
       <a class="btn pull-right" routerLink="/commande">Commander <i class="fa fa-angle-double-right"></i></a>
-      <button class="btn" id="remove-all-items-button" (click)="removeAllItems($event)"><i class="fa fa-trash-o"></i>&nbsp; Vider le panier</button>
+      <button class="btn" id="remove-all-items-button" (click)="removeAllItems()"><i class="fa fa-trash-o"></i>&nbsp; Vider le panier</button>
     </div>
 
   <ng-template #emptyShoppingCartRender>

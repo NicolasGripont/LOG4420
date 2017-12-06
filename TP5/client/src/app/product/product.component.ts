@@ -12,23 +12,33 @@ import { ShoppingCartService, ShoppingCartItem } from '../shopping-cart.service'
   selector: 'product',
   templateUrl: './product.component.html'
 })
-
-
 export class ProductComponent implements OnInit {
-
-
 
   /**
    * Initializes a new instance of the ProductComponent class.
    *
-   * @param route                   The active route.
+   * @param {Router} router       The router that provides the navigation and url manipulation capabilities.
+   * @param {ActivatedRoute}      The active route.
+   * @param {ProductsService}     The products service which manage products api call.
+   * @param {ShoppingCartService} The shopping cart service which manage shopping cart api call.
    */
   constructor(private router : Router, private route: ActivatedRoute, private productsService : ProductsService, private shoppingCartService : ShoppingCartService) {
     this.product = null;
   }
 
+  /**
+   * The product quantity html input
+   */
   @ViewChild('productQuantityElement') productQuantityElement: ElementRef;
+
+  /**
+   * The product added html dialog
+   */
   @ViewChild('dialogElement') dialogElement: ElementRef;
+
+  /**
+   * The product to display
+   */
   product : Product;
 
   /**
@@ -93,7 +103,7 @@ export class ProductComponent implements OnInit {
   }
 
   /**
-   * Add current product to shopping-cart with the quantity in this.productQuantityElement
+   * Update current product to shopping-cart with the quantity in this.productQuantityElement
    *
    * @param event Event raised
    */
