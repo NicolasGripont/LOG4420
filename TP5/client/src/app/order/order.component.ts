@@ -85,7 +85,8 @@ export class OrderComponent implements OnInit {
           self.orderService.createOrder(order).then(function (error) {
             if(!error){
               self.shoppingCartService.removeAllItemsFromShoppingCart().then(function () {
-                self.router.navigateByUrl("confirmation");
+                self.router.navigate(['/confirmation'],
+                  {queryParams: {orderId : order.id, firstName : order.firstName, lastName : order.lastName}});
               })
             }
           })

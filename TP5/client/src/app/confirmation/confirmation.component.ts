@@ -1,26 +1,24 @@
-import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
-import { OrderService, Order } from "../order.service";
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 /**
-* Defines the component responsible to manage the confirmation page.
-*/
+ * Defines the component responsible to manage the confirmation page.
+ */
 @Component({
   selector: 'confirmation',
   templateUrl: './confirmation.component.html'
 })
 export class ConfirmationComponent {
 
-  order : Order;
+  orderId : string;
+  firstName : string;
+  lastName : string;
 
-  constructor(private orderService: OrderService) {
-    this.order = null;
-  }
-
-  /**
-   * Occurs when the component is initialized.
-   */
-  ngOnInit() {
-    this.order = this.orderService.getOrderFromSessionStorage();
+  constructor(private activatedRoute: ActivatedRoute) {
+    this.orderId = this.activatedRoute.snapshot.queryParams['orderId'];
+    this.firstName = this.activatedRoute.snapshot.queryParams['firstName'];
+    this.lastName = this.activatedRoute.snapshot.queryParams['lastName'];
   }
 
 }
+

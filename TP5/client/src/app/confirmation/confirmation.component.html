@@ -1,4 +1,4 @@
-<article *ngIf="order">
-  <h1>Votre commande est confirmée <span id="name">{{order.firstName}} {{order.lastName}}</span>!</h1>
-  <p>Votre numéro de confirmation est le <span id="confirmation-number">{{order.id | confirmationNumberFormatPipe}}</span>.</p>
+<article *ngIf="orderId && firstName && lastName">
+  <h1>Votre commande est confirmée <span id="name">{{firstName}} {{lastName}}</span>!</h1>
+  <p>Votre numéro de confirmation est le <span id="confirmation-number">{{orderId | confirmationNumberFormatPipe}}</span>.</p>
 </article>

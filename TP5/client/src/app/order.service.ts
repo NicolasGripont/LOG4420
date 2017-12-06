@@ -1,7 +1,7 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { Config } from './config';
-import {ShoppingCartService, ShoppingCartItem} from "./shopping-cart.service";
+import {ShoppingCartService } from "./shopping-cart.service";
 
 export class OrderItem {
   id : number;
@@ -55,7 +55,7 @@ export class OrderService {
     let url = `${Config.apiUrl}/orders`;
     return self.http.post(url, order, OrderService.getOptions())
       .toPromise()
-      .then(success => { self.saveOrderInSessionStorage(order); return null; })
+      .then(success =>  null)
       .catch(error => error.status as number);
   }
 
@@ -67,12 +67,4 @@ export class OrderService {
       .catch(error => error.status as number);
   }
 
-  saveOrderInSessionStorage(order : Order) {
-    sessionStorage.setItem("order", JSON.stringify(order));
-  }
-
-  getOrderFromSessionStorage() {
-    var order = JSON.parse(sessionStorage.getItem("order")) as Order;
-    return order;
-  }
 }
