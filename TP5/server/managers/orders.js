@@ -157,11 +157,12 @@ self.getNewIdAvailable = function() {
   var query = Order.find().select('id').sort({id : -1}).limit(1);
   query.exec(function (err, orderIds) {
     if (err) {
-      deferred.resolve({ err : err });
+      return deferred.resolve({ err : err });
     } else if (orderIds.length !== 1) {
-      deferred.resolve({newId : 1});
+      return deferred.resolve({newId : 1});
+    } else {
+      return deferred.resolve({newId: orderIds[0].id + 1});
     }
-    return deferred.resolve({newId : orderIds[0].id+1});
   });
   return deferred.promise;
 }

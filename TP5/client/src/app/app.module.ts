@@ -18,6 +18,7 @@ import { ShoppingCartService } from './shopping-cart.service';
 import { OrderService } from './order.service';
 
 import { PriceFormatPipe } from "./pipes/price-format.pipe";
+import { ConfirmationNumberFormatPipe } from "./pipes/confirmation-number-format.pipe";
 
 // Application routes
 const appRoutes: Routes = [
@@ -43,7 +44,8 @@ const appRoutes: Routes = [
     OrderComponent,
     ConfirmationComponent,
     PageNotFoundComponent,
-    PriceFormatPipe
+    PriceFormatPipe,
+    ConfirmationNumberFormatPipe
   ],
   imports: [
     BrowserModule,

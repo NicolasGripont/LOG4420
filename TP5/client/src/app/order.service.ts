@@ -51,10 +51,11 @@ export class OrderService {
 
 
   createOrder(order : Order): Promise<number> {
+    var self = this;
     let url = `${Config.apiUrl}/orders`;
-    return this.http.post(url, order, OrderService.getOptions())
+    return self.http.post(url, order, OrderService.getOptions())
       .toPromise()
-      .then(order => null)
+      .then(success => { self.saveOrderInSessionStorage(order); return null; })
       .catch(error => error.status as number);
   }
 
@@ -66,4 +67,12 @@ export class OrderService {
       .catch(error => error.status as number);
   }
 
+  saveOrderInSessionStorage(order : Order) {
+    sessionStorage.setItem("order", JSON.stringify(order));
+  }
+
+  getOrderFromSessionStorage() {
+    var order = JSON.parse(sessionStorage.getItem("order")) as Order;
+    return order;
+  }
 }

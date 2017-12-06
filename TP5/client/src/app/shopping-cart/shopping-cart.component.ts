@@ -35,12 +35,14 @@ export class ShoppingCartComponent implements OnInit {
 
   removeItem(event, item) {
     var self = this;
-    self.shoppingCartService.removeItemFromShoppingCart(item.product.id)
-      .then(function (error) {
-        if(!error) {
-          self.getShoppingCart();
-        }
-      });
+    if(confirm("Voulez-vous supprimer le produit du panier?")) {
+      self.shoppingCartService.removeItemFromShoppingCart(item.product.id)
+        .then(function (error) {
+          if (!error) {
+            self.getShoppingCart();
+          }
+        });
+    }
   }
 
   decrementItemQuantity(event, item) {
@@ -65,12 +67,14 @@ export class ShoppingCartComponent implements OnInit {
 
   removeAllItems(event){
     var self = this;
-    self.shoppingCartService.removeAllItemsFromShoppingCart()
-      .then(function (error) {
-        if(!error) {
-          self.getShoppingCart();
-        }
-      });
+    if(confirm("Voulez-vous vider le panier?")) {
+      self.shoppingCartService.removeAllItemsFromShoppingCart()
+        .then(function (error) {
+          if (!error) {
+            self.getShoppingCart();
+          }
+        });
+    }
   }
 
 }
