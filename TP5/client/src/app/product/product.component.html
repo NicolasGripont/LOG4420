@@ -13,7 +13,7 @@
       <section>
         <h2>Caractéristiques</h2>
         <ul id="product-features">
-          <li  *ngFor="let feature of product.features">{{feature}}</li>
+          <li  *ngFor="let feature of product.features" [innerHTML]="feature"></li>
         </ul>
       </section>
       <hr>
